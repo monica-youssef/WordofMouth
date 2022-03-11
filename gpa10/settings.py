@@ -145,7 +145,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 2  # changed this
-LOGIN_REDIRECT_URL = '/login/' # hellohello
+LOGIN_REDIRECT_URL = '/wordofmouth/' # hellohello
 
 # Additional configuration settings
 # followed this tutorial: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
