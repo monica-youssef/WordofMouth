@@ -1,6 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 
+from . import views
+
 urlpatterns = [
-    # path('', views.view_name, name="view_name"),
+    path('', views.loginview, name="loginview"),
+    # .as_view() ??
 ]
