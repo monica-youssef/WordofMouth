@@ -144,7 +144,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-SITE_ID = 2  # changed this
+SITE_ID = 3  # changed this
 LOGIN_REDIRECT_URL = '/wordofmouth/' # hellohello
 
 # Additional configuration settings
