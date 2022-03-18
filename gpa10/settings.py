@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import sys
 from pathlib import Path
-import django_heroku
+# import django_heroku
 
 import os
 
@@ -142,7 +142,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 # added lines below for google login
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -174,3 +174,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+try:
+    if 'HEROKU' in os.environ:
+        import django_heroku
+        django_heroku.settings(locals())
+except ImportError:
+    found = False
