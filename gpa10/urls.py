@@ -6,7 +6,6 @@ urlpatterns = [
     path('', index, name="index"),
     path('wordofmouth/', include('wordofmouth.urls')),
     path('admin/', admin.site.urls),
-    # path('login/', include('googlelogin.urls')),
     # path('accounts/', include('allauth.urls')),
     # path('', include('main.urls')),
 ]
