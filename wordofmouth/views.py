@@ -6,27 +6,27 @@ from django.urls import reverse
 from .models import Recipe
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the word of mouth index.")
+    return render(request, 'wordofmouth/index.html', {})
 
 
 def homeview(request):
-    return render(request, 'wordofmouth.html', {})
+    return render(request, 'wordofmouth/wordofmouth.html', {})
 
 
 def detail(request):
     return render(request, 'detail.html', {})
 
 
-def create(request):
+def create_recipe(request):
     try:
         recipe = Recipe()
         recipe.title = request.POST['title']
         recipe.text = request.POST['text']
         recipe.id = Recipe.objects.all().count() + 1
     except (KeyError, recipe.DoesNotExist):
-        return render(request, 'wordofmouth/dtail.html', {
+        return render(request, 'detail.html', {
             'error_message': "You didn't enter a title and text."
         })
     else:
         recipe.save()
-        return HttpResponseRedirect(reverse('wordofmouth:detail'))
+        return HttpResponseRedirect('detail')
