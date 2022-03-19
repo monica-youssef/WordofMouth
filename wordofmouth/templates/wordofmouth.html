@@ -1,6 +1,3 @@
-<! –– followed tutoral from https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8 -->
-
-{% load socialaccount %}
 <html>
 
 <head>
@@ -14,9 +11,21 @@
 
     {% else %}
     <h1>Word of Mouth</h1>
-    <a href="{% provider_login_url 'google' %}">Login with Google</a>
     {% endif %}
 
+    <form action="{% url 'create' %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <div class="form-group">
+                <input name="title" type="title" class="form-control form-control-lg" placeholder="Title">
+            </div>
+            <div class="form-group">
+                <input name="text" type="text" class="form-control" placeholder="type your recipe">
+            </div>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+        </fieldset>
+        <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="create">
+    </form>
 </body>
 
 </html>
