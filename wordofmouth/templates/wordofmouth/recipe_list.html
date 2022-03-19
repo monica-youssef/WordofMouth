@@ -1,0 +1,18 @@
+<div>
+    <h1>All recipes</h1>
+    {% if recipe_list %}
+        <div>
+            {% for recipe in recipe_list %}
+            <div>
+                <div>
+                    <h5>{{ recipe.title }}</h5>
+                </div>
+                <p>{{ recipe.text }}</p>
+            </div>
+            
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No recipes are available.</p>
+    {% endif %}
+</div>
