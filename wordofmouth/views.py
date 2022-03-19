@@ -25,6 +25,19 @@ class RecipeList(generic.ListView):
         return Recipe.objects.all()
 
 
+class DetailView(generic.DetailView):
+    model = Recipe
+    template_name = 'wordofmouth/detail.html'
+
+
+class RecipeList(generic.ListView):
+    template_name = 'wordofmouth/recipe_list.html'
+    context_object_name = 'recipe_list'
+
+    def get_queryset(self):
+        return Recipe.objects.all()
+
+
 def create_recipe(request):
     try:
         recipe = Recipe()

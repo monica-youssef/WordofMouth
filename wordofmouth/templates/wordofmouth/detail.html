@@ -1,11 +1,8 @@
-<html>
-
-<head>
-    <title>Word of Mouth</title>
-</head>
-
+{% csrf_token %}
 <body>
-    <h1>hello world</h1>
+    <h1>{{ recipe.title }}</h1>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+    <div>
+        {{ recipe.text }}
+    </div>
 </body>
-
-</html>
