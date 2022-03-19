@@ -3,11 +3,11 @@
     {% if recipe_list %}
         <div>
             {% for recipe in recipe_list %}
-            <div>
-                <div>
+            <div style="padding-bottom: 18; padding-top: 18">
+                <a href="{% url 'detail' recipe.id %}">
                     <h5>{{ recipe.title }}</h5>
-                </div>
-                <p>{{ recipe.text }}</p>
+                    <p>{{ recipe.text }}</p>
+                </a>
             </div>
             
             {% endfor %}
