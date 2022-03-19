@@ -41,12 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites', # new
+    'django.contrib.sites',
     # added for google login
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -149,11 +149,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    # 'allauth.account.auth_backends.AuthenticationBackend'
+    'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-SITE_ID = 1  # changed this
-LOGIN_REDIRECT_URL = '/wordofmouth/' # hellohello
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
 
 # Additional configuration settings
 # followed this tutorial: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
