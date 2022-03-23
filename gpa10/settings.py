@@ -28,7 +28,12 @@ SECRET_KEY = ***REMOVED***
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://group-project-a-10.herokuapp.com/',
+    '0.0.0.0',
+    '127.0.0.1',
+    '*',
+]
 
 
 # Application definition
