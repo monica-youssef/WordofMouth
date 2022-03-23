@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import sys
 from pathlib import Path
-import django_heroku
+# import django_heroku
 
 import os
 
@@ -34,16 +34,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'wordofmouth.apps.WordofmouthConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'googlelogin',
-
-    # added for google login
     'django.contrib.sites',
+    # added for google login
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -94,8 +93,12 @@ if 'test' in sys.argv:  # testing database
 else:  # regular database
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd63uinvu58sdur',
+            'USER': 'cnwezhdnqcxzay',
+            'PASSWORD': '8961198e07e1186bcddf5217f631e9f1a7eb5f1a8993d7b1384fb9b200382bd5',
+            'HOST': 'ec2-52-204-196-4.compute-1.amazonaws.com',
+            'PORT': ***REMOVED***,
         }
     }
 
@@ -142,7 +145,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 # added lines below for google login
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -153,8 +156,8 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-SITE_ID = 1  # changed this
-LOGIN_REDIRECT_URL = '/wordofmouth/' # hellohello
+SITE_ID = 2
+LOGIN_REDIRECT_URL = '/'
 
 # Additional configuration settings
 # followed this tutorial: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
@@ -174,3 +177,10 @@ SOCIALACCOUNT_PROVIDERS = {
         }
     }
 }
+
+try:
+    if 'HEROKU' in os.environ:
+        import django_heroku
+        django_heroku.settings(locals())
+except ImportError:
+    found = False
