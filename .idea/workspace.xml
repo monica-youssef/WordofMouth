@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b42fcbfa-0a0e-4988-a491-2b6193045658" name="Changes" comment="" />
+    <list default="true" id="b42fcbfa-0a0e-4988-a491-2b6193045658" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gpa10/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/gpa10/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wordofmouth/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/wordofmouth/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wordofmouth/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/wordofmouth/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wordofmouth/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/wordofmouth/models.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,6 +30,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
