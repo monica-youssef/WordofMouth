@@ -6,8 +6,6 @@ urlpatterns = [
     path('', index, name="index"),
     path('wordofmouth/', include('wordofmouth.urls')),
     path('admin/', admin.site.urls),
-    path('recipe_list', views.RecipeList.as_view(), name='recipe_list'),
-    path('accounts/', include('allauth.urls')),
     # path('accounts/', include('allauth.urls')),
     # path('', include('main.urls')),
 ]
