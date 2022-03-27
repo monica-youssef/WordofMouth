@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
@@ -7,6 +8,10 @@
     <list default="true" id="b42fcbfa-0a0e-4988-a491-2b6193045658" name="Changes" comment="more progress created on the like function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+=======
+  <component name="ChangeListManager">
+    <list default="true" id="7bd0353a-8abc-4de2-99f3-10225e201e4a" name="Changes" comment="" />
+>>>>>>> Stashed changes
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,7 +23,11 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectId" id="26nk9jmfVDgNA2Q9fUxrxCY0Kbx" />
+=======
+  <component name="ProjectId" id="26ycYXF8oWFVgPiGXoVUGrghgzI" />
+>>>>>>> Stashed changes
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,6 +35,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+<<<<<<< Updated upstream
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.DirectoryMappings" />
   </component>
   <component name="RunManager">
@@ -50,10 +60,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+=======
+>>>>>>> Stashed changes
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< Updated upstream
       <changelist id="b42fcbfa-0a0e-4988-a491-2b6193045658" name="Changes" comment="" />
       <created>1648066591843</created>
       <option name="number" value="Default" />
@@ -85,4 +98,14 @@
     <MESSAGE value="more progress created on the like function" />
     <option name="LAST_COMMIT_MESSAGE" value="more progress created on the like function" />
   </component>
+=======
+      <changelist id="7bd0353a-8abc-4de2-99f3-10225e201e4a" name="Changes" comment="" />
+      <created>1648399321474</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1648399321474</updated>
+    </task>
+    <servers />
+  </component>
+>>>>>>> Stashed changes
 </project>
