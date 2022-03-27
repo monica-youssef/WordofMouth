@@ -27,7 +27,7 @@ like_choices = (
 )
 
 class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, primary_key=True)
     post = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     value = models.CharField(choices= like_choices, default='Like', max_length=10)
 
