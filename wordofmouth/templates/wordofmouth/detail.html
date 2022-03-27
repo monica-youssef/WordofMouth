@@ -5,4 +5,10 @@
     <div>
         {{ recipe.text }}
     </div>
+    <form action = "{% url 'like_recipe' recipe.id %}"
+          method = "POST">
+        {% csrf_token %}
+          <button type="submit", name = "recipe_id", value = "{{ recipe.id}}">Like</button> - {{total_likes}}
+        Likes
+    </form>
 </body>
