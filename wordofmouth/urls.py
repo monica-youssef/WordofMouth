@@ -1,6 +1,5 @@
 from django.urls import path
 from django.urls import include, path
-from .views import LikeView
 
 from . import views
 
@@ -10,5 +9,4 @@ urlpatterns = [
     path('recipe/<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('recipe_list', views.RecipeList.as_view(), name='recipe_list'),
     path('accounts/', include('allauth.urls')),
-    path('like/<int:pk>/', LikeView, name='like_recipe'),
 ]
