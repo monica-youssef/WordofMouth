@@ -9,10 +9,11 @@
     <h1>index</h1>
     <h1>Word of Mouth</h1>
     {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }} !</p>
+    <p>{{ user.username }} is authenticated</p>
+    <a href="{% url 'create_recipe_view'%}">create recipe</a>
+    <a>my recipes</a>
 
     {% else %}
-    <h1>My Google Login Project</h1>
     <a href="{% provider_login_url 'google' %}">Login with Google</a>
     {% endif %}
 </body>

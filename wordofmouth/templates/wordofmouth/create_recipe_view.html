@@ -5,11 +5,9 @@
 </head>
 
 <body>
-    <h1>Word of Mouth</h1>
+    <h1>create recipe</h1>
     {% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }} !</p>
-    {% endif %}
-
+    <p>{{ user.username }} is authenticated</p>
     <form action="{% url 'create_recipe' %}" method="post">
         {% csrf_token %}
         <fieldset>
@@ -19,10 +17,18 @@
             <div class="form-group">
                 <input name="text" type="text" class="form-control" placeholder="type your recipe">
             </div>
+            <div>
+                upload image:
+            </div>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         </fieldset>
         <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="create">
     </form>
+    {% else %}
+    <p>you must log in to create a recipe</p>
+    {% endif %}
+
+    
 </body>
 
 </html>

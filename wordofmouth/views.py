@@ -9,8 +9,8 @@ def index(request):
     return render(request, 'index.html', {})
 
 
-def homeview(request):
-    return render(request, 'wordofmouth/wordofmouth.html', {})
+def create_recipe_view(request):
+    return render(request, 'wordofmouth/create_recipe_view.html', {})
 
 
 def detail(request):
@@ -43,7 +43,8 @@ def create_recipe(request):
         recipe = Recipe()
         recipe.title = request.POST['title']
         recipe.text = request.POST['text']
-        recipe.id = Recipe.objects.all().count() + 1
+        recipe.image_url = "hello world"
+
     except (KeyError, recipe.DoesNotExist):
         return render(request, 'wordofmouth/recipe_list.html', {
             'error_message': "You didn't enter a title and text."
