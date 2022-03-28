@@ -1,4 +1,7 @@
+{% extends "wordofmouth/base.html" %}
+{% block content %}
 {% csrf_token %}
+
 <body>
     <h1>{{ recipe.title }}</h1>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
@@ -12,3 +15,5 @@
         Likes
     </form>
 </body>
+
+{% endblock content %}
