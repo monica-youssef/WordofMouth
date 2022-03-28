@@ -2,3 +2,4 @@ Django
 gunicorn
 django-heroku
 django-allauth
+google-api-python-client
