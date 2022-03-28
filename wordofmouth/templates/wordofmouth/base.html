@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="myhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Word of Mouth</title>
+    
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"
+      integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
+      crossorigin="anonymous"
+    />
+   
+ 
+  </head>
+  <body onload="buttons()" class="mybody">
+    <div id="my-body-content">
+      <nav class="navbar navbar-expand-md navbar-dark relative-top bg-dark">
+        <a class="navbar-brand">Word of Mouth</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarCollapse"
+          aria-controls="navbarCollapse"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" >Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Recipes</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link">Share</a>
+            </li>
+            
+          </ul>
+          <div id="user-buttons" class="navbar-nav"></div>
+        </div>
+      </nav>
+      <!-- <main role="main" class="container" style="margin: 0;padding: 0;"> -->
+        {% if alert %}
+        <div class="alert alert-primary alert-dismissible fade show mt-3" role="alert" style="width: 60%; margin: auto auto;">
+          {{ alert }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %}
+      {% block content %}{% endblock %}
+      <!-- </main> -->
+
+      <div class="footer-spacer"></div>
+      <!-- Footer -->
+      <footer class="page-footer font-small blue pt-4 bg-dark my-sticky-footer">
+        <!-- Footer Links -->
+        <div class="container-fluid text-center text-md-left">
+          <!-- Grid row -->
+          <div class="row justify-content-between" style="margin-left: 15vw; margin-right: 15vw;">
+            <!-- Grid column -->
+            <div class="col-md-auto mt-md-0 mt-3">
+              <!-- Content -->
+              <h5 class="text-uppercase text-light">Word of Mouth</h5>
+              <p class="text-light">Recipes made easy</p>
+            </div>
+            <!-- Grid column -->
+
+            <hr class="clearfix w-100 d-md-none pb-3" />
+
+            <!-- Grid column -->
+            <div class="col-md-auto mb-md-0 mb-3">
+              <!-- Links -->
+              <h5 class="text-uppercase text-light">Contact us</h5>
+
+              <ul class="list-unstyled">
+                <li>
+                  <a class="text-light">Support</a>
+                </li>
+                <li>
+                  <a class="text-light">Send Feedback</a>
+                </li>
+                <li>
+                  <a class="text-light">Report a bug</a>
+                </li>
+              </ul>
+            </div>
+            <!-- Grid column -->
+
+            <!-- Grid column -->
+            <div class="col-md-auto mb-md-0 mb-3">
+              <!-- Links -->
+              <h5 class="text-uppercase text-light">Connect</h5>
+
+              <ul class="list-unstyled">
+                <li>
+                  <i class="fab fa-twitter text-light"></i>&nbsp;
+                  <a href="https://twitter.com/" class="text-light">Twitter</a>
+                </li>
+                <li>
+                  <i class="fab fa-facebook-f text-light"></i> &nbsp;&nbsp;
+                  <a href="https://www.facebook.com/" class="text-light">Facebook</a>
+                </li>
+                <li>
+                  <i class="fab fa-instagram text-light"></i> &nbsp;
+                  <a href="https://www.instagram.com/" class="text-light">Instagram</a>
+                </li>
+                <li>
+                  <i class="fab fa-pinterest-p text-light"></i> &nbsp;
+                  <a href="https://www.pinterest.com/" class="text-light">Pinterest</a>
+                </li>
+              </ul>
+            </div>
+            <!-- Grid column -->
+          </div>
+          <!-- Grid row -->
+        </div>
+        <!-- Footer Links -->
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3 text-light">
+          © 2022 Copyright,
+          <a href="https://cs3240.cs.virginia.edu/" class="text-light">UVA CS 3240 Spring 2022</a>
+        </div>
+        <!-- Copyright -->
+      </footer>
+      <!-- Footer -->
+     
+      
+    </div>
+  </body>
+</html>

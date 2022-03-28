@@ -1,3 +1,5 @@
+{% extends "wordofmouth/base.html" %}
+{% block content %}
 <div>
     <h1>All recipes</h1>
     {% if recipe_list %}
@@ -16,3 +18,5 @@
         <p>No recipes are available.</p>
     {% endif %}
 </div>
+
+{% endblock content%}
