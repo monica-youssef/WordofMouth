@@ -3,6 +3,7 @@ from django.test.client import RequestFactory
 from wordofmouth.models import Recipe
 from . import views
 from django.contrib.auth.models import User
+from django.urls import reverse
 # Create your tests here.
 
 
@@ -23,20 +24,24 @@ class responseTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
 
-    def test_response_index(self):
-        request = self.factory.get('wordofmouth/index/')
-        response = views.index(request)
-        self.assertEqual(response.status_code, 200)
-
     def test_response_homeview(self):
-        request = self.factory.get('wordofmouth/')
+        request = self.factory.get(reverse('homeview'), follow = True)
         response = views.homeview(request)
         self.assertEqual(response.status_code, 200)
 
+    def test_response_index(self):
+        request = self.factory.get(reverse('index'))
+        response = views.index(request)
+        self.assertEqual(response.status_code, 200)
+
     def test_response_detail(self):
-        request = self.factory.get('wordofmouth/recipe/1/')
+        request = self.factory.get(reverse('detail', args=[1]))
         response = views.detail(request)
-        print(response)
+        self.assertEqual(response.status_code, 200)
+
+    def test_response_list(self):
+        request = self.factory.get(reverse('recipe_list'))
+        response = views.detail(request)
         self.assertEqual(response.status_code, 200)
 
 class recipeIDTestCase(TestCase):
