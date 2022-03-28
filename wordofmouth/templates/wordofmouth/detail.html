@@ -1,8 +1,19 @@
+{% extends "wordofmouth/base.html" %}
+{% block content %}
 {% csrf_token %}
+
 <body>
     <h1>{{ recipe.title }}</h1>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     <div>
         {{ recipe.text }}
     </div>
+    <form action = "{% url 'like_recipe' recipe.id %}"
+          method = "POST">
+        {% csrf_token %}
+          <button type="submit", name = "recipe_id", value = "{{ recipe.id}}">Like</button> - {{total_likes}}
+        Likes
+    </form>
 </body>
+
+{% endblock content %}
