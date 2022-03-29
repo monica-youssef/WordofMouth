@@ -5,6 +5,7 @@ from django.views import generic
 from django.views import View
 from django.middleware.csrf import get_token
 
+from django.conf import settings
 from .models import Recipe
 from .models import Upload
 
@@ -48,6 +49,8 @@ def create_recipe(request):
         recipe.text = request.POST['text']
         recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(Recipe.objects.all().count() + 1) + '.jpeg'
 
+        recipe.added_by = request.user
+        recipe.id = Recipe.objects.all().count() + 1
     except (KeyError, recipe.DoesNotExist):
         return render(request, 'wordofmouth/recipe_list.html', {
             'error_message': "You didn't enter a title and text."
