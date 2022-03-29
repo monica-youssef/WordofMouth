@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import sys
 from pathlib import Path
+from google.oauth2 import service_account
 # import django_heroku
 
 import os
@@ -52,6 +53,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    #
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -158,6 +161,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.google.GoogleOAuth2',
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
@@ -189,3 +193,11 @@ try:
         django_heroku.settings(locals())
 except ImportError:
     found = False
+
+# storage
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'word-of-mouth-345423-bd82fc5e675d.json')
+)
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'a10-word-of-mouth'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
