@@ -24,11 +24,6 @@ class responseTests(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
 
-    def test_response_homeview(self):
-        request = self.factory.get(reverse('homeview'), follow = True)
-        response = views.homeview(request)
-        self.assertEqual(response.status_code, 200)
-
     def test_response_index(self):
         request = self.factory.get(reverse('index'))
         response = views.index(request)

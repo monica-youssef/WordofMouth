@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "word-of-mouth-345423",
+  "private_key_id": "bd82fc5e675ddb63b37d414b49905ccfc1f8ea51",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDbMRgNmxnz31IY\nxYz2Y93v1vlQ2Hj2kW4LzahfYW72yFoKQnw2DuVhfLw41D1+07tVv4ZsXDe+JcyW\nvPx8Tg+qKRh1NlN0nW+SjbdWwyB2CvISYYcQjfdU7ZOSbGRwB4+jtP7lWGh1BA23\naM63MoUEZILTYjk4jqxZKlKWHL7s0pep704DoFBjoG/u1+xpHlP/iiZKG75aZdWf\nRMI9BribOhk+G2xXSsl9aGslaa9u9+6BIyApAHXoDeOHRx+3yIq1cedGjRxdsp6m\n03kNQedkRP7euNwUCeeEPZyl8RkXi5Aaz1/WXxKXMmHfH4VqRvBYcdWjYnooH7qg\nHR5Ad1cfAgMBAAECggEAAsrJznvlepH43EBBTu7aaBCPes7/H3jzyL+1FN32CWZn\noI4p7JBdA1RmRhJiDtMIpbYmXWFWrnE8fXET2vYtmefNxsnLNLGVYcMKDQINpaNM\nY8fimLyOOYKQk4LA9se0izZ7hsANDeyKy4V7bfb9SHSKpsGvY+qMBH4XBjrV2HNs\n7cq0zSLNbbKiQCm3tgfb/Ilc9okNzOHidfSgWKMN5lQci2u5hHAZ/t/OfZPxmfY4\nJVPKeSIBLQUW1k5jhnUuWQUd0JG1JjZlG8UbDZfULpZcejnpvc7dFRKzp96+u/bK\n2R1B+04alS1lRH572f1BGBfmiOriYj8rkb0iop0uhQKBgQD5bin2M+VDiSROv4VY\n/X0AdYeIK709pwA2Pgyz8xHgT01fiTFpA/CLbYP8KXJeoHlvyszcnOAYaw0mcfP4\n0hPpjrV5f3EFcAuRS2Not0UBSFYEOTHxh4r9TWMH/gLQIYEIqfoIdK5vm/vibCbI\n3wfxrds7jrDubTQVjm9QyTcfHQKBgQDg9wpPbVDhDcc5HVefgguGA76Xz/ba3/Uh\nf6cSczsohV3dx29SVv7uzQ12r5Rq86dMGd0YyxkqoNm8Zl0rcR23UleXoSEvOqij\n7AH69oDTlSYApogaAu6RgpxqD5u2rU5oMPeN5QLnYTsqY1uTW/BQYjiTL5nkhAOR\nkt5Kp7TOawKBgBOLJTCMSmdrRHQDH6CkY/n4O4FY5AADqMmXPQmQfxMTQ527sypm\nS5+xGglU+ggeDMXMnxaeGBTxtlsPzKzvUO4Y53E4ohNp/w4IWSaoTXjXQR4dmSMy\nmppUSPEkXvYN2f1izBuDgPNvxmGsVbGhgA7Yr3fQK17TIaSav3AWBAKlAoGBAIFK\nWXmWiPIe+g2AKJi6o6bMxh/33JakOfyboch/w1MhevX4Jal76B4UaRV6CWGCUPby\nslgKeZc/RIP7jLZn1z1BrKevaiP7oWo8PFMgkp+HS4T6MKRKZRPprb1i5QoTBknp\nQo0hPg7+mYNeAQZqw21fVcZ5iAeGO4rRjsH3KnmrAoGBAOMo/SsQPCbVa7zdcK/X\nocBQD6PvfdqdXPA6D5j7dKOgGF4+zZHGWpdtD5kQbsiqtzlqjTEzi0NLEnKHkAOi\nv2hGceQftXPNi/HUwioxW0Xw+1ORS1PerBh+xzJqsQpWmi3IFvR7L+p4xJD6GaIa\nkwWwSuJLht+Fmo3eaSJ29dtu\n-----END PRIVATE KEY-----\n",
+  "client_email": "alex-becker@word-of-mouth-345423.iam.gserviceaccount.com",
+  "client_id": "108428631026297586997",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/alex-becker%40word-of-mouth-345423.iam.gserviceaccount.com"
+}

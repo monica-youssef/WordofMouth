@@ -1,0 +1,19 @@
+<html>
+
+<head>
+    <title>profile</title>
+</head>
+
+<body>
+    <h1>profile </h1>
+    {% if user.is_authenticated %}
+    <p>{{ user.username }} is authenticated</p>
+    <p>list of my recipes</p>
+
+
+    {% else %}
+    <h1>user is not authenticated. how did you get here?</h1>
+    {% endif %}
+</body>
+
+</html>
