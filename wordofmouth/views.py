@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
-
+from django.conf import settings
 from .models import Recipe
 
 def index(request):
@@ -43,6 +43,7 @@ def create_recipe(request):
         recipe = Recipe()
         recipe.title = request.POST['title']
         recipe.text = request.POST['text']
+        recipe.added_by = request.user
         recipe.id = Recipe.objects.all().count() + 1
     except (KeyError, recipe.DoesNotExist):
         return render(request, 'wordofmouth/recipe_list.html', {
