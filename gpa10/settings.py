@@ -102,10 +102,10 @@ else:  # regular database
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd63uinvu58sdur',
-            'USER': 'cnwezhdnqcxzay',
-            'PASSWORD': '8961198e07e1186bcddf5217f631e9f1a7eb5f1a8993d7b1384fb9b200382bd5',
-            'HOST': 'ec2-52-204-196-4.compute-1.amazonaws.com',
+            'NAME': ***REMOVED***
+            'USER': ***REMOVED***,
+            'PASSWORD': ***REMOVED***,
+            'HOST': ***REMOVED***,
             'PORT': ***REMOVED***,
         }
     }
