@@ -14,6 +14,7 @@ class Recipe(models.Model):
     def __str__(self):
         return self.title
 
+
 #https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
 class Upload:
     @staticmethod
