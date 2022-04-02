@@ -6,7 +6,12 @@
     <h1>{{ recipe.title }}</h1>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     <div>
-        {{ recipe.text }}
+        {{ recipe.ingredients }}
+	<br>
+	<br>
+	{{ recipe.instructions }}
+	<br>
+	<br>
     </div>
 <<<<<<< HEAD
     <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}">
