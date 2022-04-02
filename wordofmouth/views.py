@@ -9,6 +9,7 @@ from django.conf import settings
 from .models import Recipe
 from .models import Upload
 
+
 def index(request):
     return render(request, 'index.html', {})
 
@@ -46,7 +47,8 @@ def create_recipe(request):
     try:
         recipe = Recipe()
         recipe.title = request.POST['title']
-        recipe.text = request.POST['text']
+        recipe.ingredients = request.POST['ingredients']
+        recipe.instructions = request.POST['instructions']
         recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(Recipe.objects.all().count() + 1) + '.jpeg'
 
         recipe.added_by = request.user
