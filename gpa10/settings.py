@@ -91,24 +91,38 @@ WSGI_APPLICATION = 'gpa10.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if 'test' in sys.argv:  # testing database
+if 'HEROKU' in os.environ:
+    DATABASES = {
+                 'default': {
+                     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+                     'NAME': 'd41u60pmi5uget',
+                     'USER': 'httpxcwbqrgatz',
+                     'PASSWORD': '809839600678099d1a268efaff948e29a248d70861e8384ef58d021cc23e97fc',
+                     'HOST': 'ec2-54-157-160-218.compute-1.amazonaws.com',
+                     'PORT': '5432',
+                 }
+             }
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-else:  # regular database
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd41u60pmi5uget',
-            'USER': 'httpxcwbqrgatz',
-            'PASSWORD': '809839600678099d1a268efaff948e29a248d70861e8384ef58d021cc23e97fc',
-            'HOST': 'ec2-54-157-160-218.compute-1.amazonaws.com',
-            'PORT': '5432',
-        }
-    }
+
+# if 'test' in sys.argv:  # testing database
+
+# else:  # regular database
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'd41u60pmi5uget',
+#             'USER': 'httpxcwbqrgatz',
+#             'PASSWORD': '809839600678099d1a268efaff948e29a248d70861e8384ef58d021cc23e97fc',
+#             'HOST': 'ec2-54-157-160-218.compute-1.amazonaws.com',
+#             'PORT': '5432',
+#         }
+#     }
 
 
 
@@ -165,7 +179,7 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
 
-SITE_ID = 5
+SITE_ID = 2
 LOGIN_REDIRECT_URL = '/'
 
 # Additional configuration settings
