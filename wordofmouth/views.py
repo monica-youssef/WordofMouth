@@ -9,6 +9,7 @@ from django.conf import settings
 from .models import Recipe
 from .models import Upload
 
+
 def index(request):
     return render(request, 'index.html', {})
 
@@ -46,7 +47,8 @@ def create_recipe(request):
     try:
         recipe = Recipe()
         recipe.title = request.POST['title']
-        recipe.text = request.POST['text']
+        recipe.ingredients = request.POST['ingredients']
+        recipe.instructions = request.POST['instructions']
         recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(Recipe.objects.all().count() + 1) + '.jpeg'
 
         recipe.added_by = request.user
@@ -59,19 +61,23 @@ def create_recipe(request):
         recipe.save()
         return HttpResponseRedirect('upload')
 
+# https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+
 
 class UploadView(View):
+
     def get(self, request):
-            html = """
-                <form method="post" enctype="multipart/form-data">
-                <input type='text' style='display:none;' value='%s' name='csrfmiddlewaretoken'/>
-                <input type="file" name="image" accept="image/*">
-                <button type="submit">Upload Image</button>
-                </form>
-            """ % (get_token(request))
-            return HttpResponse(html)
+        html = """
+            <form method="post" enctype="multipart/form-data">
+            <input type='text' style='display:none;' value='%s' name='csrfmiddlewaretoken'/>
+            <input type="file" name="image" accept="image/*">
+            <button type="submit">Upload Image</button>
+            </form>
+        """ % (get_token(request))
+        return HttpResponse(html)
+
     def post(self, request):
-            image = request.FILES['image']
-            # recipe = request.recipe
-            public_uri = Upload.upload_image(image, request.user.username + str(Recipe.objects.all().count()) + '.jpeg')
-            return HttpResponseRedirect('recipe_list')
+        image = request.FILES['image']
+        # recipe = request.recipe
+        public_uri = Upload.upload_image(image, request.user.username + str(Recipe.objects.all().count()) + '.jpeg')
+        return HttpResponseRedirect('recipe_list')
