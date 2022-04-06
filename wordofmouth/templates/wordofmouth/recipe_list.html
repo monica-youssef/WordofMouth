@@ -8,8 +8,7 @@
             <div style="padding-bottom: 18; padding-top: 18">
                 <a href="{% url 'detail' recipe.id %}">
                     <h5>{{ recipe.title }}</h5>
-                    <p>{{ recipe.text }}</p>
-                    <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}">
+		    <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}">
                     <p>{{recipe.image_url}}</p>
                 </a>
             </div>

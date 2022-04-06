@@ -4,10 +4,17 @@ storage = GoogleCloudStorage()
 
 from django.contrib.auth.models import User
 # Create your models here.
+
+
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
-    text = models.CharField(max_length=200)
-    added_by = models.ForeignKey(User ,null=True, blank=True, on_delete=models.SET_NULL)
+
+    # changed these for forking
+    ingredients = models.CharField(max_length=500)
+    instructions = models.CharField(max_length=500)
+    parent = models.CharField(max_length=500)
+
+    added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     id = models.AutoField(primary_key=True)
     image_url = models.CharField(max_length=200)
 
@@ -15,8 +22,8 @@ class Recipe(models.Model):
         return self.title
 
 
-#https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
-class Upload:
+# https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+class Upload(models.Model):
     @staticmethod
     def upload_image(file, filename):
         try:
@@ -25,6 +32,7 @@ class Upload:
             return storage.url(path)
         except Exception as e:
             print("Failed to upload!")
+
     def __str__(self):
         return self.title
 
