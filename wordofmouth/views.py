@@ -49,7 +49,6 @@ class RecipeList(generic.ListView):
     def get_queryset(self):
         return Recipe.objects.all()
 
-
 def create_recipe(request):
     try:
         recipe = Recipe()
@@ -101,3 +100,13 @@ def LikeView(request, pk):
         liked = True
 
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
+
+class EditView(generic.edit.UpdateView):
+    model = Recipe
+    fields = ['title', 'ingredients', 'instructions']
+    template_name_suffix = '_update_view'
+    def get_success_url(self):
+        return reverse('detail', kwargs={'pk': self.object.id})
+
+def edit_recipe_view(request):
+    return render(request, 'wordofmouth/recipe_update_view.html', {})
