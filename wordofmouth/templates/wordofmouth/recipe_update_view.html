@@ -9,7 +9,7 @@
 
 <body>
     <h1>Edit recipe</h1>
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and object.added_by == user%}
     <p>{{ user.username }} is authenticated</p>
     <form action="{% url 'edit' recipe.id %}" method="post">
         {% csrf_token %}
@@ -17,7 +17,7 @@
         <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="update">
     </form>
     {% else %}
-    <p>you must log in to edit your recipe</p>
+    <p>You must be logged in as the user who submitted the recipe to edit it.</p>
     {% endif %}
 
     
