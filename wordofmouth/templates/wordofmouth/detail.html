@@ -32,7 +32,7 @@
             <button type="submit", name = "recipe_id", value = "{{ recipe.id}}", class ="btn btn-primary btn-sm" >Like</button>
         {% endif %}
     {% else %}
-            <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Log in to like this article!</a><br>
+            <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Login to like this article!</a><br>
     {% endif %}
     - {{total_likes}} Likes
     </form>
