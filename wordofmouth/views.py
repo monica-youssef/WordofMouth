@@ -28,8 +28,15 @@ class DetailView(generic.DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(DetailView, self).get_context_data()
+
         post_id = get_object_or_404(Recipe, id=self.kwargs['pk'])
         total_likes = post_id.total_likes()
+
+        liked = False
+        if post_id.likes.filter(id=self.request.user.id).exists():
+            liked = True
+
+        context["liked"] = liked
         context["total_likes"] = total_likes
         return context
 
@@ -85,5 +92,12 @@ class UploadView(View):
 
 def LikeView(request, pk):
     recipe = get_object_or_404(Recipe, id=request.POST.get('recipe_id'))
-    recipe.likes.add(request.user)
+    liked = False
+    if recipe.likes.filter(id=request.user.id).exists():
+        recipe.likes.remove(request.user)
+        liked = False
+    else:
+        recipe.likes.add(request.user)
+        liked = True
+
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
