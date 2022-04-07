@@ -1,8 +1,11 @@
 from django.db import models
 from storages.backends.gcloud import GoogleCloudStorage
+
 storage = GoogleCloudStorage()
 
 from django.contrib.auth.models import User
+
+
 # Create your models here.
 
 
@@ -14,9 +17,14 @@ class Recipe(models.Model):
     instructions = models.CharField(max_length=500)
     parent = models.CharField(max_length=500)
 
-    added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
+    added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='author')  # author, changed to cascade
     id = models.AutoField(primary_key=True)
     image_url = models.CharField(max_length=200)
+
+    likes = models.ManyToManyField(User, related_name='recipe_posts')  # tutorial called it blog_posts
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
@@ -35,4 +43,3 @@ class Upload(models.Model):
 
     def __str__(self):
         return self.title
-
