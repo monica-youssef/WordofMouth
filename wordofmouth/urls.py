@@ -13,4 +13,5 @@ urlpatterns = [
     path('upload', UploadView.as_view(), name='upload-image'),
     path('like/<int:pk>/', LikeView, name='like_recipe'),
     path('recipe/<int:pk>/edit', views.EditView.as_view(), name='edit'),
+    path('user_recipe_list', views.UserRecipeList.as_view(), name='user_recipe_list'),
 ]
