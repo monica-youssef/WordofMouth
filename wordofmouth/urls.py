@@ -12,4 +12,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('upload', UploadView.as_view(), name='upload-image'),
     path('like/<int:pk>/', LikeView, name='like_recipe'),
+    path('recipe/<int:pk>/edit', views.EditView.as_view(), name='edit'),
 ]

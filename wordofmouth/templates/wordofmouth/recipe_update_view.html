@@ -1,0 +1,29 @@
+{% extends "wordofmouth/base.html" %}
+{% block content %}
+
+<html>
+
+<head>
+    <title>Word of Mouth</title>
+</head>
+
+<body>
+    <h1>Edit recipe</h1>
+    {% if user.is_authenticated %}
+    <p>{{ user.username }} is authenticated</p>
+    <form action="{% url 'edit' recipe.id %}" method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="update">
+    </form>
+    {% else %}
+    <p>you must log in to edit your recipe</p>
+    {% endif %}
+
+    
+</body>
+
+</html>
+
+
+{% endblock content%}
