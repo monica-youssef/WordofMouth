@@ -15,6 +15,7 @@
         {% csrf_token %}
         {{form.as_p}}
         <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="update">
+        <a class="btn btn-secondary" href = "/wordofmouth/upload" role = "button">Upload New Image</a>
     </form>
     {% else %}
     <p>You must be logged in as the user who submitted the recipe to edit it.</p>
