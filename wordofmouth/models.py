@@ -21,30 +21,13 @@ class Recipe(models.Model):
     id = models.AutoField(primary_key=True)
     image_url = models.CharField(max_length=200)
 
-    # like feature
-    liked = models.ManyToManyField(User, default=None, blank=True, related_name='liked')
-    updated = models.DateTimeField(auto_now=True)
-    created = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='recipe_posts')  # tutorial called it blog_posts
+
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
-
-    @property
-    def num_likes(self):
-        return self.liked.all().count()
-
-LIKE_CHOICES = (
-    ('Like', 'Like'),
-    ('Unlike', 'Unlike'),
-)
-class Like(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-    value = models.CharField(choices= LIKE_CHOICES, default='Like', max_length=10)
-
-    def __str__(self):
-        return str(self.recipe)
-
 
 
 # https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f

@@ -18,6 +18,12 @@
 </body>
 =======
 </body>
+<form action = "{% url 'like_recipe' recipe.id %}"
+          method = "POST">
+        {% csrf_token %}
+          <button type="submit", name = "recipe_id", value = "{{ recipe.id}}", class ="btn btn-primary btn-sm" >Like</button> - {{total_likes}}
+        Likes
+    </form>
 
 {% endblock content %}
 >>>>>>> main
