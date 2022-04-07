@@ -37,8 +37,9 @@
     {% endif %}
     - {{total_likes}} Likes
     </form>
-
-<a class="btn btn-secondary" href = 'edit' role = "button">Edit</a>
+{% if user.is_authenticated and object.added_by == user%}
+    <a class="btn btn-secondary" href = 'edit' role = "button">Edit</a>
+{% endif %}
 
 {% endblock content %}
 >>>>>>> main
