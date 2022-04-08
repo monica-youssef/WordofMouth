@@ -67,6 +67,10 @@
               <a class="nav-link" href ="/wordofmouth/user_recipe_list">My Recipes</a>
             </li>
 
+            <li class="nav-item">
+              <a class="nav-link" href = "{% url 'favorite_recipe_list' %}" >Liked Recipes</a>
+            </li>
+
             <li class= "nav-item">
               {% if user.is_authenticated %}
                 <a class="nav-link" href="{% provider_login_url 'google' %}">Logout</a>
