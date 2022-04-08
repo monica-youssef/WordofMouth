@@ -14,7 +14,7 @@
     {% if user.is_authenticated %}
     <p>{{ user.username }} is authenticated</p>
     <a href="{% url 'create_recipe_view'%}">create recipe</a>
-    <a>my recipes</a>
+    <a href="{% url 'user_recipe_list' %}">my recipes</a>
 
     {% else %}
     <a href="{% provider_login_url 'google' %}">Login with Google</a>
