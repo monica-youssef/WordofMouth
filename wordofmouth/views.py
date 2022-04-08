@@ -118,3 +118,14 @@ class EditView(generic.edit.UpdateView):
 
 def edit_recipe_view(request):
     return render(request, 'wordofmouth/recipe_update_view.html', {})
+
+class FavoriteRecipeList(generic.ListView):
+    template_name = 'wordofmouth/favorite_recipe_list.html'
+    context_object_name = 'recipe_list'
+    def get_queryset(self):
+        queryset = []
+        for object in Recipe.objects.all():
+            if object.likes.filter(id=self.request.user.id).exists():
+                queryset.append(object)
+
+        return queryset
