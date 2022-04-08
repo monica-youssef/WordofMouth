@@ -1,0 +1,24 @@
+{% extends "wordofmouth/base.html" %}
+{% block content %}
+<div>
+    <h1>My recipes</h1>
+    {% if recipe_list %}
+        <div>
+            {% for recipe in recipe_list %}
+                {%if recipe.added_by == user%}
+                <div style="padding-bottom: 18; padding-top: 18">
+                    <a href="{% url 'detail' recipe.id %}">
+                        <h5>{{ recipe.title }}</h5>
+                <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}">
+                        <p>{{recipe.image_url}}</p>
+                    </a>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You haven't made any recipes!</p>
+    {% endif %}
+</div>
+
+{% endblock content%}
