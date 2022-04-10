@@ -16,12 +16,9 @@
 	<br>
 	<br>
     </div>
-<<<<<<< HEAD
     <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}">
     <br>
-</body>
-=======
-</body>
+
 <form action = "{% url 'like_recipe' recipe.id %}"
           method = "POST">
         {% csrf_token %}
@@ -36,10 +33,25 @@
             <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Login to like this article!</a><br>
     {% endif %}
     - {{total_likes}} Likes
-    </form>
+</form>
+<br>
 {% if user.is_authenticated and object.added_by == user%}
     <a class="btn btn-secondary" href = 'edit' role = "button">Edit</a>
 {% endif %}
 
+    <!-- forking!! -->
+<br>
+<!-- make it like the like button, a form where you submit the name of the new recipe and then send them to the details page-->
+<!--    <a class="btn btn-secondary" href = 'fork' role = "button">Fork</a>-->
+<form action = "{% url 'fork' recipe.id %}" method = "POST">
+    {% csrf_token %}
+    {% if user.is_authenticated %}
+        <button type="submit" name = "recipe_id" value = "{{ recipe.id}}" >Fork</button>
+    {% else %}
+            <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Login to fork this recipe!</a><br>
+    {% endif %}
+</form>
+</body>
+
 {% endblock content %}
->>>>>>> main
+
