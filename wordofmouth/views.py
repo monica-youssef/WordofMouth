@@ -45,17 +45,17 @@ class RecipeList(generic.ListView):
     template_name = 'wordofmouth/recipe_list.html'
     context_object_name = 'recipe_list'
 
-
     def get_queryset(self):
         return Recipe.objects.all()
+
 
 class UserRecipeList(generic.ListView):
     template_name = 'wordofmouth/user_recipe_list.html'
     context_object_name = 'recipe_list'
 
-
     def get_queryset(self):
         return Recipe.objects.all()
+
 
 def create_recipe(request):
     try:
@@ -109,6 +109,7 @@ def LikeView(request, pk):
 
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
+
 class EditView(generic.edit.UpdateView):
     model = Recipe
     fields = ['title', 'ingredients', 'instructions']
@@ -116,8 +117,10 @@ class EditView(generic.edit.UpdateView):
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.id})
 
+
 def edit_recipe_view(request):
     return render(request, 'wordofmouth/recipe_update_view.html', {})
+
 
 class FavoriteRecipeList(generic.ListView):
     template_name = 'wordofmouth/favorite_recipe_list.html'
@@ -129,3 +132,39 @@ class FavoriteRecipeList(generic.ListView):
                 queryset.append(object)
 
         return queryset
+
+# forking!
+# class ForkView(generic.edit.UpdateView):
+#     model = Recipe
+#     fields = ['title', 'ingredients', 'instructions']
+#     template_name_suffix = '_update_view'
+#     def get_success_url(self):
+#         return reverse('detail', kwargs={'pk': self.object.id})
+#
+#
+# def fork_recipe_view(request, pk):
+#      return render(request, 'wordofmouth/forkview.html', {})
+
+
+def fork_recipe_view(request, pk):
+    original = get_object_or_404(Recipe, id=request.POST.get('recipe_id'))
+    copy = original
+    copy.parent = original.pk
+    copy.pk = None
+    copy.title = "Fork of " + original.title
+    copy.save()
+
+    # form = MyForm(request.POST or None, instance = copy)
+    #
+    # if form.is_valid():
+    #     form.save()
+    #     return render(request, 'wordofmouth/recipe_list.html')
+    #
+    # context = {
+    #     "form": form,
+    # }
+
+    #return render(request, "create_recipe_view.html")
+
+    #return render(request, 'wordofmouth/recipe_list.html', {})
+    return HttpResponseRedirect(reverse('wordofmouth/recipe/%s' % copy.pk))
