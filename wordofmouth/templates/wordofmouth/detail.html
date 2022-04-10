@@ -40,13 +40,13 @@
 {% endif %}
 
     <!-- forking!! -->
-<br>
+<br><br>
 <!-- make it like the like button, a form where you submit the name of the new recipe and then send them to the details page-->
 <!--    <a class="btn btn-secondary" href = 'fork' role = "button">Fork</a>-->
 <form action = "{% url 'fork' recipe.id %}" method = "POST">
     {% csrf_token %}
     {% if user.is_authenticated %}
-        <button type="submit" name = "recipe_id" value = "{{ recipe.id}}" >Fork</button>
+        <button type="submit" name = "recipe_id" value = "{{ recipe.id}}" class="btn btn-secondary">Fork</button>
     {% else %}
             <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Login to fork this recipe!</a><br>
     {% endif %}
