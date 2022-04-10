@@ -152,6 +152,7 @@ def fork_recipe_view(request, pk):
     copy.parent = original.pk
     copy.pk = None
     copy.title = "Fork of " + original.title
+    copy.added_by = request.user
     copy.save()
 
     # form = MyForm(request.POST or None, instance = copy)
