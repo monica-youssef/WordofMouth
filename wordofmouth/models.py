@@ -16,6 +16,7 @@ class Recipe(models.Model):
     ingredients = models.CharField(max_length=500)
     instructions = models.CharField(max_length=500)
     parent = models.CharField(max_length=500)
+    #parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, related_name='children')
 
     added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='author')  # author, changed to cascade
     id = models.AutoField(primary_key=True)
