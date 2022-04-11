@@ -147,16 +147,14 @@ def fork_recipe_view(request, pk):
     return HttpResponseRedirect(reverse('detail', args=[str(copy.pk)]))
 
 
-# 'wordofmouth/recipe/%s' % copy.pk))
+class ForkRecipeList(generic.ListView):
+    template_name = 'wordofmouth/fork_recipe_list.html'
+    context_object_name = 'recipe_list'
 
-# new idea - based on fav recipe list, make a new page with the forks
-# class FavoriteRecipeList(generic.ListView):
-#     template_name = 'wordofmouth/favorite_recipe_list.html'
-#     context_object_name = 'recipe_list'
-#     def get_queryset(self):
-#         queryset = []
-#         for object in Recipe.objects.all():
-#             if object.likes.filter(id=self.request.user.id).exists():
-#                 queryset.append(object)
-#
-#         return queryset
+    def get_queryset(self):
+        queryset = []
+        for thing in Recipe.objects.all():
+            if thing.parent:
+                if int(thing.parent) == int(self.kwargs.get('pk')):
+                    queryset.append(thing)
+        return queryset
