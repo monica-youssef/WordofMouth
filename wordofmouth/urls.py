@@ -19,5 +19,5 @@ urlpatterns = [
     #forking
     # path('recipe/<int:pk>/fork', views.ForkView.as_view(), name='fork'),
     path('recipe/<int:pk>/fork', views.fork_recipe_view, name='fork'),
-
+    path('recipe/<int:pk>/forklist', views.ForkRecipeList.as_view(), name='fork_recipe_list'),
 ]
