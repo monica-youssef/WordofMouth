@@ -134,16 +134,6 @@ class FavoriteRecipeList(generic.ListView):
         return queryset
 
 # forking!
-# class ForkView(generic.edit.UpdateView):
-#     model = Recipe
-#     fields = ['title', 'ingredients', 'instructions']
-#     template_name_suffix = '_update_view'
-#     def get_success_url(self):
-#         return reverse('detail', kwargs={'pk': self.object.id})
-#
-#
-# def fork_recipe_view(request, pk):
-#      return render(request, 'wordofmouth/forkview.html', {})
 
 
 def fork_recipe_view(request, pk):
@@ -154,18 +144,19 @@ def fork_recipe_view(request, pk):
     copy.title = "Fork of " + original.title
     copy.added_by = request.user
     copy.save()
+    return HttpResponseRedirect(reverse('detail', args=[str(copy.pk)]))
 
-    # form = MyForm(request.POST or None, instance = copy)
-    #
-    # if form.is_valid():
-    #     form.save()
-    #     return render(request, 'wordofmouth/recipe_list.html')
-    #
-    # context = {
-    #     "form": form,
-    # }
 
-    #return render(request, "create_recipe_view.html")
+# 'wordofmouth/recipe/%s' % copy.pk))
 
-    #return render(request, 'wordofmouth/recipe_list.html', {})
-    return HttpResponseRedirect(reverse('wordofmouth/recipe/%s' % copy.pk))
+# new idea - based on fav recipe list, make a new page with the forks
+# class FavoriteRecipeList(generic.ListView):
+#     template_name = 'wordofmouth/favorite_recipe_list.html'
+#     context_object_name = 'recipe_list'
+#     def get_queryset(self):
+#         queryset = []
+#         for object in Recipe.objects.all():
+#             if object.likes.filter(id=self.request.user.id).exists():
+#                 queryset.append(object)
+#
+#         return queryset

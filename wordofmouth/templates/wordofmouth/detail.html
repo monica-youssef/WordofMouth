@@ -41,8 +41,6 @@
 
     <!-- forking!! -->
 <br><br>
-<!-- make it like the like button, a form where you submit the name of the new recipe and then send them to the details page-->
-<!--    <a class="btn btn-secondary" href = 'fork' role = "button">Fork</a>-->
 <form action = "{% url 'fork' recipe.id %}" method = "POST">
     {% csrf_token %}
     {% if user.is_authenticated %}
@@ -51,6 +49,45 @@
             <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Login to fork this recipe!</a><br>
     {% endif %}
 </form>
+    {% if recipe.parent %}
+    <a href="{% url 'detail' recipe.parent %}"><h3>Check out the original recipe! {{ recipe.parent }}</h3> </a>
+    {% endif %}
+
+    <!-- new forking view kids idea -->
+
+
+<!--{% if True %} &lt;!&ndash; my attempt at trying to get the kids to display if True&ndash;&gt;
+    <h5>Kids</h5>
+        <div>
+            {% for thing in object.recipe.all %} &lt;!&ndash; object.recipe.all&ndash;&gt;
+                <h6> the parent is {{ thing.parent }} and pk is {{ recipe.pk }} </h6>
+                <br>
+                {% if thing.parent == recipe.pk %}
+                    <div style="padding-bottom: 18; padding-top: 18">
+                        <a href="{% url 'detail' recipe.id %}">
+                            <h5>{{ thing.title }}</h5>
+                            <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}">
+                            <p>{{thing.image_url}}</p>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>This recipe doesn't have any forks yet.</p>
+    {% endif %}-->
+
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam venenatis a purus a sagittis. Cras consectetur
+    faucibus augue vitae porta. Nullam laoreet turpis vel dolor dictum, id sodales sapien placerat. Curabitur ultrices
+    orci neque. Nulla vitae ex diam. Cras rutrum magna malesuada sem eleifend eleifend. In hac habitasse platea
+    dictumst. Sed aliquam commodo tortor sed luctus. Sed rhoncus magna dolor.
+
+    Vestibulum iaculis, magna at luctus iaculis, ligula risus gravida sapien, sed commodo nisl turpis ac enim. Nunc
+    laoreet felis at nisl lobortis, ut scelerisque nibh accumsan. Sed nec maximus elit. Mauris luctus sagittis libero
+    id pellentesque. Quisque risus risus, suscipit quis feugiat ac, elementum sed odio. Nam ultricies rhoncus elit.
+    Aenean sodales elementum nibh, a imperdiet dui volutpat ac. Sed sagittis, libero a consequat lacinia, est nibh
+    congue odio, in sagittis orci nibh id enim. Nulla facilisi. Praesent viverra dui quis est pulvinar egestas.</p>
+
 </body>
 
 {% endblock content %}
