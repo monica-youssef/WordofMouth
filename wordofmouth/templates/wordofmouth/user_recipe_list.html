@@ -13,7 +13,9 @@
                         <p>{{recipe.image_url}}</p>
                     </a>
                 </div>
+                <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-sm">Delete</a>
                 {% endif %}
+                
             {% endfor %}
         </div>
     {% else %}

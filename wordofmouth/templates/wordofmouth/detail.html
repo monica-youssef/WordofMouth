@@ -38,6 +38,7 @@
 <br>
 {% if user.is_authenticated and object.added_by == user%}
     <a class="btn btn-secondary" href = 'edit' role = "button">Edit</a>
+    <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-sm">Delete</a>
 {% endif %}
 
     <!-- forking!! -->
