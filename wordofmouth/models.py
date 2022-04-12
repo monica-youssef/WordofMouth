@@ -6,9 +6,6 @@ storage = GoogleCloudStorage()
 from django.contrib.auth.models import User
 
 
-# Create your models here.
-
-
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
 
@@ -17,7 +14,8 @@ class Recipe(models.Model):
     instructions = models.CharField(max_length=500)
     parent = models.CharField(max_length=500)
 
-    added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='author')  # author, changed to cascade
+    added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE,
+                                 related_name='author')  # author, changed to cascade
     id = models.AutoField(primary_key=True)
     image_url = models.CharField(max_length=200)
 
@@ -28,6 +26,16 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    recipe = models.ForeignKey(Recipe, related_name='comments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.recipe.title, self.name)
 
 
 # https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f

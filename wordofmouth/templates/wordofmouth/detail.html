@@ -41,5 +41,24 @@
     <a class="btn btn-secondary" href = 'edit' role = "button">Edit</a>
 {% endif %}
 
+<br/><br/>
+<hr>
+<h2>Comments</h2>
+<br/>
+{% if not recipe.comments.all %}
+    No Comments Yet...<href="#">
+    Add One Here </a>
+{% else %}
+    {% for comment in recipe.comments.all %}
+        <strong> {{ comment.name }} -
+           {{ comment.date_added }} </strong>
+                 <br/>
+                 {{ comment.body }}
+<br/><br/>
+
+{% endfor %}
+{% endif %}
+<hr>
+
 {% endblock content %}
 >>>>>>> main
