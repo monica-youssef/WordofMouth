@@ -8,6 +8,7 @@ from django.middleware.csrf import get_token
 from django.conf import settings
 from .models import Recipe
 from .models import Upload
+from django.shortcuts import redirect
 
 
 def index(request):
@@ -158,3 +159,8 @@ class ForkRecipeList(generic.ListView):
                 if int(thing.parent) == int(self.kwargs.get('pk')):
                     queryset.append(thing)
         return queryset
+
+def deleteItem(request, recipe_id):
+    recipe = Recipe.objects.get(pk = recipe_id)
+    recipe.delete()
+    return redirect('user_recipe_list')
