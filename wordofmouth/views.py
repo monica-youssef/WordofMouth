@@ -45,17 +45,17 @@ class RecipeList(generic.ListView):
     template_name = 'wordofmouth/recipe_list.html'
     context_object_name = 'recipe_list'
 
-
     def get_queryset(self):
         return Recipe.objects.all()
+
 
 class UserRecipeList(generic.ListView):
     template_name = 'wordofmouth/user_recipe_list.html'
     context_object_name = 'recipe_list'
 
-
     def get_queryset(self):
         return Recipe.objects.all()
+
 
 def create_recipe(request):
     try:
@@ -109,6 +109,7 @@ def LikeView(request, pk):
 
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
+
 class EditView(generic.edit.UpdateView):
     model = Recipe
     fields = ['title', 'ingredients', 'instructions']
@@ -116,8 +117,10 @@ class EditView(generic.edit.UpdateView):
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.id})
 
+
 def edit_recipe_view(request):
     return render(request, 'wordofmouth/recipe_update_view.html', {})
+
 
 class FavoriteRecipeList(generic.ListView):
     template_name = 'wordofmouth/favorite_recipe_list.html'
@@ -128,4 +131,30 @@ class FavoriteRecipeList(generic.ListView):
             if object.likes.filter(id=self.request.user.id).exists():
                 queryset.append(object)
 
+        return queryset
+
+# forking!
+
+
+def fork_recipe_view(request, pk):
+    original = get_object_or_404(Recipe, id=request.POST.get('recipe_id'))
+    copy = original
+    copy.parent = original.pk
+    copy.pk = None
+    copy.title = "Fork of " + original.title
+    copy.added_by = request.user
+    copy.save()
+    return HttpResponseRedirect(reverse('detail', args=[str(copy.pk)]))
+
+
+class ForkRecipeList(generic.ListView):
+    template_name = 'wordofmouth/fork_recipe_list.html'
+    context_object_name = 'recipe_list'
+
+    def get_queryset(self):
+        queryset = []
+        for thing in Recipe.objects.all():
+            if thing.parent:
+                if int(thing.parent) == int(self.kwargs.get('pk')):
+                    queryset.append(thing)
         return queryset
