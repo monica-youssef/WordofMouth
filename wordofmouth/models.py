@@ -16,7 +16,6 @@ class Recipe(models.Model):
     ingredients = models.CharField(max_length=500)
     instructions = models.CharField(max_length=500)
     parent = models.CharField(max_length=500)
-
     added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='author')  # author, changed to cascade
     id = models.AutoField(primary_key=True)
     image_url = models.CharField(max_length=200)

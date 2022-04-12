@@ -16,4 +16,8 @@ urlpatterns = [
     path('user_recipe_list', views.UserRecipeList.as_view(), name='user_recipe_list'),
     path('favorites', views.FavoriteRecipeList.as_view(), name='favorite_recipe_list'),
 
+    #forking
+    # path('recipe/<int:pk>/fork', views.ForkView.as_view(), name='fork'),
+    path('recipe/<int:pk>/fork', views.fork_recipe_view, name='fork'),
+    path('recipe/<int:pk>/forklist', views.ForkRecipeList.as_view(), name='fork_recipe_list'),
 ]
