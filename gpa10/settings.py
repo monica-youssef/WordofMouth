@@ -19,7 +19,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -35,7 +34,6 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '*',
 ]
-
 
 # Application definition
 
@@ -87,21 +85,20 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'gpa10.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 if 'HEROKU' in os.environ:
     DATABASES = {
-                 'default': {
-                     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                     'NAME': 'd41u60pmi5uget',
-                     'USER': 'httpxcwbqrgatz',
-                     'PASSWORD': '809839600678099d1a268efaff948e29a248d70861e8384ef58d021cc23e97fc',
-                     'HOST': 'ec2-54-157-160-218.compute-1.amazonaws.com',
-                     'PORT': '5432',
-                 }
-             }
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'd41u60pmi5uget',
+            'USER': 'httpxcwbqrgatz',
+            'PASSWORD': '809839600678099d1a268efaff948e29a248d70861e8384ef58d021cc23e97fc',
+            'HOST': 'ec2-54-157-160-218.compute-1.amazonaws.com',
+            'PORT': '5432',
+        }
+    }
 else:
     DATABASES = {
         'default': {
@@ -125,7 +122,6 @@ else:
 #     }
 
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -144,18 +140,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
@@ -185,7 +179,7 @@ LOGIN_REDIRECT_URL = '/'
 # Additional configuration settings
 # followed this tutorial: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
 SOCIALACCOUNT_QUERY_EMAIL = True
-ACCOUNT_LOGOUT_ON_GET= True
+ACCOUNT_LOGOUT_ON_GET = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_REQUIRED = True
 
@@ -204,6 +198,7 @@ SOCIALACCOUNT_PROVIDERS = {
 try:
     if 'HEROKU' in os.environ:
         import django_heroku
+
         django_heroku.settings(locals())
 except ImportError:
     found = False
