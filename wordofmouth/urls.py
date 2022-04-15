@@ -1,4 +1,3 @@
-from django.urls import path
 from django.urls import include, path
 
 from . import views
@@ -15,5 +14,6 @@ urlpatterns = [
     path('recipe/<int:pk>/edit', views.EditView.as_view(), name='edit'),
     path('user_recipe_list', views.UserRecipeList.as_view(), name='user_recipe_list'),
     path('favorites', views.FavoriteRecipeList.as_view(), name='favorite_recipe_list'),
+
 
 ]

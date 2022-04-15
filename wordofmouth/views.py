@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.views.generic import CreateView
 from django.views import generic
 from django.views import View
 from django.middleware.csrf import get_token
@@ -8,6 +9,7 @@ from django.middleware.csrf import get_token
 from django.conf import settings
 from .models import Recipe
 from .models import Upload
+from .models import Comment
 
 
 def index(request):
@@ -76,6 +78,11 @@ def create_recipe(request):
         return HttpResponseRedirect('upload')
 
 # https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+
+class AddCommentView(CreateView):
+    model = Comment
+    template_name = "add_comment.html"
+    fields = '__all__'
 
 
 class UploadView(View):

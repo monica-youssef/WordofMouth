@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <h1>create recipe</h1>
+    <h1>Create A Recipe</h1>
     {% if user.is_authenticated %}
     <p>{{ user.username }} is authenticated</p>
     <form action="{% url 'create_recipe' %}" method="post">
@@ -24,11 +24,11 @@
                 <input name="instructions" type="title" class="form-control" placeholder="Instructions">
             </div>
             <div>
-                (image upload in next step)
+                (Image upload is in the next step)
             </div>
             {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
         </fieldset>
-        <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="create">
+        <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="Create">
     </form>
     {% else %}
     <p>you must log in to create a recipe</p>
