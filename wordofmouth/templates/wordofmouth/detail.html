@@ -40,7 +40,7 @@
 <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
     {% csrf_token %}
     {% if rated %}
-        You already rated this recippe
+        Your Rating {{ rating }}
     {% else %}
         <button type="submit", name = "rating", value = "1", class ="btn btn-primary btn-sm" >1s</button>
         <button type="submit", name = "rating", value = "2", class ="btn btn-primary btn-sm" >2s</button>
