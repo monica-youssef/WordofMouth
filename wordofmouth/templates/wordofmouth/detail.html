@@ -6,7 +6,49 @@
 {% csrf_token %}
 
 <body>
-    <h1>{{ recipe.title }}</h1>
+    <h1 style="text-align: center">{{ recipe.title }}</h1>
+    <hr>
+
+    <div class="text-right mb-3">
+        <div class="btn-group text-right" role="group" aria-label="Button group example">
+            <!-- Save Button -->
+            <form action = "{% url 'like_recipe' recipe.id %}" method = "POST">
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                    {% if liked %}
+                        <button type="submit" class="btn btn-primary btn-dark" name = "recipe_id" value = "{{ recipe.id}}">Unsave</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-primary btn-dark" name = "recipe_id" value = "{{ recipe.id}}">Save</button>
+                    {% endif %}
+                {% endif %}
+            </form>
+
+            <!-- Fork Buttons -->
+            <form action = "{% url 'fork' recipe.id %}" method = "POST">
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                    <button type="submit" name = "recipe_id" value = "{{ recipe.id}}" class="btn btn-primary btn-dark">Fork</button>
+                {% endif %}
+            </form>
+
+            <!-- Edit/Delete Buttons -->
+            {% if user.is_authenticated and object.added_by == user%}
+                <a class="btn btn-primary btn-dark" href = 'edit' role = "button">Edit</a>
+                <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary">Delete</a>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <br>
+
+
+
+    <center>
+        <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}" height="200">
+    </center>
+    <br>
+    <br>
     {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
     <div>
         {{ recipe.ingredients }}
@@ -17,11 +59,18 @@
 	<br>
     </div>
 
-    <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}" height="200">
     <br>
 
-<form action = "{% url 'like_recipe' recipe.id %}"
-          method = "POST">
+    {% if recipe.parent %}
+        <a href="{% url 'detail' recipe.parent %}" class="btn btn-primary btn-lg btn-block btn-dark">Original Recipe</a>
+    {% endif %}
+
+    <a class="btn btn-primary btn-lg btn-block btn-dark" href = "{% url 'fork_recipe_list' recipe.id %}">View Recipe Variations</a>
+    <br>
+
+
+<!-- OLD CODE
+<form action = "{% url 'like_recipe' recipe.id %}" method = "POST">
         {% csrf_token %}
     {% if user.is_authenticated %}
         {% if liked %}
@@ -41,7 +90,6 @@
     <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-sm">Delete</a>
 {% endif %}
 
-    <!-- forking!! -->
 <br><br>
 <form action = "{% url 'fork' recipe.id %}" method = "POST">
     {% csrf_token %}
@@ -55,7 +103,7 @@
     <a href="{% url 'detail' recipe.parent %}"><h3>Check out the original recipe! {{ recipe.parent }}</h3> </a>
     {% endif %}
 
-<a class="nav-link" href = "{% url 'fork_recipe_list' recipe.id %}">View Recipe Variations</a>
+<a class="nav-link" href = "{% url 'fork_recipe_list' recipe.id %}">View Recipe Variations</a> -->
 
 {% endblock content %}
 </body>
