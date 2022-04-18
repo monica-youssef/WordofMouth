@@ -46,9 +46,10 @@
 <h2>Comments</h2>
 <br/>
 {% if not recipe.comments.all %}
-    No Comments Yet...<href="#">
+    No Comments Yet...<a href="{% url 'add_comment' recipe.id %}">
     Add One Here </a>
 {% else %}
+<a href="{% url 'add_comment' recipe.id %}"> Add Comment</a>
     {% for comment in recipe.comments.all %}
         <strong> {{ comment.name }} -
            {{ comment.date_added }} </strong>
