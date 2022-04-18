@@ -1,11 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
 from django.views.generic import CreateView
+from .forms import CommentForm
 from django.views import generic
 from django.views import View
 from django.middleware.csrf import get_token
-
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from .models import Recipe
 from .models import Upload
@@ -82,8 +82,15 @@ def create_recipe(request):
 # https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
 class AddCommentView(CreateView):
     model = Comment
+    form_class = CommentForm
     template_name = "add_comment.html"
-    fields = '__all__'
+    success_url = reverse_lazy('recipe_list')
+    def form_valid(self, form):
+        form.instance.recipe_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('detail', kwargs={'pk': self.object.id})
 
 
 class UploadView(View):

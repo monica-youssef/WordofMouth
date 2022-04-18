@@ -14,7 +14,7 @@ urlpatterns = [
     path('recipe/<int:pk>/edit', views.EditView.as_view(), name='edit'),
     path('user_recipe_list', views.UserRecipeList.as_view(), name='user_recipe_list'),
     path('favorites', views.FavoriteRecipeList.as_view(), name='favorite_recipe_list'),
-    path('recipe/<int:pk>/comment', views.AddCommentView.as_view(), name='add_comment'),
+    path('recipe/<int:pk>/comment', AddCommentView.as_view(), name='add_comment'),
 
 
 ]
