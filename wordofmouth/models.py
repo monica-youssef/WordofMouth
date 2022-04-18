@@ -6,8 +6,10 @@ storage = GoogleCloudStorage()
 from django.contrib.auth.models import User
 
 
-# Create your models here.
-
+class UserRating(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField(default=0)
 
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
@@ -21,9 +23,14 @@ class Recipe(models.Model):
     image_url = models.CharField(max_length=200)
 
     likes = models.ManyToManyField(User, related_name='recipe_posts')  # tutorial called it blog_posts
+    ratings = models.ManyToManyField(UserRating, related_name='recipe_ratings')
 
     def total_likes(self):
         return self.likes.count()
+
+    def average_rating(self):
+        # https://stackoverflow.com/questions/55325723/generate-average-for-ratings-in-django-models-and-return-with-other-model
+        return self.ratings.all().aggregate(models.Avg('rating')).get('rating__avg', 0.00)
 
     def __str__(self):
         return self.title

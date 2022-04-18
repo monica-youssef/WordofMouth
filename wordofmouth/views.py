@@ -6,7 +6,7 @@ from django.views import View
 from django.middleware.csrf import get_token
 
 from django.conf import settings
-from .models import Recipe
+from .models import Recipe, UserRating
 from .models import Upload
 from django.shortcuts import redirect
 
@@ -37,8 +37,15 @@ class DetailView(generic.DetailView):
         if post_id.likes.filter(id=self.request.user.id).exists():
             liked = True
 
+        rating = 0.0
+        if post_id.ratings.filter(user=self.request.user).exists():
+            rating = post_id.ratings.filter(user=self.request.user).first().rating
+
+        context["rated"] = rating != 0.0
+        context["rating"] = rating
         context["liked"] = liked
         context["total_likes"] = total_likes
+        context["average_rating"] = post_id.average_rating()
         return context
 
 
@@ -109,6 +116,22 @@ def LikeView(request, pk):
         liked = True
 
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
+
+
+def RateView(request, recipe_id):
+    recipe = Recipe.objects.get(pk = recipe_id)
+
+    rating = request.POST.get('rating')
+    
+    print("you clicked " + str(rating))
+    userRating = UserRating()
+    userRating.user = request.user
+    userRating.rating = rating
+    userRating.save()
+
+    recipe.ratings.add(userRating)
+
+    return HttpResponseRedirect(reverse('detail', args=[str(recipe_id)]))
 
 
 class EditView(generic.edit.UpdateView):
