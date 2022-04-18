@@ -89,8 +89,6 @@ class AddCommentView(CreateView):
         form.instance.recipe_id = self.kwargs['pk']
         return super().form_valid(form)
 
-    def get_success_url(self):
-        return reverse('detail', kwargs={'pk': self.object.id})
 
 
 class UploadView(View):

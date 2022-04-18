@@ -9,11 +9,14 @@
 
 <body>
     <h1>Comment on A Recipe</h1>
-    <form action="{% url 'create_recipe' %}" method="post">
+    <div class="form-group">
+        <form method = "POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="Add Comment">
-    </form>
+        <button class="btn btn-primary btn-lg" style="margin-top: 12px">Add Comment</button>
+        </form>
+        </div>
+
     
 </body>
 
