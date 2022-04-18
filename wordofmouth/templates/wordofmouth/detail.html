@@ -50,6 +50,8 @@
     Add One Here </a>
 {% else %}
 <a href="{% url 'add_comment' recipe.id %}"> Add Comment</a>
+<br/> <br/>
+
     {% for comment in recipe.comments.all %}
         <strong> {{ comment.name }} -
            {{ comment.date_added }} </strong>
