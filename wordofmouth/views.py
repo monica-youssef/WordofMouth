@@ -47,17 +47,17 @@ class RecipeList(generic.ListView):
     template_name = 'wordofmouth/recipe_list.html'
     context_object_name = 'recipe_list'
 
-
     def get_queryset(self):
         return Recipe.objects.all()
+
 
 class UserRecipeList(generic.ListView):
     template_name = 'wordofmouth/user_recipe_list.html'
     context_object_name = 'recipe_list'
 
-
     def get_queryset(self):
         return Recipe.objects.all()
+
 
 def create_recipe(request):
     try:
@@ -65,7 +65,8 @@ def create_recipe(request):
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
-        recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(Recipe.objects.all().count() + 1) + '.jpeg'
+        recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(
+            Recipe.objects.all().count() + 1) + '.jpeg'
 
         recipe.added_by = request.user
         recipe.id = Recipe.objects.all().count() + 1
@@ -77,8 +78,8 @@ def create_recipe(request):
         recipe.save()
         return HttpResponseRedirect('upload')
 
-# https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
 
+# https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
 class AddCommentView(CreateView):
     model = Comment
     template_name = "add_comment.html"
@@ -116,19 +117,24 @@ def LikeView(request, pk):
 
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
+
 class EditView(generic.edit.UpdateView):
     model = Recipe
     fields = ['title', 'ingredients', 'instructions']
     template_name_suffix = '_update_view'
+
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.id})
+
 
 def edit_recipe_view(request):
     return render(request, 'wordofmouth/recipe_update_view.html', {})
 
+
 class FavoriteRecipeList(generic.ListView):
     template_name = 'wordofmouth/favorite_recipe_list.html'
     context_object_name = 'recipe_list'
+
     def get_queryset(self):
         queryset = []
         for object in Recipe.objects.all():

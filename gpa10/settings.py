@@ -16,6 +16,7 @@ from google.oauth2 import service_account
 
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -70,7 +71,7 @@ ROOT_URLCONF = 'gpa10.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates/'],
+        'DIRS': [os.path.join(BASE_DIR, 'wordofmouth/templates/wordofmouth'),], #used to be templates/ didnt work for add_comment
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

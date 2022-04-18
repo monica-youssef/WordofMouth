@@ -1,7 +1,7 @@
 from django.urls import include, path
 
 from . import views
-from .views import UploadView, LikeView
+from .views import UploadView, LikeView, AddCommentView
 
 urlpatterns = [
     path('', views.create_recipe_view, name="create_recipe_view"),
@@ -14,6 +14,7 @@ urlpatterns = [
     path('recipe/<int:pk>/edit', views.EditView.as_view(), name='edit'),
     path('user_recipe_list', views.UserRecipeList.as_view(), name='user_recipe_list'),
     path('favorites', views.FavoriteRecipeList.as_view(), name='favorite_recipe_list'),
+    path('recipe/<int:pk>/comment', views.AddCommentView.as_view(), name='add_comment'),
 
 
 ]
