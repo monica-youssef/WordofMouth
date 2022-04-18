@@ -2,7 +2,7 @@ from django.urls import path
 from django.urls import include, path
 
 from . import views
-from .views import UploadView, LikeView
+from .views import UploadView, LikeView, RateView
 
 urlpatterns = [
     path('', views.create_recipe_view, name="create_recipe_view"),
@@ -12,6 +12,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('upload', UploadView.as_view(), name='upload-image'),
     path('like/<int:pk>/', LikeView, name='like_recipe'),
+    path('rate/<recipe_id>/', RateView, name='rate_recipe'),
     path('recipe/<int:pk>/edit', views.EditView.as_view(), name='edit'),
     path('user_recipe_list', views.UserRecipeList.as_view(), name='user_recipe_list'),
     path('favorites', views.FavoriteRecipeList.as_view(), name='favorite_recipe_list'),
