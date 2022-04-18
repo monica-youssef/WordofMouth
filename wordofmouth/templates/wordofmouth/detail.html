@@ -36,7 +36,6 @@
                 <a class="btn btn-primary btn-dark" href = 'edit' role = "button">Edit</a>
                 <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary">Delete</a>
             {% endif %}
-
         </div>
     </div>
 
@@ -46,6 +45,20 @@
 
     <center>
         <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}" height="200">
+        <!-- Rating Buttons -->
+        <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
+            {% csrf_token %}
+            {% if rated %}
+                Your Rating {{ rating }}
+            {% else %}
+                <button type="submit", name = "rating", value = "1", class ="btn btn-primary btn-sm" >1s</button>
+                <button type="submit", name = "rating", value = "2", class ="btn btn-primary btn-sm" >2s</button>
+                <button type="submit", name = "rating", value = "3", class ="btn btn-primary btn-sm" >3s</button>
+                <button type="submit", name = "rating", value = "4", class ="btn btn-primary btn-sm" >4s</button>
+                <button type="submit", name = "rating", value = "5", class ="btn btn-primary btn-sm" >5s</button>
+            {% endif %}
+            - Average Rating: {{average_rating}}
+        </form>
     </center>
     <br>
     <br>
