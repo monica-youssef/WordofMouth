@@ -115,4 +115,4 @@ class LikeTestCase(TestCase):
         recipe = Recipe.objects.get(pk = 1)
         self.assertEqual(recipe.total_likes(), 1) #Test to like
         views.LikeView(request, self.recipe.id)
-        self.assertEqual(recipe.total_likes(), 0) #Test to unlike
+        self.assertEqual(recipe.total_likes(), 0) #Test to unlike.
