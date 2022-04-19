@@ -119,6 +119,29 @@
     <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-sm">Delete</a>
 {% endif %}
 
+<<<<<<< HEAD
+<br/><br/>
+<hr>
+<h2>Comments</h2>
+<br/>
+{% if not recipe.comments.all %}
+    No Comments Yet...<a href="{% url 'add_comment' recipe.id %}">
+    Add One Here </a>
+{% else %}
+<a href="{% url 'add_comment' recipe.id %}"> Add Comment</a>
+<br/> <br/>
+
+    {% for comment in recipe.comments.all %}
+        <strong> {{ comment.name }} -
+           {{ comment.date_added }} </strong>
+                 <br/>
+                 {{ comment.body }}
+<br/><br/>
+
+{% endfor %}
+{% endif %}
+<hr>
+=======
 <br><br>
 <form action = "{% url 'fork' recipe.id %}" method = "POST">
     {% csrf_token %}
@@ -133,6 +156,7 @@
     {% endif %}
 
 <a class="nav-link" href = "{% url 'fork_recipe_list' recipe.id %}">View Recipe Variations</a> -->
+>>>>>>> main
 
 {% endblock content %}
 </body>
