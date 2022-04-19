@@ -7,9 +7,13 @@ from django.views import View
 from django.middleware.csrf import get_token
 from django.urls import reverse, reverse_lazy
 from django.conf import settings
-from .models import Recipe
+from .models import Recipe, UserRating
 from .models import Upload
+<<<<<<< HEAD
 from .models import Comment
+=======
+from django.shortcuts import redirect
+>>>>>>> main
 
 
 def index(request):
@@ -38,8 +42,15 @@ class DetailView(generic.DetailView):
         if post_id.likes.filter(id=self.request.user.id).exists():
             liked = True
 
+        rating = 0.0
+        if post_id.ratings.filter(user=self.request.user).exists():
+            rating = post_id.ratings.filter(user=self.request.user).first().rating
+
+        context["rated"] = rating != 0.0
+        context["rating"] = rating
         context["liked"] = liked
         context["total_likes"] = total_likes
+        context["average_rating"] = post_id.average_rating()
         return context
 
 
@@ -123,6 +134,25 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
 
+<<<<<<< HEAD
+=======
+def RateView(request, recipe_id):
+    recipe = Recipe.objects.get(pk = recipe_id)
+
+    rating = request.POST.get('rating')
+    
+    print("you clicked " + str(rating))
+    userRating = UserRating()
+    userRating.user = request.user
+    userRating.rating = rating
+    userRating.save()
+
+    recipe.ratings.add(userRating)
+
+    return HttpResponseRedirect(reverse('detail', args=[str(recipe_id)]))
+
+
+>>>>>>> main
 class EditView(generic.edit.UpdateView):
     model = Recipe
     fields = ['title', 'ingredients', 'instructions']
@@ -147,3 +177,34 @@ class FavoriteRecipeList(generic.ListView):
                 queryset.append(object)
 
         return queryset
+
+# forking!
+
+
+def fork_recipe_view(request, pk):
+    original = get_object_or_404(Recipe, id=request.POST.get('recipe_id'))
+    copy = original
+    copy.parent = original.pk
+    copy.pk = None
+    copy.title = "Fork of " + original.title
+    copy.added_by = request.user
+    copy.save()
+    return HttpResponseRedirect(reverse('detail', args=[str(copy.pk)]))
+
+
+class ForkRecipeList(generic.ListView):
+    template_name = 'wordofmouth/fork_recipe_list.html'
+    context_object_name = 'recipe_list'
+
+    def get_queryset(self):
+        queryset = []
+        for thing in Recipe.objects.all():
+            if thing.parent:
+                if int(thing.parent) == int(self.kwargs.get('pk')):
+                    queryset.append(thing)
+        return queryset
+
+def deleteItem(request, recipe_id):
+    recipe = Recipe.objects.get(pk = recipe_id)
+    recipe.delete()
+    return redirect('user_recipe_list')

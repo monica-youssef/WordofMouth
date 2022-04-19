@@ -1,7 +1,36 @@
 {% extends "wordofmouth/base.html" %}
 {% block content %}
 <div>
-    <h1>My recipes</h1>
+    <h1 style="text-align: center">My Recipes</h1>
+    <hr>
+    <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
+    <div class="container">
+            {%  for recipe in recipe_list  %}
+                {%if recipe.added_by == user%}
+                {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {%  endif %}
+                  <div class="col-md-4"  style="cursor: pointer">
+                      <div class="card">
+                          <div class="card-content">
+                              <br>
+                              <img src="{{ recipe.image_url }}" alt="Recipe URL" height="207" aligh="middle" style=”padding: 20px 20px 20px 20px”>
+                              <a href="{% url 'detail' recipe.id %}">
+                                  <h3>{{ recipe.title }}</h3> </a>
+
+
+                          </div><!-- card content -->
+                      </div><!-- card -->
+                  </div><!-- col-md-4 -->
+            {%  if forloop.counter|divisibleby:3 or forloop.last %}
+            </div>
+            <br>
+            {%  endif %}
+            {%  endif %}
+            {%  endfor %}
+         </div><!-- container -->
+
+
+
+    <!-- OLD CODE
     {% if recipe_list %}
         <div>
             {% for recipe in recipe_list %}
@@ -13,12 +42,14 @@
                         <p>{{recipe.image_url}}</p>
                     </a>
                 </div>
+                <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-sm">Delete</a>
                 {% endif %}
+                
             {% endfor %}
         </div>
     {% else %}
         <p>You haven't made any recipes!</p>
-    {% endif %}
+    {% endif %} -->
 </div>
 
 {% endblock content%}
