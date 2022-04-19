@@ -9,15 +9,30 @@
 </head>
 
 <body>
-    <h1>index</h1>
     <h1>Word of Mouth</h1>
     {% if user.is_authenticated %}
-    <p>{{ user.username }} is authenticated</p>
-    <a href="{% url 'create_recipe_view'%}">create recipe</a>
-    <a href="{% url 'user_recipe_list' %}">my recipes</a>
+    <p>Welcome to Word of Mouth, {{ user.username }}!</p>
+
+    <p>Word of Mouth is a recipe-sharing website where you can easily post, view, save, and edit recipes without the excessive
+        backstory or annoying ads. All recipes include ingredients, instructions and images, as well as images as a
+        rating system to see how people like the recipes.
+    </p>
+
+    <p>Since you're logged in, you can create a recipe using <a href="{% url 'create_recipe_view'%}">this</a> link, or
+        using the link "Create Recipe" on the navigation bar. You can view all the recipes you've made at
+        <a href="{% url 'user_recipe_list' %}">this</a> like, or using the link "My Recipes" on the navigation bar.</p>
 
     {% else %}
-    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    <p>Welcome to Word of Mouth!</p>
+
+    <p>Word of Mouth is a recipe-sharing website where you can easily post, view, save, and edit recipes without the excessive
+        backstory or annoying ads. All recipes include ingredients, instructions and images, as well as images as a
+        rating system to see how people like the recipes.
+    </p>
+
+    <p>Once you're logged in, you can create a recipe, view your recipes, and rate recipes. For now, you can check
+        out what recipes other users have created! <a href="{% provider_login_url 'google' %}">Login </a> to experience
+        everything else Word of Mouth has to offer!</p>
     {% endif %}
 </body>
 

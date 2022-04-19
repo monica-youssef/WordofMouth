@@ -1,10 +1,12 @@
 {% extends "wordofmouth/base.html" %}
 {% block content %}
 <div>
-    <h1 style="text-align: center">All Recipes</h1>
+    <h1 style="text-align: center">Forked Recipes</h1>
     <hr>
+
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
     <div class="container">
+        {% if recipe_list %}
             {%  for recipe in recipe_list  %}
                 {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {%  endif %}
                   <div class="col-md-4"  style="cursor: pointer">
@@ -24,25 +26,27 @@
             <br>
             {%  endif %}
             {%  endfor %}
+            {% else %}
+                <p>This recipe hasn't been forked yet.</p>
+            {% endif %}
          </div><!-- container -->
 
 
-
-    <!-- OLD STUFF
+    <!-- OLD CODE
     {% if recipe_list %}
         <div>
             {% for recipe in recipe_list %}
-            <div style="padding-bottom: 18; padding-top: 18" >
+            <div style="padding-bottom: 18; padding-top: 18">
                 <a href="{% url 'detail' recipe.id %}">
-                    <h5>{{ recipe.title }} by {{ recipe.added_by }}</h5>
-		             <img src="{{ recipe.image_url }}" alt="Recipe URL" width="107">
+                    <h5>{{ recipe.title }}</h5>
+            <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}" height="200">
+                    <p>{{recipe.image_url}}</p>
                 </a>
             </div>
-
             {% endfor %}
         </div>
     {% else %}
-        <p>No recipes are available.</p>
+        <p>This recipe hasn't been forked yet.</p>
     {% endif %} -->
 </div>
 

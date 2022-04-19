@@ -8,9 +8,14 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <h1>Create A Recipe</h1>
+=======
+    <h1 style="text-align: center">Create a Recipe</h1>
+    <hr>
+>>>>>>> main
     {% if user.is_authenticated %}
-    <p>{{ user.username }} is authenticated</p>
+    <p>{{ user.username }}, create a new public recipe!</p>
     <form action="{% url 'create_recipe' %}" method="post">
         {% csrf_token %}
         <fieldset>
