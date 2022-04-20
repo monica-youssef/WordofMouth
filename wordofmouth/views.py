@@ -1,13 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.views.generic import CreateView
+from .forms import CommentForm
 from django.views import generic
 from django.views import View
 from django.middleware.csrf import get_token
-
+from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from .models import Recipe, UserRating
 from .models import Upload
+from .models import Comment
 from django.shortcuts import redirect
 
 
@@ -71,7 +73,8 @@ def create_recipe(request):
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
-        recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(Recipe.objects.all().count() + 1) + '.jpeg'
+        recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(
+            Recipe.objects.all().count() + 1) + '.jpeg'
 
         recipe.added_by = request.user
         recipe.id = Recipe.objects.all().count() + 1
@@ -83,7 +86,17 @@ def create_recipe(request):
         recipe.save()
         return HttpResponseRedirect('upload')
 
+
 # https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+class AddCommentView(CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = "add_comment.html"
+    success_url = reverse_lazy('recipe_list')
+    def form_valid(self, form):
+        form.instance.recipe_id = self.kwargs['pk']
+        return super().form_valid(form)
+
 
 
 class UploadView(View):
@@ -138,6 +151,7 @@ class EditView(generic.edit.UpdateView):
     model = Recipe
     fields = ['title', 'ingredients', 'instructions']
     template_name_suffix = '_update_view'
+
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.id})
 
@@ -149,6 +163,7 @@ def edit_recipe_view(request):
 class FavoriteRecipeList(generic.ListView):
     template_name = 'wordofmouth/favorite_recipe_list.html'
     context_object_name = 'recipe_list'
+
     def get_queryset(self):
         queryset = []
         for object in Recipe.objects.all():
