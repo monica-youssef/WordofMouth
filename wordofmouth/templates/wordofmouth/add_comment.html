@@ -1,0 +1,26 @@
+{% extends "wordofmouth/base.html" %}
+{% block content %}
+
+<html>
+
+<head>
+    <title>Word of Mouth</title>
+</head>
+
+<body>
+    <h1>Comment on A Recipe</h1>
+    <div class="form-group">
+        <form method = "POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary btn-lg" style="margin-top: 12px">Add Comment</button>
+        </form>
+        </div>
+
+    
+</body>
+
+</html>
+
+
+{% endblock content%}
