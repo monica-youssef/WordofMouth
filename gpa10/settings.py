@@ -211,8 +211,5 @@ GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
 DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'a10-word-of-mouth'
 STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-<<<<<<< HEAD
-=======
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
->>>>>>> main

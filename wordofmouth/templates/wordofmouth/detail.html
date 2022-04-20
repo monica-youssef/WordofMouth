@@ -80,46 +80,6 @@
 
     <a class="btn btn-primary btn-lg btn-block btn-dark" href = "{% url 'fork_recipe_list' recipe.id %}">View Recipe Variations</a>
     <br>
-
-
-<!-- OLD CODE
-<form action = "{% url 'like_recipe' recipe.id %}" method = "POST">
-        {% csrf_token %}
-    {% if user.is_authenticated %}
-        {% if liked %}
-            <button type="submit", name = "recipe_id", value = "{{ recipe.id}}",
-                    class ="btn btn-danger btn-sm" >UnLike</button>
-        {% else %}
-            <button type="submit", name = "recipe_id", value = "{{ recipe.id}}", class ="btn btn-primary btn-sm" >Like</button>
-        {% endif %}
-    {% else %}
-            <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Login to like this article!</a><br>
-    {% endif %}
-    - {{total_likes}} Likes
-</form>
-
-
-<form action="{% url 'rate_recipe' recipe.id %}" method="POST">
-    {% csrf_token %}
-    {% if rated %}
-        Your Rating {{ rating }}
-    {% else %}
-        <button type="submit", name = "rating", value = "1", class ="btn btn-primary btn-sm" >1s</button>
-        <button type="submit", name = "rating", value = "2", class ="btn btn-primary btn-sm" >2s</button>
-        <button type="submit", name = "rating", value = "3", class ="btn btn-primary btn-sm" >3s</button>
-        <button type="submit", name = "rating", value = "4", class ="btn btn-primary btn-sm" >4s</button>
-        <button type="submit", name = "rating", value = "5", class ="btn btn-primary btn-sm" >5s</button>
-    {% endif %}
-    - Average Rating: {{average_rating}}
-</form>
-
-<br>
-{% if user.is_authenticated and object.added_by == user%}
-    <a class="btn btn-secondary" href = 'edit' role = "button">Edit</a>
-    <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-sm">Delete</a>
-{% endif %}
-
-<<<<<<< HEAD
 <br/><br/>
 <hr>
 <h2>Comments</h2>
@@ -141,22 +101,5 @@
 {% endfor %}
 {% endif %}
 <hr>
-=======
-<br><br>
-<form action = "{% url 'fork' recipe.id %}" method = "POST">
-    {% csrf_token %}
-    {% if user.is_authenticated %}
-        <button type="submit" name = "recipe_id" value = "{{ recipe.id}}" class="btn btn-secondary">Fork</button>
-    {% else %}
-            <a class="btn btn-outline-info" href="{% provider_login_url 'google' %}">Login to fork this recipe!</a><br>
-    {% endif %}
-</form>
-    {% if recipe.parent %}
-    <a href="{% url 'detail' recipe.parent %}"><h3>Check out the original recipe! {{ recipe.parent }}</h3> </a>
-    {% endif %}
-
-<a class="nav-link" href = "{% url 'fork_recipe_list' recipe.id %}">View Recipe Variations</a> -->
->>>>>>> main
-
 {% endblock content %}
 </body>
