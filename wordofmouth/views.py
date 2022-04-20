@@ -9,11 +9,8 @@ from django.urls import reverse, reverse_lazy
 from django.conf import settings
 from .models import Recipe, UserRating
 from .models import Upload
-<<<<<<< HEAD
 from .models import Comment
-=======
 from django.shortcuts import redirect
->>>>>>> main
 
 
 def index(request):
@@ -134,8 +131,6 @@ def LikeView(request, pk):
     return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
 
-<<<<<<< HEAD
-=======
 def RateView(request, recipe_id):
     recipe = Recipe.objects.get(pk = recipe_id)
 
@@ -152,7 +147,6 @@ def RateView(request, recipe_id):
     return HttpResponseRedirect(reverse('detail', args=[str(recipe_id)]))
 
 
->>>>>>> main
 class EditView(generic.edit.UpdateView):
     model = Recipe
     fields = ['title', 'ingredients', 'instructions']
