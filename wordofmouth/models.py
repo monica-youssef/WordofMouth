@@ -6,14 +6,11 @@ storage = GoogleCloudStorage()
 from django.contrib.auth.models import User
 
 
-<<<<<<< HEAD
-=======
 class UserRating(models.Model):
     id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
->>>>>>> main
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
 
@@ -21,13 +18,7 @@ class Recipe(models.Model):
     ingredients = models.CharField(max_length=500)
     instructions = models.CharField(max_length=500)
     parent = models.CharField(max_length=500)
-<<<<<<< HEAD
-
-    added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE,
-                                 related_name='author')  # author, changed to cascade
-=======
     added_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE, related_name='author')  # author, changed to cascade
->>>>>>> main
     id = models.AutoField(primary_key=True)
     image_url = models.CharField(max_length=200)
 
