@@ -88,7 +88,9 @@
     No Comments Yet...<a href="{% url 'add_comment' recipe.id %}">
     Add One Here </a>
 {% else %}
+{% if user.is_authenticated %}
 <a href="{% url 'add_comment' recipe.id %}"> Add Comment</a>
+{% endif %}
 <br/> <br/>
 
     {% for comment in recipe.comments.all %}
