@@ -69,11 +69,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
+            <!-- <li class="nav-item">
               <a class="nav-link" href="/">Home</a>
-            </li>
+            </li> -->
             <li class="nav-item">
-              <a class="nav-link" href="/wordofmouth/recipe_list">Recipes</a>
+              <a class="nav-link" href="/wordofmouth/recipe_list">All Recipes</a>
             </li>
 
             <li class="nav-item">
@@ -102,13 +102,13 @@
               >
             </li>
             <li class="nav-item">
-              <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
+              <a href="{% url 'account_logout' %}" class="nav-link">Log out</a>
             </li>
 
             {% else %}
             <li>
               <a class="nav-link" href="{% provider_login_url 'google' %}"
-                >Login</a
+                >Log in</a
               >
             </li>
 
@@ -134,7 +134,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      {% endif %} {% block content %}{% endblock %}
+      {% endif %}
+      
+      <div class="center-container" style="margin: 1em 2em 1em 2em">
+        {% block content %}
+        {% endblock %}
+      </div>
+      
+      
       <!-- </main> -->
 
       <div class="footer-spacer"></div>
