@@ -13,7 +13,7 @@
     <p class="lead">The internet's top recipe sharing site.</p>
     <div class="container">
         <div class="col text-center">
-            <button type="button" class="btn btn-primary" href="/wordofmouth/recipe_list">View All Recipes</button>
+            <a type="button" class="btn btn-primary" href="/wordofmouth/recipe_list">View All Recipes</a>
         </div>  
     </div>
     {% if not user.is_authenticated %}
@@ -30,7 +30,7 @@
 
     <div class="container">
         <div class="col text-center">
-            <button type="button" class="btn btn-primary" href="{% url 'favorite_recipe_list' %}">View Saved Recipes</button>  
+            <a type="button" class="btn btn-primary" href="{% url 'favorite_recipe_list' %}">View Saved Recipes</a>  
         </div>
     </div>
 
@@ -38,7 +38,7 @@
 
     <div class="container">
         <div class="col text-center">
-            <button type="button" class="btn btn-success" href="/wordofmouth">Create a Recipe</button>    
+            <a type="button" class="btn btn-success" href="/wordofmouth">Create a Recipe</a>    
         </div>
     </div>
 
