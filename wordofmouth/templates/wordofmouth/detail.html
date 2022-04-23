@@ -48,6 +48,7 @@
         <!-- Rating Buttons -->
         <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
             {% csrf_token %}
+            {% if user.is_authenticated %}
             {% if rated %}
                 Your Rating {{ rating }}
             {% else %}
@@ -57,7 +58,8 @@
                 <button type="submit", name = "rating", value = "4", class ="btn btn-primary btn-sm" >4s</button>
                 <button type="submit", name = "rating", value = "5", class ="btn btn-primary btn-sm" >5s</button>
             {% endif %}
-            - Average Rating: {{average_rating}}
+            {% endif %}
+            Average Rating: {{average_rating}}
         </form>
     </center>
     <br>
