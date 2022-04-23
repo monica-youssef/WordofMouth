@@ -7,11 +7,13 @@
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
+            color: red;
         }
         .recipe-card {
             margin-top: 8px;
             margin-bottom: 8px;
             background: white;
+            text-decoration: none;
         }
         .recipe-card:hover {
             background-color: #f5f5f5;
@@ -23,6 +25,24 @@
             border: 1px solid #f5f5f5;
             margin: 20px 20px 20px 20px;
             background-color: white;
+        }
+        .star-ratings {
+            max-height: 18px;
+        }
+        .card-text {
+            text-decoration: none;
+            color: black;
+        }
+        .card-text:hover {
+            text-decoration: none;
+            color: black;
+        }
+        .card-title {
+            margin-bottom: 0;
+        }
+        .card-subtitle {
+            margin-top: 4px;
+            margin-bottom: 4px;
         }
     </style>
 </head>
@@ -37,7 +57,7 @@
         <div class="row text-center">
         {% endif %}
         <div class="col-md-4">
-            <a style="background-color: blue" href="{% url 'detail' recipe.id %}">
+            <a class="card-text" href="{% url 'detail' recipe.id %}">
                 <div class="recipe-card card">
                     <div class="card-content" style="cursor: pointer">
                         <br />
@@ -46,21 +66,21 @@
                         src="{{ recipe.image_url }}"
                         alt="Recipe URL"
                         />
-                        <h3>{{ recipe.title }}</h3>
+                        <h3 class="card-title">{{ recipe.title }}</h3>
                         {%if recipe.rating > 4.5 %}
-                            <img src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">
+                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">
                         {% elif recipe.rating > 3.5 %}
-                            <img src="{% static 'wordofmouth/images/avg-4s.png' %}" alt="My image">
+                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-4s.png' %}" alt="My image">
                         {% elif recipe.rating > 2.5 %}
-                            <img src="{% static 'wordofmouth/images/avg-3s.png' %}" alt="My image">
+                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-3s.png' %}" alt="My image">
                         {% elif recipe.rating > 1.5 %}
-                            <img src="{% static 'wordofmouth/images/avg-2s.png' %}" alt="My image">
-                        {% elif recipe.rating > 0.5 %}
-                            <img src="{% static 'wordofmouth/images/avg-1s.png' %}" alt="My image">
+                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-2s.png' %}" alt="My image">
+                        {% elif recipe.rating > 0.0 %}
+                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-1s.png' %}" alt="My image">
                         {% else %}
-                            <p>No ratings yet</p>
+                            <i style="color: gray">No ratings</i>
                         {% endif %}
-                        <p>by {{ recipe.added_by }}</p>
+                        <p class="card-subtitle">by {{ recipe.added_by }}</p>
                         
                     </div>
                 </div>
