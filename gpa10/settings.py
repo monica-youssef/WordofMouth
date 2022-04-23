@@ -165,7 +165,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # django_heroku.settings(locals())
 
 # added lines below for google login
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# FIXME: I don't think these static files are going to show
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+                os.path.join(BASE_DIR,'wordofmouth/static/'), # if your static files folder is named "staticfiles"
+)
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTHENTICATION_BACKENDS = [
