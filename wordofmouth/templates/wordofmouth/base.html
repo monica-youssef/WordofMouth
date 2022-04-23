@@ -1,6 +1,4 @@
-{% load static %}
-
-{% load socialaccount %}
+{% load static %} {% load socialaccount %}
 
 <!DOCTYPE html>
 
@@ -15,16 +13,28 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Word of Mouth</title>
-    
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link
       rel="stylesheet"
@@ -32,10 +42,17 @@
       integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
       crossorigin="anonymous"
     />
-   
- 
   </head>
-  <body onload="buttons()" class="mybody" style="position:relative; padding-bottom:58px; min-height:100vh; padding-bottom:225px;">
+  <body
+    onload="buttons()"
+    class="mybody"
+    style="
+      position: relative;
+      padding-bottom: 58px;
+      min-height: 100vh;
+      padding-bottom: 225px;
+    "
+  >
     <div id="my-body-content">
       <nav class="navbar navbar-expand-md navbar-dark relative-top bg-dark">
         <a class="navbar-brand" href="/">Word of Mouth</a>
@@ -53,67 +70,86 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href ="/" >Home</a>
-              
+              <a class="nav-link" href="/">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href ="/wordofmouth/recipe_list">Recipes</a>
+              <a class="nav-link" href="/wordofmouth/recipe_list">Recipes</a>
             </li>
 
             <li class="nav-item">
               <a class="nav-link" href="/wordofmouth">Create Recipe</a>
             </li>
             {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href ="/wordofmouth/user_recipe_list">My Recipes</a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/wordofmouth/user_recipe_list"
+                >My Recipes</a
+              >
+            </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href = "{% url 'favorite_recipe_list' %}" >Saved Recipes</a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'favorite_recipe_list' %}"
+                >Saved Recipes</a
+              >
+            </li>
             {% endif %}
-            
           </ul>
 
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="" class="nav-link">Hi, {{ user.username }}</a>
-              </li>
-              <li class="nav-item">
-                <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
-              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="" class="nav-link"
+                >Hi, {{ user.username }}</a
+              >
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
+            </li>
 
             {% else %}
-              <li>
-                <a class="nav-link" href="{% provider_login_url 'google' %}">Login</a>
-              </li>
+            <li>
+              <a class="nav-link" href="{% provider_login_url 'google' %}"
+                >Login</a
+              >
+            </li>
 
             {% endif %}
-            
           </ul>
           <div id="user-buttons" class="navbar-nav"></div>
         </div>
       </nav>
       <!-- <main role="main" class="container" style="margin: 0;padding: 0;"> -->
-        {% if alert %}
-        <div class="alert alert-primary alert-dismissible fade show mt-3" role="alert" style="width: 60%; margin: auto auto;">
-          {{ alert }}
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        {% endif %}
-      {% block content %}{% endblock %}
+      {% if alert %}
+      <div
+        class="alert alert-primary alert-dismissible fade show mt-3"
+        role="alert"
+        style="width: 60%; margin: auto auto"
+      >
+        {{ alert }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {% endif %} {% block content %}{% endblock %}
       <!-- </main> -->
 
       <div class="footer-spacer"></div>
       <!-- Footer -->
-      <footer class="page-footer font-small blue pt-4 bg-dark my-sticky-footer" style="position:absolute; bottom: 0; width:100%; height:225px">
+      <footer
+        class="page-footer font-small blue pt-4 bg-dark my-sticky-footer"
+        style="position: absolute; bottom: 0; width: 100%; height: 225px"
+      >
         <!-- Footer Links -->
         <div class="container-fluid text-center text-md-left">
           <!-- Grid row -->
-          <div class="row justify-content-between" style="margin-left: 15vw; margin-right: 15vw;">
+          <div
+            class="row justify-content-between"
+            style="margin-left: 15vw; margin-right: 15vw"
+          >
             <!-- Grid column -->
             <div class="col-md-auto mt-md-0 mt-3">
               <!-- Content -->
@@ -155,15 +191,21 @@
                 </li>
                 <li>
                   <i class="fab fa-facebook-f text-light"></i> &nbsp;&nbsp;
-                  <a href="https://www.facebook.com/" class="text-light">Facebook</a>
+                  <a href="https://www.facebook.com/" class="text-light"
+                    >Facebook</a
+                  >
                 </li>
                 <li>
                   <i class="fab fa-instagram text-light"></i> &nbsp;
-                  <a href="https://www.instagram.com/" class="text-light">Instagram</a>
+                  <a href="https://www.instagram.com/" class="text-light"
+                    >Instagram</a
+                  >
                 </li>
                 <li>
                   <i class="fab fa-pinterest-p text-light"></i> &nbsp;
-                  <a href="https://www.pinterest.com/" class="text-light">Pinterest</a>
+                  <a href="https://www.pinterest.com/" class="text-light"
+                    >Pinterest</a
+                  >
                 </li>
               </ul>
             </div>
@@ -176,13 +218,13 @@
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3 text-light">
           © 2022 Copyright,
-          <a href="https://cs3240.cs.virginia.edu/" class="text-light">UVA CS 3240 Spring 2022</a>
+          <a href="https://cs3240.cs.virginia.edu/" class="text-light"
+            >UVA CS 3240 Spring 2022</a
+          >
         </div>
         <!-- Copyright -->
       </footer>
       <!-- Footer -->
-     
-
     </div>
   </body>
 </html>
