@@ -1,13 +1,27 @@
 {% extends "wordofmouth/base.html" %} {% block content %} {% load static %}
 <head>
     <style>
+        .a-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .recipe-card {
+            margin-top: 8px;
+            margin-bottom: 8px;
+            background: white;
+        }
         .recipe-card:hover {
             background-color: #f5f5f5;
         }
         .recipe-image {
-            height: 207px;
-            padding: 20px 20px 20px 20px;
+            max-height: 207px;
+            background-size: cover;
+            max-width: 80%;
             border: 1px solid #f5f5f5;
+            margin: 20px 20px 20px 20px;
             background-color: white;
         }
     </style>
@@ -23,20 +37,33 @@
         <div class="row text-center">
         {% endif %}
         <div class="col-md-4">
-            <a href="{% url 'detail' recipe.id %}"></a>
-            <div class="recipe-card card">
-            <div class="card-content" style="cursor: pointer">
-                <br />
-                <img
-                class="recipe-image"
-                src="{{ recipe.image_url }}"
-                alt="Recipe URL"
-                />
-                <h3>{{ recipe.title }}</h3>
-                
-                <p>by {{ recipe.added_by }}</p>
-            </div>
-            </div>
+            <a style="background-color: blue" href="{% url 'detail' recipe.id %}">
+                <div class="recipe-card card">
+                    <div class="card-content" style="cursor: pointer">
+                        <br />
+                        <img
+                        class="recipe-image"
+                        src="{{ recipe.image_url }}"
+                        alt="Recipe URL"
+                        />
+                        <h3>{{ recipe.title }}</h3>
+                        {%if recipe.rating > 4.5 %}
+                            <img src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">
+                        {% elif recipe.rating > 3.5 %}
+                            <img src="{% static 'wordofmouth/images/avg-4s.png' %}" alt="My image">
+                        {% elif recipe.rating > 2.5 %}
+                            <img src="{% static 'wordofmouth/images/avg-3s.png' %}" alt="My image">
+                        {% elif recipe.rating > 1.5 %}
+                            <img src="{% static 'wordofmouth/images/avg-2s.png' %}" alt="My image">
+                        {% elif recipe.rating > 0.5 %}
+                            <img src="{% static 'wordofmouth/images/avg-1s.png' %}" alt="My image">
+                        {% else %}
+                            <p>No ratings yet</p>
+                        {% endif %}
+                        <p>by {{ recipe.added_by }}</p>
+                        
+                    </div>
+                </div>
             </a>
         </div>
         {% if forloop.counter|divisibleby:3 or forloop.last %}
