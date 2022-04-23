@@ -1,49 +1,39 @@
-{% extends "wordofmouth/base.html" %}
-{% block content %}
+{% extends "wordofmouth/base.html" %} {% block content %}
 <div>
-    <h1 style="text-align: center">All Recipes</h1>
-    <hr>
-    <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
-    <div class="container">
-            {%  for recipe in recipe_list  %}
-                {% if forloop.counter0|divisibleby:3 %} <div class="row text-center"> {%  endif %}
-                  <div class="col-md-4"  style="cursor: pointer">
-                      <div class="card">
-                          <div class="card-content">
-                              <br>
-                              <img src="{{ recipe.image_url }}" alt="Recipe URL" height="207" aligh="middle" style=”padding: 20px 20px 20px 20px”>
-                              <a href="{% url 'detail' recipe.id %}">
-                                  <h3>{{ recipe.title }}</h3> </a>
-                               <p> by {{ recipe.added_by }}</p>
-
-                          </div><!-- card content -->
-                      </div><!-- card -->
-                  </div><!-- col-md-4 -->
-            {%  if forloop.counter|divisibleby:3 or forloop.last %}
-            </div>
-            <br>
-            {%  endif %}
-            {%  endfor %}
-         </div><!-- container -->
-
-
-
-    <!-- OLD STUFF
-    {% if recipe_list %}
-        <div>
-            {% for recipe in recipe_list %}
-            <div style="padding-bottom: 18; padding-top: 18" >
-                <a href="{% url 'detail' recipe.id %}">
-                    <h5>{{ recipe.title }} by {{ recipe.added_by }}</h5>
-		             <img src="{{ recipe.image_url }}" alt="Recipe URL" width="107">
-                </a>
-            </div>
-
-            {% endfor %}
+  <h1 style="text-align: center">All Recipes</h1>
+  <hr />
+  <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
+  <div class="container">
+    {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}
+    <div class="row text-center">
+      {% endif %}
+      <div class="col-md-4" style="cursor: pointer">
+        <div class="card">
+          <div class="card-content">
+            <br />
+            <img
+              src="{{ recipe.image_url }}"
+              alt="Recipe URL"
+              height="207"
+              align="center"
+              style="”padding: "
+              20px
+              20px
+              20px
+              20px”
+            />
+            <a href="{% url 'detail' recipe.id %}">
+              <h3>{{ recipe.title }}</h3>
+            </a>
+            <p>by {{ recipe.added_by }}</p>
+          </div>
         </div>
-    {% else %}
-        <p>No recipes are available.</p>
-    {% endif %} -->
+      </div>
+      {% if forloop.counter|divisibleby:3 or forloop.last %}
+    </div>
+    <br />
+    {% endif %} {% endfor %}
+  </div>
 </div>
 
 {% endblock content%}

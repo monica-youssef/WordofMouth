@@ -1,109 +1,185 @@
-{% extends "wordofmouth/base.html" %}
-{% block content %}
-{% load static %}
-
-{% load socialaccount %}
-{% csrf_token %}
+{% extends "wordofmouth/base.html" %} {% block content %} {% load static %} {%
+load socialaccount %} {% csrf_token %}
 
 <body>
-    <h1 style="text-align: center">{{ recipe.title }}</h1>
-    <hr>
+  <h1 style="text-align: center">{{ recipe.title }}</h1>
+  <hr />
 
-    <div class="text-right mb-3">
-        <div class="btn-group text-right" role="group" aria-label="Button group example">
-            <!-- Save Button -->
-            <form action = "{% url 'like_recipe' recipe.id %}" method = "POST">
-                {% csrf_token %}
-                {% if user.is_authenticated %}
-                    {% if liked %}
-                        <button type="submit" class="btn btn-primary btn-dark" name = "recipe_id" value = "{{ recipe.id}}">Unsave</button>
-                    {% else %}
-                        <button type="submit" class="btn btn-primary btn-dark" name = "recipe_id" value = "{{ recipe.id}}">Save</button>
-                    {% endif %}
-                {% endif %}
-            </form>
+  <div class="text-right mb-3">
+    <div
+      class="btn-group text-right"
+      role="group"
+      aria-label="Button group example"
+    >
+      <!-- Save Button -->
+      <form action="{% url 'like_recipe' recipe.id %}" method="POST">
+        {% csrf_token %} {% if user.is_authenticated %} {% if liked %}
+        <button
+          type="submit"
+          class="btn btn-primary btn-dark"
+          name="recipe_id"
+          value="{{ recipe.id}}"
+        >
+          Unsave
+        </button>
+        {% else %}
+        <button
+          type="submit"
+          class="btn btn-primary btn-dark"
+          name="recipe_id"
+          value="{{ recipe.id}}"
+        >
+          Save
+        </button>
+        {% endif %} {% endif %}
+      </form>
 
-            <!-- Fork Buttons -->
-            <form action = "{% url 'fork' recipe.id %}" method = "POST">
-                {% csrf_token %}
-                {% if user.is_authenticated %}
-                    <button type="submit" name = "recipe_id" value = "{{ recipe.id}}" class="btn btn-primary btn-dark">Fork</button>
-                {% endif %}
-            </form>
+      <!-- Fork Buttons -->
+      <form action="{% url 'fork' recipe.id %}" method="POST">
+        {% csrf_token %} {% if user.is_authenticated %}
+        <button
+          type="submit"
+          name="recipe_id"
+          value="{{ recipe.id}}"
+          class="btn btn-primary btn-dark"
+        >
+          Fork
+        </button>
+        {% endif %}
+      </form>
 
-            <!-- Edit/Delete Buttons -->
-            {% if user.is_authenticated and object.added_by == user%}
-                <a class="btn btn-primary btn-dark" href = 'edit' role = "button">Edit</a>
-                <a href = "{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary">Delete</a>
-            {% endif %}
-        </div>
+      <!-- Edit/Delete Buttons -->
+      {% if user.is_authenticated and object.added_by == user%}
+      <a class="btn btn-primary btn-dark" href="edit" role="button">Edit</a>
+      <a href="{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary"
+        >Delete</a
+      >
+      {% endif %}
     </div>
+  </div>
 
-    <br>
+  <br />
 
+  <center>
+    <img
+      src="{{ recipe.image_url }}"
+      alt="{{ recipe.image_url }}"
+      height="200"
+    />
+    <!-- Rating Buttons -->
+    <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
+      {% csrf_token %} {% if user.is_authenticated %} {% if rated %} Your Rating
+      {{ rating }} {% else %}
+      <button
+        type="submit"
+        ,
+        name="rating"
+        ,
+        value="1"
+        ,
+        class="btn btn-primary btn-sm"
+      >
+        1s
+      </button>
+      <button
+        type="submit"
+        ,
+        name="rating"
+        ,
+        value="2"
+        ,
+        class="btn btn-primary btn-sm"
+      >
+        2s
+      </button>
+      <button
+        type="submit"
+        ,
+        name="rating"
+        ,
+        value="3"
+        ,
+        class="btn btn-primary btn-sm"
+      >
+        3s
+      </button>
+      <button
+        type="submit"
+        ,
+        name="rating"
+        ,
+        value="4"
+        ,
+        class="btn btn-primary btn-sm"
+      >
+        4s
+      </button>
+      <button
+        type="submit"
+        ,
+        name="rating"
+        ,
+        value="5"
+        ,
+        class="btn btn-primary btn-sm"
+      >
+        5s
+      </button>
+      {% endif %} {% endif %} Average Rating: {{average_rating}}
+    </form>
+  </center>
+  <br />
+  <br />
+  {% if error_message %}
+  <p><strong>{{ error_message }}</strong></p>
+  {% endif %}
+  <div>
+    {{ recipe.ingredients }}
+    <br />
+    <br />
+    {{ recipe.instructions }}
+    <br />
+    <br />
+  </div>
 
+  <br />
 
-    <center>
-        <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}" height="200">
-        <!-- Rating Buttons -->
-        <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
-            {% csrf_token %}
-            {% if user.is_authenticated %}
-            {% if rated %}
-                Your Rating {{ rating }}
-            {% else %}
-                <button type="submit", name = "rating", value = "1", class ="btn btn-primary btn-sm" >1s</button>
-                <button type="submit", name = "rating", value = "2", class ="btn btn-primary btn-sm" >2s</button>
-                <button type="submit", name = "rating", value = "3", class ="btn btn-primary btn-sm" >3s</button>
-                <button type="submit", name = "rating", value = "4", class ="btn btn-primary btn-sm" >4s</button>
-                <button type="submit", name = "rating", value = "5", class ="btn btn-primary btn-sm" >5s</button>
-            {% endif %}
-            {% endif %}
-            Average Rating: {{average_rating}}
-        </form>
-    </center>
-    <br>
-    <br>
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
-    <div>
-        {{ recipe.ingredients }}
-	<br>
-	<br>
-	{{ recipe.instructions }}
-	<br>
-	<br>
-    </div>
+  {% if recipe.parent %}
+  <a
+    href="{% url 'detail' recipe.parent %}"
+    class="btn btn-primary btn-lg btn-block btn-dark"
+    >Original Recipe</a
+  >
+  {% endif %}
 
-    <br>
+  <a
+    class="btn btn-primary btn-lg btn-block btn-dark"
+    href="{% url 'fork_recipe_list' recipe.id %}"
+    >View Recipe Variations</a
+  >
+  <br />
+  <br /><br />
+  <hr />
+  <h2>Comments</h2>
+  <br />
+  {% if not recipe.comments.all %} No Comments Yet...<a
+    href="{% url 'add_comment' recipe.id %}"
+  >
+    Add One Here
+  </a>
+  {% else %} {% if user.is_authenticated %}
+  <a href="{% url 'add_comment' recipe.id %}"> Add Comment</a>
+  {% endif %}
+  <br />
+  <br />
 
-    {% if recipe.parent %}
-        <a href="{% url 'detail' recipe.parent %}" class="btn btn-primary btn-lg btn-block btn-dark">Original Recipe</a>
-    {% endif %}
+  {% for comment in recipe.comments.all %}
+  <strong> {{ comment.name }} - {{ comment.date_added }} </strong>
+  <br />
+  {{ comment.body }}
+  <br /><br />
 
-    <a class="btn btn-primary btn-lg btn-block btn-dark" href = "{% url 'fork_recipe_list' recipe.id %}">View Recipe Variations</a>
-    <br>
-<br/><br/>
-<hr>
-<h2>Comments</h2>
-<br/>
-{% if not recipe.comments.all %}
-    No Comments Yet...<a href="{% url 'add_comment' recipe.id %}">
-    Add One Here </a>
-{% else %}
-{% if user.is_authenticated %}
-<a href="{% url 'add_comment' recipe.id %}"> Add Comment</a>
-{% endif %}
-<br/> <br/>
-
-    {% for comment in recipe.comments.all %}
-        <strong> {{ comment.name }} -
-           {{ comment.date_added }} </strong>
-                 <br/>
-                 {{ comment.body }}
-<br/><br/>
-
-{% endfor %}
-{% endif %}
-<hr>
-{% endblock content %}
+  {% endfor %} {% endif %}
+  <hr />
+  {% endblock content %}
 </body>
