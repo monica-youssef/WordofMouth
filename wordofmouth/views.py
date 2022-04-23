@@ -40,7 +40,10 @@ class DetailView(generic.DetailView):
             liked = True
 
         rating = 0.0
-        if post_id.ratings.filter(user=self.request.user).exists():
+
+        print("self.request.user.id: ", self.request.user.id)
+
+        if not self.request.user.is_anonymous and post_id.ratings.filter(user=self.request.user).exists():
             rating = post_id.ratings.filter(user=self.request.user).first().rating
 
         context["rated"] = rating != 0.0
