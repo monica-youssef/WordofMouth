@@ -43,6 +43,35 @@
       integrity="sha256-+N4/V/SbAFiW1MPBCXnfnP9QSN3+Keu+NlB+0ev/YKQ="
       crossorigin="anonymous"
     />
+
+    <style>
+      .navbar {
+        font-weight: 300;
+      }
+      .nav-link {
+        color: white!important;
+      }
+      .navbar a {
+        color: white!important;
+      }
+      .navbar a:hover {
+        color: lightgray!important;
+      }
+      .navbar-brand {
+        background: linear-gradient(to right, #d5d5d5, #ffffff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 900;
+        text-decoration: none;
+      }
+      .footer-copyright {
+        color: lightgray!important;
+        font-weight: 300;
+        margin-bottom: 10px;
+        padding-top: 0px!important;
+      }
+    </style>
+
   </head>
   <body
     onload="buttons()"
@@ -148,87 +177,15 @@
       <div class="footer-spacer"></div>
       <!-- Footer -->
       <footer
-        class="page-footer font-small blue pt-4 bg-dark my-sticky-footer"
-        style="position: absolute; bottom: 0; width: 100%; height: 225px"
+        class="page-footer font-small pt-4 my-sticky-footer"
+        style="position: absolute; bottom: 0; width: 100%;"
       >
-        <!-- Footer Links -->
-        <div class="container-fluid text-center text-md-left">
-          <!-- Grid row -->
-          <div
-            class="row justify-content-between"
-            style="margin-left: 15vw; margin-right: 15vw"
-          >
-            <!-- Grid column -->
-            <div class="col-md-auto mt-md-0 mt-3">
-              <!-- Content -->
-              <h5 class="text-uppercase text-light">Word of Mouth</h5>
-              <p class="text-light">Recipes made easy</p>
-            </div>
-            <!-- Grid column -->
-
-            <hr class="clearfix w-100 d-md-none pb-3" />
-
-            <!-- Grid column -->
-            <div class="col-md-auto mb-md-0 mb-3">
-              <!-- Links -->
-              <h5 class="text-uppercase text-light">Contact us</h5>
-
-              <ul class="list-unstyled">
-                <li>
-                  <a class="text-light">Support</a>
-                </li>
-                <li>
-                  <a class="text-light">Send Feedback</a>
-                </li>
-                <li>
-                  <a class="text-light">Report a bug</a>
-                </li>
-              </ul>
-            </div>
-            <!-- Grid column -->
-
-            <!-- Grid column -->
-            <div class="col-md-auto mb-md-0 mb-3">
-              <!-- Links -->
-              <h5 class="text-uppercase text-light">Connect</h5>
-
-              <ul class="list-unstyled">
-                <li>
-                  <i class="fab fa-twitter text-light"></i>&nbsp;
-                  <a href="https://twitter.com/" class="text-light">Twitter</a>
-                </li>
-                <li>
-                  <i class="fab fa-facebook-f text-light"></i> &nbsp;&nbsp;
-                  <a href="https://www.facebook.com/" class="text-light"
-                    >Facebook</a
-                  >
-                </li>
-                <li>
-                  <i class="fab fa-instagram text-light"></i> &nbsp;
-                  <a href="https://www.instagram.com/" class="text-light"
-                    >Instagram</a
-                  >
-                </li>
-                <li>
-                  <i class="fab fa-pinterest-p text-light"></i> &nbsp;
-                  <a href="https://www.pinterest.com/" class="text-light"
-                    >Pinterest</a
-                  >
-                </li>
-              </ul>
-            </div>
-            <!-- Grid column -->
-          </div>
-          <!-- Grid row -->
-        </div>
-        <!-- Footer Links -->
 
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3 text-light">
           © 2022 Copyright,
-          <a href="https://cs3240.cs.virginia.edu/" class="text-light"
-            >UVA CS 3240 Spring 2022</a
-          >
+          <a style="color: lightgray; font-weight: 300" href="https://cs3240.cs.virginia.edu/"
+            >UVA CS3240 Group A-10</a>
         </div>
         <!-- Copyright -->
       </footer>
