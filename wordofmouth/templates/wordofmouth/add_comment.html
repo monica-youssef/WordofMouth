@@ -13,7 +13,9 @@
         <form method = "POST">
         {% csrf_token %}
         {{ form.as_p }}
+        {% if user.is_authenticated %}
         <button class="btn btn-primary btn-lg" style="margin-top: 12px">Add Comment</button>
+        {% endif %}
         </form>
         </div>
 
