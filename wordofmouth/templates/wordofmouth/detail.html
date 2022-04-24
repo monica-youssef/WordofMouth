@@ -1,5 +1,8 @@
-{% extends "wordofmouth/base.html" %} {% block content %} {% load static %} {%
-load socialaccount %} {% csrf_token %}
+{% extends "wordofmouth/base.html" %}
+{% block content %}
+{% load static %}
+{% load socialaccount %}
+{% csrf_token %}
 
 <body>
   <h1 style="text-align: center">{{ recipe.title }}</h1>
