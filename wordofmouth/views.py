@@ -196,7 +196,7 @@ class ForkRecipeList(generic.ListView):
     def get_queryset(self):
         queryset = []
         for thing in Recipe.objects.all():
-            if thing.parent:
+            if thing.parent != 'new food' and thing.parent != '':
                 if int(thing.parent) == int(self.kwargs.get('pk')):
                     queryset.append(thing)
         return queryset
