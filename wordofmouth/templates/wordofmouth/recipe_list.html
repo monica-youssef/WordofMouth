@@ -7,7 +7,6 @@
             flex-wrap: wrap;
             justify-content: space-around;
             align-items: center;
-            color: red;
         }
         .recipe-card {
             margin-top: 8px;
@@ -52,45 +51,45 @@
         <h1 class="display-4">All Recipes</h1>
         <p class="lead">Recipes posted by Word of Mouth users.</p>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
-    <div class="container">
-        {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}
-        <div class="row text-center">
-        {% endif %}
-        <div class="col-md-4">
-            <a class="card-text" href="{% url 'detail' recipe.id %}">
-                <div class="recipe-card card">
-                    <div class="card-content" style="cursor: pointer">
-                        <br />
-                        <img
-                        class="recipe-image"
-                        src="{{ recipe.image_url }}"
-                        alt="Recipe URL"
-                        />
-                        <h3 class="card-title">{{ recipe.title }}</h3>
-                        {%if recipe.rating > 4.5 %}
-                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">
-                        {% elif recipe.rating > 3.5 %}
-                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-4s.png' %}" alt="My image">
-                        {% elif recipe.rating > 2.5 %}
-                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-3s.png' %}" alt="My image">
-                        {% elif recipe.rating > 1.5 %}
-                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-2s.png' %}" alt="My image">
-                        {% elif recipe.rating > 0.0 %}
-                            <img class="star-ratings" src="{% static 'wordofmouth/images/avg-1s.png' %}" alt="My image">
-                        {% else %}
-                            <i style="color: gray">No ratings</i>
-                        {% endif %}
-                        <p class="card-subtitle">by {{ recipe.added_by }}</p>
-                        
+        <div class="container">
+            {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}
+            <div class="row text-center">
+            {% endif %}
+            <div class="col-md-4">
+                <a class="card-text" href="{% url 'detail' recipe.id %}">
+                    <div class="recipe-card card">
+                        <div class="card-content" style="cursor: pointer">
+                            <br />
+                            <img
+                            class="recipe-image"
+                            src="{{ recipe.image_url }}"
+                            alt="Recipe Image"
+                            />
+                            <h3 class="card-title">{{ recipe.title }}</h3>
+                            {%if recipe.average_rating > 4.5 %}
+                                <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">
+                            {% elif recipe.average_rating > 3.5 %}
+                                <img class="star-ratings" src="{% static 'wordofmouth/images/avg-4s.png' %}" alt="My image">
+                            {% elif recipe.average_rating > 2.5 %}
+                                <img class="star-ratings" src="{% static 'wordofmouth/images/avg-3s.png' %}" alt="My image">
+                            {% elif recipe.average_rating > 1.5 %}
+                                <img class="star-ratings" src="{% static 'wordofmouth/images/avg-2s.png' %}" alt="My image">
+                            {% elif recipe.average_rating > 0.0 %}
+                                <img class="star-ratings" src="{% static 'wordofmouth/images/avg-1s.png' %}" alt="My image">
+                            {% else %}
+                                <i style="color: gray">No ratings</i>
+                            {% endif %}
+                            <p class="card-subtitle">by {{ recipe.added_by }}</p>
+                            
+                        </div>
                     </div>
-                </div>
-            </a>
+                </a>
+            </div>
+            {% if forloop.counter|divisibleby:3 or forloop.last %}
+            </div>
+            <br />
+            {% endif %} {% endfor %}
         </div>
-        {% if forloop.counter|divisibleby:3 or forloop.last %}
-        </div>
-        <br />
-        {% endif %} {% endfor %}
-    </div>
     </div>
 </body>
 
