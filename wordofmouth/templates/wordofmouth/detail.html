@@ -1,67 +1,27 @@
-{% extends "wordofmouth/base.html" %}
-{% block content %}
-{% load static %}
-{% load socialaccount %}
-{% csrf_token %}
+{% extends "wordofmouth/base.html" %} {% block content %} {% load static %}
+{%load socialaccount %} {% csrf_token %}
+
+<head>
+  <style>
+    .star-ratings {
+      max-height: 24px;
+    }
+    button {
+      background-color: transparent;
+      border: none;
+    }
+    .star {
+      opacity: 0.4;
+    }
+    .star:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
 
 <body>
-  <h1 style="text-align: center">{{ recipe.title }}</h1>
-  <hr />
-
-  <div class="text-right mb-3">
-    <div
-      class="btn-group text-right"
-      role="group"
-      aria-label="Button group example"
-    >
-      <!-- Save Button -->
-      <form action="{% url 'like_recipe' recipe.id %}" method="POST">
-        {% csrf_token %} {% if user.is_authenticated %} {% if liked %}
-        <button
-          type="submit"
-          class="btn btn-primary btn-dark"
-          name="recipe_id"
-          value="{{ recipe.id}}"
-        >
-          Unsave
-        </button>
-        {% else %}
-        <button
-          type="submit"
-          class="btn btn-primary btn-dark"
-          name="recipe_id"
-          value="{{ recipe.id}}"
-        >
-          Save
-        </button>
-        {% endif %} {% endif %}
-      </form>
-
-      <!-- Fork Buttons -->
-      <form action="{% url 'fork' recipe.id %}" method="POST">
-        {% csrf_token %} {% if user.is_authenticated %}
-        <button
-          type="submit"
-          name="recipe_id"
-          value="{{ recipe.id}}"
-          class="btn btn-primary btn-dark"
-        >
-          Fork
-        </button>
-        {% endif %}
-      </form>
-
-      <!-- Edit/Delete Buttons -->
-      {% if user.is_authenticated and object.added_by == user%}
-      <a class="btn btn-primary btn-dark" href="edit" role="button">Edit</a>
-      <a href="{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary"
-        >Delete</a
-      >
-      {% endif %}
-    </div>
-  </div>
-
-  <br />
+  <h1 class="display-4" style="text-align: center">{{recipe.title}}</h1>
+  <p class="lead" style="text-align: center">by {{recipe.added_by}}</p>
 
   <center>
     <img
@@ -69,80 +29,68 @@
       alt="{{ recipe.image_url }}"
       height="200"
     />
-    <!-- Rating Buttons -->
-    <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
-      {% csrf_token %} {% if user.is_authenticated %} {% if rated %} Your Rating
-      {{ rating }} {% else %}
-      <button
-        type="submit"
-        ,
-        name="rating"
-        ,
-        value="1"
-        ,
-        class="btn btn-primary btn-sm"
-      >
-        1s
-      </button>
-      <button
-        type="submit"
-        ,
-        name="rating"
-        ,
-        value="2"
-        ,
-        class="btn btn-primary btn-sm"
-      >
-        2s
-      </button>
-      <button
-        type="submit"
-        ,
-        name="rating"
-        ,
-        value="3"
-        ,
-        class="btn btn-primary btn-sm"
-      >
-        3s
-      </button>
-      <button
-        type="submit"
-        ,
-        name="rating"
-        ,
-        value="4"
-        ,
-        class="btn btn-primary btn-sm"
-      >
-        4s
-      </button>
-      <button
-        type="submit"
-        ,
-        name="rating"
-        ,
-        value="5"
-        ,
-        class="btn btn-primary btn-sm"
-      >
-        5s
-      </button>
-      {% endif %} {% endif %} Average Rating: {{average_rating}}
-    </form>
   </center>
+
   <br />
+  <div style="text-align: center"></div>
   <br />
   {% if error_message %}
   <p><strong>{{ error_message }}</strong></p>
   {% endif %}
   <div>
-    {{ recipe.ingredients }}
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Ratings:</p>
+
+      {%if recipe.average_rating > 4.5 %}
+      <img
+        class="star-ratings"
+        src="{% static 'wordofmouth/images/avg-5s.png' %}"
+        alt="My image"
+      />
+      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
+      {% elif recipe.average_rating > 3.5 %}
+      <img
+        class="star-ratings"
+        src="{% static 'wordofmouth/images/avg-4s.png' %}"
+        alt="My image"
+      />
+      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
+      {% elif recipe.average_rating > 2.5 %}
+      <img
+        class="star-ratings"
+        src="{% static 'wordofmouth/images/avg-3s.png' %}"
+        alt="My image"
+      />
+      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
+      {% elif recipe.average_rating > 1.5 %}
+      <img
+        class="star-ratings"
+        src="{% static 'wordofmouth/images/avg-2s.png' %}"
+        alt="My image"
+      />
+      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
+
+      {% elif recipe.average_rating > 0.0 %}
+      <img
+        class="star-ratings"
+        src="{% static 'wordofmouth/images/avg-1s.png' %}"
+        alt="My image"
+      />
+      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
+      {% else %}
+      <i class="lead" style="margin-left: 10px">No Ratings</i>
+      {% endif %}
+    </div>
     <br />
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Ingredients:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.ingredients }}</p>
+    </div>
     <br />
-    {{ recipe.instructions }}
-    <br />
-    <br />
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Instructions:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.instructions }}</p>
+    </div>
   </div>
 
   <br />
@@ -155,14 +103,117 @@
   >
   {% endif %}
 
-  <a
-    class="btn btn-primary btn-lg btn-block btn-dark"
-    href="{% url 'fork_recipe_list' recipe.id %}"
-    >View Recipe Variations</a
-  >
+  <div class="row">
+    <a
+      class="btn btn-primary btn-dark"
+      href="{% url 'fork_recipe_list' recipe.id %}"
+      >View Recipe Variations</a
+    >
+
+    <!-- Save Button -->
+  <form action="{% url 'like_recipe' recipe.id %}" method="POST">
+    {% csrf_token %} {% if user.is_authenticated %} {% if liked %}
+    <button
+      type="submit"
+      class="btn btn-primary btn-dark"
+      name="recipe_id"
+      value="{{ recipe.id}}"
+    >
+      Unsave Recipe
+    </button>
+    {% else %}
+    <button
+      type="submit"
+      class="btn btn-primary btn-dark"
+      name="recipe_id"
+      value="{{ recipe.id}}"
+    >
+      Save Recipe
+    </button>
+    {% endif %} {% endif %}
+  </form>
+
+  <!-- Fork Buttons -->
+  <form action="{% url 'fork' recipe.id %}" method="POST">
+    {% csrf_token %} {% if user.is_authenticated %}
+    <button
+      type="submit"
+      name="recipe_id"
+      value="{{ recipe.id}}"
+      class="btn btn-primary btn-dark"
+    >
+      Fork Recipe
+    </button>
+    {% endif %}
+  </form>
+
+  </div>
   <br />
-  <br /><br />
+
+  <div style="display: flex">
+    <p class="lead" style="color: #ccc">Rate this recipe:</p>
+    {% if rated %}
+    <p class="lead" style="margin-left: 10px">Your Rating: {{ rating }}</p>
+    {% endif %}
+  </div>
+  <!-- Rating Buttons -->
+  <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
+    {% csrf_token %} {% if user.is_authenticated %} 
+    {% if not rated%}
+    <button type="submit" , name="rating" , value="1">
+      <img
+        class="star star1"
+        id="star1"
+        src="{% static 'wordofmouth/images/star-filled.png' %}"
+      />
+    </button>
+    <button type="submit" , name="rating" , value="2">
+      <img
+        class="star star2"
+        id="star2"
+        src="{% static 'wordofmouth/images/star-filled.png' %}"
+      />
+    </button>
+    <button type="submit" , name="rating" , value="3">
+      <img
+        class="star star3"
+        src="{% static 'wordofmouth/images/star-filled.png' %}"
+      />
+    </button>
+    <button type="submit" , name="rating" , value="4">
+      <img
+        class="star star4"
+        src="{% static 'wordofmouth/images/star-filled.png' %}"
+      />
+    </button>
+    <button type="submit" , name="rating" , value="5">
+      <img
+        class="star star5"
+        src="{% static 'wordofmouth/images/star-filled.png' %}"
+      />
+    </button>
+    {% endif %}{% endif %}
+  </form>
+
+  
+
+  <div
+    class="btn-group text-right"
+    role="group"
+    aria-label="Button group example"
+  >
+    <!-- Edit/Delete Buttons -->
+    {% if user.is_authenticated and object.added_by == user%}
+    <a class="btn btn-primary btn-dark" href="edit" role="button">Edit</a>
+    <a href="{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary"
+      >Delete</a
+    >
+    {% endif %}
+  </div>
+
+  
   <hr />
+
   <h2>Comments</h2>
   <br />
   {% if not recipe.comments.all %} No Comments Yet...<a
