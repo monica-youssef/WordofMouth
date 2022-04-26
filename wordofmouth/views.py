@@ -80,7 +80,7 @@ def create_recipe(request):
             Recipe.objects.all().count() + 1) + '.jpeg'
 
         recipe.added_by = request.user
-        recipe.id = Recipe.objects.all().count() + 1
+       #recipe.id = Recipe.objects.all().count() + 1
     except (KeyError, recipe.DoesNotExist):
         return render(request, 'wordofmouth/recipe_list.html', {
             'error_message': "You didn't enter a title and text."
