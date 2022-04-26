@@ -89,24 +89,36 @@ WSGI_APPLICATION = 'gpa10.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-if 'HEROKU' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': ***REMOVED***
-            'USER': ***REMOVED***,
-            'PASSWORD': ***REMOVED***,
-            'HOST': ***REMOVED***,
-            'PORT': ***REMOVED***,
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': ***REMOVED***
+        'USER': ***REMOVED***,
+        'PASSWORD': ***REMOVED***,
+        'HOST': ***REMOVED***,
+        'PORT': ***REMOVED***,
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
+
+
+# if 'HEROKU' in os.environ:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': ***REMOVED***
+#             'USER': ***REMOVED***,
+#             'PASSWORD': ***REMOVED***,
+#             'HOST': ***REMOVED***,
+#             'PORT': ***REMOVED***,
+#         }
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
 
 # if 'test' in sys.argv:  # testing database
 
