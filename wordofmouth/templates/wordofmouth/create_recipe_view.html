@@ -6,24 +6,31 @@
 
 <head>
     <title>Word of Mouth</title>
+    <style>
+        .error {
+          color: red;
+        }
+    </style>
 </head>
 
 <body>
     <h1 class="display-4">Create a Recipe</h1>
     <p class="lead">Share a recipe with the Word of Mouth community.</p>
     {% if user.is_authenticated %}
-    <p>{{ user.username }}, create a new public recipe!</p>
     <form action="{% url 'create_recipe' %}" method="post">
         {% csrf_token %}
         <fieldset>
             <div class="form-group">
                 <input name="title" type="title" class="form-control form-control-lg" placeholder="Title">
+                {% if errors %}{% if "1" in errors %}<p class="error">Title cannot be blank</p>{% endif %}{% endif %}
             </div>
             <div class="form-group">
                 <input name="ingredients" type="text" class="form-control" placeholder="Ingredients">
+                {% if errors %}{% if "2" in errors %}<p class="error">Ingredients cannot be blank</p>{% endif %}{% endif %}
             </div>
 	    <div class="form-group">
                 <input name="instructions" type="title" class="form-control" placeholder="Instructions">
+                {% if errors %}{% if "3" in errors %}<p class="error">Instructions cannot be blank</p>{% endif %}{% endif %}
             </div>
             <div>
                 (Image upload is in the next step)
