@@ -10,8 +10,19 @@
         .error {
           color: red;
         }
+        .file-upload-button {
+            color: blue!important;
+        }
+        input[type="file"] {
+            width: 100%;
+        }
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
     </style>
-</head>
+    </head>
 
 <body>
     <h1 class="display-4">Create a Recipe</h1>
@@ -32,14 +43,16 @@
                 <input name="instructions" type="title" class="form-control" placeholder="Instructions">
                 {% if errors %}{% if "3" in errors %}<p class="error">Instructions cannot be blank</p>{% endif %}{% endif %}
             </div>
-            <div class="form-group m-3">
-                <label>Upload image</label>
-                <input name="image" type="file" class="form-control-file" accept="image/*">
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Upload image</label>
+                <div class="custom-file-upload">
+                    <input required name="image" type="file" accept="image/*"/>
+                </div>   
                 {% if errors %}{% if "4" in errors %}<p class="error">Image did not upload</p>{% endif %}{% endif %}
             </div>
         </fieldset>
     
-        <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="Create">
+        <input class="btn btn-primary btn-lg" type="submit" value="Create">
     
     </form>
     {% else %}
