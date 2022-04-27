@@ -4,7 +4,7 @@
 <head>
   <style>
     .star-ratings {
-      max-height: 24px;
+      max-height: 18px;
     }
     button {
       background-color: transparent;
@@ -12,24 +12,111 @@
     }
     .star {
       opacity: 0.4;
+      height: 18px;
     }
     .star:hover {
       opacity: 1;
+    }
+    .rating-desc {
+      font-size: 1rem;
+    }
+    .rating-prompt {
+      font-size: 12px;
+      color: #ccc;
+      margin-bottom: 0px;
+    }
+    .rating-form button {
+      padding-left: 0px;
+      padding-right: 0;
     }
   </style>
 </head>
 
 <body>
   <h1 class="display-4" style="text-align: center">{{recipe.title}}</h1>
-  <p class="lead" style="text-align: center">by {{recipe.added_by}}</p>
+  <p class="lead" style="text-align: center; margin-bottom: 0">by {{recipe.added_by}}</p>
+<div style="text-align: center; font-size: 1rem">
+  {%if recipe.average_rating > 4.5 %}
+  <img
+    class="star-ratings"
+    src="{% static 'wordofmouth/images/avg-5s.png' %}"
+    alt="My image"
+  />
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  {% elif recipe.average_rating > 3.5 %}
+  <img
+    class="star-ratings"
+    src="{% static 'wordofmouth/images/avg-4s.png' %}"
+    alt="My image"
+  />
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  {% elif recipe.average_rating > 2.5 %}
+  <img
+    class="star-ratings"
+    src="{% static 'wordofmouth/images/avg-3s.png' %}"
+    alt="My image"
+  />
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  {% elif recipe.average_rating > 1.5 %}
+  <img
+    class="star-ratings"
+    src="{% static 'wordofmouth/images/avg-2s.png' %}"
+    alt="My image"
+  />
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
 
-  <center>
+  {% elif recipe.average_rating > 0.0 %}
+  <img
+    class="star-ratings"
+    src="{% static 'wordofmouth/images/avg-1s.png' %}"
+    alt="My image"
+  />
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  {% else %}
+  <i class="lead rating-desc" style="margin-left: 10px; color: #ccc">No Ratings</i>
+  {% endif %}
+</div>
+  <div style="align-items: center;text-align: center">
     <img
       src="{{ recipe.image_url }}"
       alt="{{ recipe.image_url }}"
       height="200"
+      style="padding: 10px"
     />
-  </center>
+      
+  </div>
+
+  <div style="align-items: center; text-align: center; font-size: 12px">
+    {% if rated %}
+    <p class="lead rating-prompt">Your Rating: {{ rating }}</p>
+    {% else %}
+    <p class="lead rating-prompt">Rate this recipe:</p>
+    <!-- Rating Buttons -->
+    <form class="rating-form" action="{% url 'rate_recipe' recipe.id %}" method="POST">
+      {% csrf_token %} {% if user.is_authenticated %}
+      {% if not rated%}
+      <button type="submit" , name="rating" , value="1">
+        <img class="star star1" id="star1" src="{% static 'wordofmouth/images/star-filled.png' %}" />
+      </button>
+      <button type="submit" , name="rating" , value="2">
+        <img class="star star2" id="star2" src="{% static 'wordofmouth/images/star-filled.png' %}" />
+      </button>
+      <button type="submit" , name="rating" , value="3">
+        <img class="star star3" src="{% static 'wordofmouth/images/star-filled.png' %}" />
+      </button>
+      <button type="submit" , name="rating" , value="4">
+        <img class="star star4" src="{% static 'wordofmouth/images/star-filled.png' %}" />
+      </button>
+      <button type="submit" , name="rating" , value="5">
+        <img class="star star5" src="{% static 'wordofmouth/images/star-filled.png' %}" />
+      </button>
+      {% endif %}{% endif %}
+    </form>
+    {% endif %}
+  
+  </div>
+
+
 
   <br />
   <div style="text-align: center"></div>
@@ -38,50 +125,7 @@
   <p><strong>{{ error_message }}</strong></p>
   {% endif %}
   <div>
-    <div style="display: flex">
-      <p class="lead" style="color: #ccc">Ratings:</p>
 
-      {%if recipe.average_rating > 4.5 %}
-      <img
-        class="star-ratings"
-        src="{% static 'wordofmouth/images/avg-5s.png' %}"
-        alt="My image"
-      />
-      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
-      {% elif recipe.average_rating > 3.5 %}
-      <img
-        class="star-ratings"
-        src="{% static 'wordofmouth/images/avg-4s.png' %}"
-        alt="My image"
-      />
-      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
-      {% elif recipe.average_rating > 2.5 %}
-      <img
-        class="star-ratings"
-        src="{% static 'wordofmouth/images/avg-3s.png' %}"
-        alt="My image"
-      />
-      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
-      {% elif recipe.average_rating > 1.5 %}
-      <img
-        class="star-ratings"
-        src="{% static 'wordofmouth/images/avg-2s.png' %}"
-        alt="My image"
-      />
-      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
-
-      {% elif recipe.average_rating > 0.0 %}
-      <img
-        class="star-ratings"
-        src="{% static 'wordofmouth/images/avg-1s.png' %}"
-        alt="My image"
-      />
-      <i class="lead" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating {%else%} ratings {%endif%})</i>
-      {% else %}
-      <i class="lead" style="margin-left: 10px">No Ratings</i>
-      {% endif %}
-    </div>
-    <br />
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Ingredients:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.ingredients }}</p>
@@ -149,53 +193,6 @@
 
   </div>
   <br />
-
-  <div style="display: flex">
-    <p class="lead" style="color: #ccc">Rate this recipe:</p>
-    {% if rated %}
-    <p class="lead" style="margin-left: 10px">Your Rating: {{ rating }}</p>
-    {% endif %}
-  </div>
-  <!-- Rating Buttons -->
-  <form action="{% url 'rate_recipe' recipe.id %}" method="POST">
-    {% csrf_token %} {% if user.is_authenticated %} 
-    {% if not rated%}
-    <button type="submit" , name="rating" , value="1">
-      <img
-        class="star star1"
-        id="star1"
-        src="{% static 'wordofmouth/images/star-filled.png' %}"
-      />
-    </button>
-    <button type="submit" , name="rating" , value="2">
-      <img
-        class="star star2"
-        id="star2"
-        src="{% static 'wordofmouth/images/star-filled.png' %}"
-      />
-    </button>
-    <button type="submit" , name="rating" , value="3">
-      <img
-        class="star star3"
-        src="{% static 'wordofmouth/images/star-filled.png' %}"
-      />
-    </button>
-    <button type="submit" , name="rating" , value="4">
-      <img
-        class="star star4"
-        src="{% static 'wordofmouth/images/star-filled.png' %}"
-      />
-    </button>
-    <button type="submit" , name="rating" , value="5">
-      <img
-        class="star star5"
-        src="{% static 'wordofmouth/images/star-filled.png' %}"
-      />
-    </button>
-    {% endif %}{% endif %}
-  </form>
-
-  
 
   <div
     class="btn-group text-right"
