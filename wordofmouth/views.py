@@ -72,18 +72,28 @@ class UserRecipeList(generic.ListView):
 
 def create_recipe(request):
     try:
+        errors = []
+        if (request.POST['title'] == ""):
+            errors.append("1")
+        if (request.POST['ingredients'] == ""):
+            errors.append("2")
+        if (request.POST['instructions'] == ""):
+            errors.append("3")
+
+        if (len(errors) > 0): 
+            raise KeyError
+
         recipe = Recipe()
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
         recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(
             Recipe.objects.all().count() + 1) + '.jpeg'
-
         recipe.added_by = request.user
        #recipe.id = Recipe.objects.all().count() + 1
-    except (KeyError, recipe.DoesNotExist):
-        return render(request, 'wordofmouth/recipe_list.html', {
-            'error_message': "You didn't enter a title and text."
+    except (KeyError):
+        return render(request, 'wordofmouth/create_recipe_view.html', {
+            'errors': errors
         })
     else:
         recipe.save()
