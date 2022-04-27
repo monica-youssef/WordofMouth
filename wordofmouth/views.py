@@ -74,31 +74,41 @@ class UserRecipeList(generic.ListView):
 def create_recipe(request):
     try:
         errors = []
+
+        print("------request.post: ", request.POST)
+
         if (request.POST['title'] == ""):
             errors.append("1")
         if (request.POST['ingredients'] == ""):
             errors.append("2")
         if (request.POST['instructions'] == ""):
             errors.append("3")
-        if (request.POST['image'] == None):
+        if (request.FILES['image'] == None):
             errors.append("4")
+            print("request.FILES['image'] == None")
 
 
         if (len(errors) > 0): 
             raise KeyError
 
-
-        timestamp = datetime.now()
-        end_of_url = request.user.username + str(timestamp) + '.jpeg'
+        timestamp = str(datetime.now()).replace(":", "").replace("-", "").replace(".", "")
+        end_of_url = (request.user.username + str(timestamp) + '.jpeg').replace(" ", "")
         image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + end_of_url
-        image = request.POST['image']
-        public_uri = Upload.upload_image(image, end_of_url)
+        print("------url: ", image_url)
+        image = request.FILES['image']
+
+        print("------image: ", image)
+
+        # public_uri = Upload.upload_image(image, end_of_url)
+        public_uri = Upload.upload_image(image, request.user.username + str(Recipe.objects.all().count()) + '.jpeg')
+        
+        print("----public uri1: ", public_uri)
 
         if (public_uri == None):
             errors.append("4")
             raise KeyError
 
-        print("public uri: ", public_uri)
+        print("----public uri: ", public_uri)
         
         recipe = Recipe()
         recipe.title = request.POST['title']
@@ -108,6 +118,7 @@ def create_recipe(request):
         recipe.added_by = request.user
         
     except (KeyError):
+        print("-----keyrror: ", errors)
         return render(request, 'wordofmouth/create_recipe_view.html', {
             'errors': errors
         })
