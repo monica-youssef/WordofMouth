@@ -34,8 +34,8 @@
             </div>
             <div class="form-group m-3">
                 <label>Upload image</label>
-                <input required name="image" type="file" class="form-control-file" accept="image/*">
-                {% if errors %}{% if "4" in errors %}<p class="error">Image upload got messed up</p>{% endif %}{% endif %}
+                <input name="image" type="file" class="form-control-file" accept="image/*">
+                {% if errors %}{% if "4" in errors %}<p class="error">Image did not upload</p>{% endif %}{% endif %}
             </div>
         </fieldset>
     

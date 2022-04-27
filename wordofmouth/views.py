@@ -85,7 +85,6 @@ def create_recipe(request):
             errors.append("3")
         if (request.FILES['image'] == None):
             errors.append("4")
-            print("request.FILES['image'] == None")
 
 
         if (len(errors) > 0): 
@@ -97,11 +96,7 @@ def create_recipe(request):
         print("------url: ", image_url)
         image = request.FILES['image']
 
-        print("------image: ", image)
-
         public_uri = Upload.upload_image(image, end_of_url)
-        
-        print("----public uri1: ", public_uri)
 
         if (public_uri == None):
             errors.append("4")
