@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView
@@ -79,25 +80,40 @@ def create_recipe(request):
             errors.append("2")
         if (request.POST['instructions'] == ""):
             errors.append("3")
+        if (request.POST['image'] == None):
+            errors.append("4")
+
 
         if (len(errors) > 0): 
             raise KeyError
 
+
+        timestamp = datetime.now()
+        end_of_url = request.user.username + str(timestamp) + '.jpeg'
+        image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + end_of_url
+        image = request.POST['image']
+        public_uri = Upload.upload_image(image, end_of_url)
+
+        if (public_uri == None):
+            errors.append("4")
+            raise KeyError
+
+        print("public uri: ", public_uri)
+        
         recipe = Recipe()
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
-        recipe.image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + request.user.username + str(
-            Recipe.objects.all().count() + 1) + '.jpeg'
+        recipe.image_url = image_url
         recipe.added_by = request.user
-       #recipe.id = Recipe.objects.all().count() + 1
+        
     except (KeyError):
         return render(request, 'wordofmouth/create_recipe_view.html', {
             'errors': errors
         })
     else:
         recipe.save()
-        return HttpResponseRedirect('upload')
+        return HttpResponseRedirect('recipe_list')
 
 
 # https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
@@ -113,7 +129,6 @@ class AddCommentView(CreateView):
 
 
 class UploadView(View):
-
     def get(self, request):
         html = """
             <form method="post" enctype="multipart/form-data">
