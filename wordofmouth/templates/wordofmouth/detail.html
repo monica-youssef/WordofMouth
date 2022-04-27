@@ -81,7 +81,7 @@
       src="{{ recipe.image_url }}"
       alt="{{ recipe.image_url }}"
       height="200"
-      style="padding: 10px"
+      style="padding: 10px; border: 1px solid #f5f5f5"
     />
       
   </div>
@@ -219,17 +219,19 @@
   
 
   <br>
-
+  
   {% if not recipe.comments.all %}
   <i class="lead rating-desc" style="color: #ccc">No comments yet</i>
-  {% else %} 
-
+  {% else %}
+  
   {% for comment in recipe.comments.all %}
-  <strong> {{ comment.name }} - {{ comment.date_added }} </strong>
+  <div class="comment">
+    <strong> {{ comment.name }} - {{ comment.date_added }} </strong>
+    <br />
+    {{ comment.body }}
+  </div>
   <br />
-  {{ comment.body }}
-  <br /><br />
-
+  
   {% endfor %} {% endif %}
   {% endblock content %}
 </body>
