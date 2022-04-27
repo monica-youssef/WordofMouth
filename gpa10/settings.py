@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     #
     'social_django',
 ]
+# security settings
+CSRF_COOKIE_SECURE = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
