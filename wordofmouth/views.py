@@ -93,7 +93,6 @@ def create_recipe(request):
         timestamp = str(datetime.now()).replace(":", "").replace("-", "").replace(".", "")
         end_of_url = (request.user.username + str(timestamp) + '.jpeg').replace(" ", "")
         image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + end_of_url
-        print("------url: ", image_url)
         image = request.FILES['image']
 
         public_uri = Upload.upload_image(image, end_of_url)
@@ -101,8 +100,6 @@ def create_recipe(request):
         if (public_uri == None):
             errors.append("4")
             raise KeyError
-
-        print("----public uri: ", public_uri)
         
         recipe = Recipe()
         recipe.title = request.POST['title']
