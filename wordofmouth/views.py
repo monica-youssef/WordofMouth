@@ -99,8 +99,7 @@ def create_recipe(request):
 
         print("------image: ", image)
 
-        # public_uri = Upload.upload_image(image, end_of_url)
-        public_uri = Upload.upload_image(image, request.user.username + str(Recipe.objects.all().count()) + '.jpeg')
+        public_uri = Upload.upload_image(image, end_of_url)
         
         print("----public uri1: ", public_uri)
 
