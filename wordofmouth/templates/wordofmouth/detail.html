@@ -73,7 +73,7 @@
   />
   <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% else %}
-  <i class="lead rating-desc" style="margin-left: 10px; color: #ccc">No Ratings</i>
+  <i class="lead rating-desc" style="color: #ccc">No Ratings</i>
   {% endif %}
 </div>
   <div style="align-items: center;text-align: center">
@@ -208,21 +208,21 @@
     {% endif %}
   </div>
 
+  <div style="display: flex">
+  <h4 >Comments</h4>
+    {% if user.is_authenticated %}
+    <a type="button" class="btn btn-sm btn-info"  href="{% url 'add_comment' recipe.id %}" style="margin-left: 8px; height: 32px"
+      >+ Add a comment</a
+    >
+    {% endif %}
+  </div>
   
-  <hr />
 
-  <h2>Comments</h2>
-  <br />
-  {% if not recipe.comments.all %} No Comments Yet...<a
-    href="{% url 'add_comment' recipe.id %}"
-  >
-    Add One Here
-  </a>
-  {% else %} {% if user.is_authenticated %}
-  <a href="{% url 'add_comment' recipe.id %}"> Add Comment</a>
-  {% endif %}
-  <br />
-  <br />
+  <br>
+
+  {% if not recipe.comments.all %}
+  <i class="lead rating-desc" style="color: #ccc">No comments yet</i>
+  {% else %} 
 
   {% for comment in recipe.comments.all %}
   <strong> {{ comment.name }} - {{ comment.date_added }} </strong>
@@ -231,6 +231,5 @@
   <br /><br />
 
   {% endfor %} {% endif %}
-  <hr />
   {% endblock content %}
 </body>
