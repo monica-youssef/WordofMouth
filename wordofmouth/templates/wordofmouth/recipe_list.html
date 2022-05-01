@@ -43,13 +43,14 @@
             margin-top: 4px;
             margin-bottom: 16px;
         }
+       
     </style>
 </head>
 
 <body>
     <div>
-        <h1 class="display-4">All Recipes</h1>
-        <p class="lead">Recipes posted by Word of Mouth users.</p>
+        <h1 class="display-4" style="text-align:center">All Recipes</h1>
+        <p class="lead" style="text-align:center">Recipes posted by Word of Mouth users.</p>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
         <div class="container">
             {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}
