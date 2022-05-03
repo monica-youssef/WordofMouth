@@ -201,38 +201,42 @@
     </div>
 
     <div class="container marketing">
-		<hr class="featurette-divider">
+		<hr class="featurette-divider" style="margin-bottom:50px">
   
 		<div class="row featurette">
 		    <div class="col-md-7">
 			    <h2 class="featurette-heading" style="margin-top: 0">Explore amazing recipes all at your fingertips.</h2>
 			    <p class="lead">View all recipes today!</p>
-		    </div>
-
-            <div class="container">
                 <div>
                     <a type="button" class="btn btn-primary" href="/wordofmouth/recipe_list">View All Recipes</a>
-                </div>  
+                </div> 
+		    </div>
+            
+        
+            <div class="col-md-5 pull-md-7">
+                <img class="featurette-image img-fluid mx-auto" src="..\..\static\wordofmouth\images\cooking2.jpeg" >
             </div>
 		
 		</div>
   
-		<hr class="featurette-divider">
+		<hr class="featurette-divider" style="margin-top:50px">
   
 		<div class="row featurette">
 		    <div class="col-md-7 push-md-5">
 			    <h2 class="featurette-heading" style="margin-top: 0">See for yourself. <span class="text-muted"> It's that good!</span></h2>
 			    <p class="lead"> Great Recipes all in one, created by UVA's cavaliers and shared through Word of Mouth.</p>
-		    </div>
-            <div class="container">
+
                 <div>
                     {% if user.is_authenticated %}
                         <a type="button" class="btn btn-primary" href="{% url 'favorite_recipe_list' %}">View Saved Recipes</a> 
                         <a type="button" class="btn btn-success" href="/wordofmouth">Create a Recipe</a>   
                     {% endif %}
                 </div>  
-            
+		    </div>
+            <div class="col-md-5 pull-md-7">
+                <img class="featurette-image img-fluid mx-auto" src="..\..\static\wordofmouth\images\cooking.jpg" >
             </div>
+            
 		   
 		</div>
   
