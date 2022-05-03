@@ -28,18 +28,42 @@ from .models import Recipe, UserRating
 from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
+import re
 
+from taggit.models import Tag
 
 def index(request):
-    return render(request, 'index.html', {})
+    all_recipes = Recipe.objects.all()
+    random_recipes = Recipe.objects.order_by('?')[:3]
+    context = {'all_recipes' : all_recipes, 'featured_recipes' : random_recipes}
+    return render(request, 'index.html', context)
 
 
 def create_recipe_view(request):
-    return render(request, 'wordofmouth/create_recipe_view.html', {})
+    common_tags = list(Recipe.r_tags.most_common()[:5])
+    context = {'common_tags' : common_tags }
+    return render(request, 'wordofmouth/create_recipe_view.html', context)
 
 
 def detail(request):
     return render(request, 'wordofmouth/recipe_list.html', {})
+
+def parse(tags):
+    tags = tags.split(",")
+
+    for i in range(len(tags)):
+        tags[i] = tags[i].strip().lower()
+
+    return tags
+
+# https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
+def tags_valid(tags):
+    pattern = re.compile(r"^(\w+)(,\s*\w+)*$")
+
+    if pattern.match(tags) == None:
+        return False
+    else:
+        return True
 
 
 class DetailView(generic.DetailView):
@@ -71,12 +95,41 @@ class DetailView(generic.DetailView):
         return context
 
 
+def get_avg_rating(r):
+    return r.average_rating() or -1.0
+
 class RecipeList(generic.ListView):
     template_name = 'wordofmouth/recipe_list.html'
     context_object_name = 'recipe_list'
 
     def get_queryset(self):
-        return Recipe.objects.all()
+        recipes = Recipe.objects.all()
+        
+        if self.request.GET.get('query'):
+            tags = parse(self.request.GET.get('query'))
+            recipes_from_search = recipes.filter(title__icontains=self.request.GET.get('query'))
+            recipes_from_tag = recipes.filter(r_tags__name__in=tags)
+            combined = recipes_from_search | recipes_from_tag
+            recipes = list(set(combined))
+        elif self.request.GET.get('s'):
+            recipes = recipes.filter(servings__exact=self.request.GET.get('s'))
+
+        if self.request.GET.get('tag'):
+            tags = parse(self.request.GET.get('tag'))
+            recipes = recipes.filter(r_tags__name__in=tags)
+        elif self.request.GET.get('a-z') == 'True':
+            recipes = recipes.order_by('title')
+        elif self.request.GET.get('by-rating') == 'True':
+            recipes = sorted(recipes, key=lambda r: get_avg_rating(r), reverse=True)
+        elif self.request.GET.get('pt') == 'True':
+            recipes = sorted(recipes, key=lambda r: r.prep_time_minutes_conversion + r.cook_time_minutes_conversion, reverse=True)
+
+        return recipes
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 
 class UserRecipeList(generic.ListView):
@@ -102,7 +155,18 @@ def create_recipe(request):
         if (request.FILES['image'] == None):
             errors.append("4")
 
-        if (len(errors) > 0):
+        r_tags = request.POST['r_tags']
+        if (len(r_tags) > 0):
+            if (not tags_valid(r_tags)):
+                errors.append("5")
+        
+        if (request.POST['prep-time'] == "" or request.POST['cook-time'] == ""):
+            errors.append("times-blank")
+        else:
+            if (not request.POST['prep-time'] or not request.POST['cook-time'].isdigit()):
+                errors.append("times-invalid")
+        
+        if (len(errors) > 0): 
             raise KeyError
 
         timestamp = str(datetime.now()).replace(":", "").replace("-", "").replace(".", "")
@@ -115,18 +179,47 @@ def create_recipe(request):
         if (public_uri == None):
             errors.append("4")
             raise KeyError
+        
+        recipe = Recipe.objects.create()
 
-        recipe = Recipe()
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
         recipe.image_url = image_url
         recipe.added_by = request.user
 
+        recipe.prep_time = request.POST['prep-time']
+        recipe.prep_time_metric = request.POST['prep-time-metric']
+        
+        recipe.cook_time = request.POST['cook-time']
+        recipe.cook_time_metric = request.POST['cook-time-metric']
+        
+        recipe.servings = request.POST['servings']
+
+        if (len(r_tags) > 0):
+            for tag in parse(r_tags):
+                recipe.r_tags.add(tag.strip().lower())
+
+        recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
+        recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
+        
     except (KeyError):
-        print("-----keyrror: ", errors)
+        common_tags = list(Recipe.r_tags.most_common()[:5])
+        entered_values = {
+            'title': request.POST['title'],
+            'ingredients': request.POST['ingredients'],
+            'instructions': request.POST['instructions'],
+            'prep_time': request.POST['prep-time'],
+            'prep_time_metric': request.POST['prep-time-metric'],
+            'cook_time': request.POST['cook-time'],
+            'cook_time_metric': request.POST['cook-time-metric'],
+            'servings': request.POST['servings'],
+            'r_tags': request.POST['r_tags']
+        }
         return render(request, 'wordofmouth/create_recipe_view.html', {
-            'errors': errors
+            'errors': errors,
+            'common_tags': common_tags, 
+            'entered_values': entered_values,
         })
     else:
         recipe.save()
@@ -198,17 +291,67 @@ def RateView(request, recipe_id):
     return HttpResponseRedirect(reverse('detail', args=[str(recipe_id)]))
 
 
-class EditView(generic.edit.UpdateView):
-    model = Recipe
-    fields = ['title', 'ingredients', 'instructions']
-    template_name_suffix = '_update_view'
+def edit_recipe(request, pk):
+    print("HELLOOOO WORLD")
+    try:
+        recipe = Recipe.objects.get(pk=pk)
+        errors = []
 
-    def get_success_url(self):
-        return reverse('detail', kwargs={'pk': self.object.id})
+        if (request.POST['updated_title'] == ""):
+            errors.append("1")
+        if (request.POST['updated_ingredients'] == ""):
+            errors.append("2")
+        if (request.POST['updated_instructions'] == ""):
+            errors.append("3")
+        if (request.POST['updated_prep-time'] == "" or request.POST['updated_cook-time'] == ""):
+            errors.append("times-blank")
+        
+        r_tags = request.POST['updated_r_tags']
+        if (len(r_tags) > 0):
+            if (not tags_valid(r_tags)):
+                errors.append("5")
+
+        if (len(errors) > 0): 
+            raise KeyError
+        print("hello world we are here")
+        #todo: FIX
+        if (len(request.FILES) != 0):
+            print("LET's UPLOAD")
+            image = request.FILES['updated_image']
+            url = recipe.image_url.split("images/",1)[1]
+            public_uri = Upload.upload_image(image, url)
+            print("hello")
+            if (public_uri == None):
+                errors.append("4")
+                raise KeyError
+
+        recipe.title = request.POST['updated_title']
+        recipe.ingredients = request.POST['updated_ingredients']
+        recipe.instructions = request.POST['updated_instructions']
+        recipe.prep_time = request.POST['updated_prep-time']
+        recipe.cook_time = request.POST['updated_cook-time']
+        recipe.servings = request.POST['updated_servings']
+        recipe.prep_time_metric = request.POST['updated_prep-time-metric']
+        recipe.cook_time_metric = request.POST['updated_cook-time-metric']
+
+        recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
+        recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
+        
+    except (KeyError):
+        print("error: " + str(errors))
+        return render(request, 'wordofmouth/recipe_update_view.html', {
+            'errors': errors,
+            'recipe': recipe
+        })
+    else:
+        recipe.save()
+        return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
 
-def edit_recipe_view(request):
-    return render(request, 'wordofmouth/recipe_update_view.html', {})
+def edit_recipe_view(request, pk):
+    recipe = get_object_or_404(Recipe, id=pk)
+    context = { 'recipe': recipe }
+    return render(request, 'wordofmouth/recipe_update_view.html', context)
 
 
 class FavoriteRecipeList(generic.ListView):
@@ -234,6 +377,14 @@ def fork_recipe_view(request, pk):
     copy.pk = None
     copy.title = "Fork of " + original.title
     copy.added_by = request.user
+    copy.save()
+    #tags not saving
+    copy.cook_time = original.cook_time
+    copy.prep_time = original.prep_time
+    copy.cook_time_metric = original.cook_time_metric
+    copy.prep_time_metric = original.prep_time_metric
+    copy.cook_time_minutes_conversion = original.cook_time_minutes_conversion
+    copy.prep_time_minutes_conversion = original.prep_time_minutes_conversion
     copy.save()
     return HttpResponseRedirect(reverse('detail', args=[str(copy.pk)]))
 

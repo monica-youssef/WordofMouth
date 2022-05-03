@@ -1,11 +1,59 @@
 {% extends "wordofmouth/base.html" %}
 {% block content %}
 {% load socialaccount %}
+{% load static %}
 
 <html>
 
 <head>
     <title>Word of Mouth</title>
+    <style>
+        .a-container {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          align-items: center;
+        }
+        .recipe-card {
+          margin-top: 8px;
+          margin-bottom: 8px;
+          background: white;
+          text-decoration: none;
+        }
+        .recipe-card:hover {
+          background-color: #f5f5f5;
+        }
+        .recipe-image {
+          max-height: 207px;
+          background-size: cover;
+          max-width: 80%;
+          border: 1px solid #f5f5f5;
+          margin: 20px 20px 20px 20px;
+          background-color: white;
+        }
+        .star-ratings {
+          max-height: 18px;
+        }
+        .card-text {
+          text-decoration: none;
+          color: black;
+        }
+        .card-text:hover {
+          text-decoration: none;
+          color: black;
+        }
+        .card-title {
+          margin-bottom: 0;
+        }
+        .card-subtitle {
+          margin-top: 4px;
+          margin-bottom: 16px;
+        }
+        .featured-recipes {
+            margin-top: 18px;
+        }
+      </style>
 </head>
 
 <body>
@@ -14,6 +62,10 @@
     <div class="container">
         <div class="col text-center">
             <a type="button" class="btn btn-primary" href="/wordofmouth/recipe_list">View All Recipes</a>
+            {% if user.is_authenticated %}
+                <a type="button" class="btn btn-primary" href="{% url 'favorite_recipe_list' %}">View Saved Recipes</a> 
+                <a type="button" class="btn btn-success" href="/wordofmouth">Create a Recipe</a>   
+            {% endif %}
         </div>  
     </div>
     {% if not user.is_authenticated %}
@@ -23,29 +75,65 @@
             <a href="{% provider_login_url 'google' %}">Log in</a> to create, save, rate, and share your favorite recipes.
         </div>  
     </div>
-
-    {% else %}
-    <br>
-
-
-    <div class="container">
-        <div class="col text-center">
-            <a type="button" class="btn btn-primary" href="{% url 'favorite_recipe_list' %}">View Saved Recipes</a>  
-        </div>
-    </div>
-
-    <br>
-
-    <div class="container">
-        <div class="col text-center">
-            <a type="button" class="btn btn-success" href="/wordofmouth">Create a Recipe</a>    
-        </div>
-    </div>
-
-    <br>
-
-    
     {% endif %}
+    <div class="featured-recipes">
+        <h2 >Featured Recipes</h2>
+
+        <div class="container">
+            {% if featured_recipes%}
+                {% for recipe in featured_recipes %} {% if forloop.counter0|divisibleby:3 %}
+                <div class="row text-center">
+                {% endif %}
+                <div class="col-md-4">
+                    <a class="card-text" href="{% url 'detail' recipe.id %}">
+                        <div class="recipe-card card">
+                            <div class="card-content" style="cursor: pointer">
+                                <br />
+                                <div class="image-container">
+                                    <img
+                                    class="recipe-image"
+                                    src="{{ recipe.image_url }}"
+                                    alt="Recipe Image"
+                                    />
+                                </div>
+                                <h3 class="card-title">{{ recipe.title }}</h3>
+                                <div class="recipe-tags">
+                                    {% for tag in recipe.r_tags.all %}
+                                        <p for="formFile" class="recipe-tag badge badge-secondary">{{tag.name}}</p>
+                                    {% endfor %}
+                                </div>
+                                {%if recipe.average_rating > 4.5 %}
+                                    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">
+                                {% elif recipe.average_rating > 3.5 %}
+                                    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-4s.png' %}" alt="My image">
+                                {% elif recipe.average_rating > 2.5 %}
+                                    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-3s.png' %}" alt="My image">
+                                {% elif recipe.average_rating > 1.5 %}
+                                    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-2s.png' %}" alt="My image">
+                                {% elif recipe.average_rating > 0.0 %}
+                                    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-1s.png' %}" alt="My image">
+                                {% else %}
+                                    <i style="color: gray">No ratings</i>
+                                {% endif %}
+                                <p class="card-subtitle">by {{ recipe.added_by }}</p>
+                                
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% if forloop.counter|divisibleby:3 or forloop.last %}
+                </div>
+                <br />
+                {% endif %} {% endfor %}
+            {% else %}
+            <div class="container" style="margin-top: 32px">
+                <div class="col text-center">
+                    No recipes found.
+                </div>  
+            </div>
+            {% endif %}
+        </div>
+    </div>
 </body>
 
 </html>

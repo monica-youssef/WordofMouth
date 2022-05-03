@@ -19,87 +19,119 @@
     .star-ratings {
       max-height: 18px;
     }
+
     button {
       background-color: transparent;
       border: none;
     }
+
     .star {
       opacity: 0.4;
       height: 18px;
     }
+
     .star:hover {
       opacity: 1;
     }
+
     .rating-desc {
       font-size: 1rem;
     }
+
     .rating-prompt {
       font-size: 12px;
       color: #ccc;
       margin-bottom: 0px;
     }
+
     .rating-form button {
       padding-left: 0px;
       padding-right: 0;
+    }
+
+    .general-action-button {
+      margin-right: 12px;
+    }
+
+    .buttons-row {
+      margin-left: 12px;
+      align-items: top;
+    }
+
+    .recipe-tags {
+      margin-left: 10px;
+    }
+
+    .admin-button {
+      margin-left: 10px;
+    }
+
+    .admin-buttons {
+      background-color: rgb(210, 210, 210);
+      padding-top: 8px;
+      padding-bottom: 8px;
+      padding-left: 12px;
+      padding-right: 12px;
+      display: inline-block;
+      border-radius: 8px;
+      align-items: right;
+      float: center;
+      margin-left: auto;
+      margin-right: 0;
+      text-align: center;
+    }
+
+    .admin-button {
+      margin: 0;
+    }
+
+    .buttons {
+      display: flex;
+    }
+
+    .rating-section {
+      height: 18px;
     }
   </style>
 </head>
 
 <body>
+  <div class="col-md-8 offset-md-2">
   <h1 class="display-4" style="text-align: center">{{recipe.title}}</h1>
   <p class="lead" style="text-align: center; margin-bottom: 0">by {{recipe.added_by}}</p>
-<div style="text-align: center; font-size: 1rem">
-  {%if recipe.average_rating > 4.5 %}
-  <img
-    class="star-ratings"
-    src="{% static 'wordofmouth/images/avg-5s.png' %}"
-    alt="My image"
-  />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
-  {% elif recipe.average_rating > 3.5 %}
-  <img
-    class="star-ratings"
-    src="{% static 'wordofmouth/images/avg-4s.png' %}"
-    alt="My image"
-  />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
-  {% elif recipe.average_rating > 2.5 %}
-  <img
-    class="star-ratings"
-    src="{% static 'wordofmouth/images/avg-3s.png' %}"
-    alt="My image"
-  />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
-  {% elif recipe.average_rating > 1.5 %}
-  <img
-    class="star-ratings"
-    src="{% static 'wordofmouth/images/avg-2s.png' %}"
-    alt="My image"
-  />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <div style="text-align: center; font-size: 1rem">
+    {%if recipe.average_rating > 4.5 %}
+    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image" />
+    <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}},
+      {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+    {% elif recipe.average_rating > 3.5 %}
+    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-4s.png' %}" alt="My image" />
+    <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}},
+      {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+    {% elif recipe.average_rating > 2.5 %}
+    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-3s.png' %}" alt="My image" />
+    <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}},
+      {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+    {% elif recipe.average_rating > 1.5 %}
+    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-2s.png' %}" alt="My image" />
+    <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}},
+      {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
 
-  {% elif recipe.average_rating > 0.0 %}
-  <img
-    class="star-ratings"
-    src="{% static 'wordofmouth/images/avg-1s.png' %}"
-    alt="My image"
-  />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
-  {% else %}
-  <i class="lead rating-desc" style="color: #ccc">No Ratings</i>
-  {% endif %}
-</div>
+    {% elif recipe.average_rating > 0.0 %}
+    <img class="star-ratings" src="{% static 'wordofmouth/images/avg-1s.png' %}" alt="My image" />
+    <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}},
+      {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+    {% else %}
+    <i class="lead rating-desc" style="color: #ccc">No Ratings</i>
+    {% endif %}
+  </div>
   <div style="align-items: center;text-align: center">
-    <img
-      src="{{ recipe.image_url }}"
-      alt="{{ recipe.image_url }}"
-      height="200"
-      style="padding: 10px; border: 1px solid #f5f5f5"
-    />
-      
+    <img src="{{ recipe.image_url }}" alt="{{ recipe.image_url }}" height="200"
+      style="padding: 10px; border: 1px solid #f5f5f5" />
+
   </div>
 
-  <div style="align-items: center; text-align: center; font-size: 12px">
+  <div style="align-items: center; text-align: center; font-size: 12px" class="rating-section">
     {% if rated %}
     <p class="lead rating-prompt">Your Rating: {{ rating }}</p>
     {% else %}
@@ -126,7 +158,7 @@
       {% endif %}{% endif %}
     </form>
     {% endif %}
-  
+
   </div>
 
 
@@ -138,105 +170,104 @@
   <p><strong>{{ error_message }}</strong></p>
   {% endif %}
   <div>
-
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Ingredients:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.ingredients }}</p>
     </div>
-    <br />
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Instructions:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.instructions }}</p>
+    </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Prep Time:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.prep_time }} {{ recipe.prep_time_metric }}</p>
+    </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Cook Time:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.cook_time }} {{ recipe.cook_time_metric }}</p>
+    </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Servings:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.servings }}</p>
+    </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Tags:</p>
+      <div class="recipe-tags">
+        {% if recipe.r_tags.all %}
+          {% for tag in recipe.r_tags.all %}
+          <p for="formFile" class="recipe-tag badge badge-secondary">{{tag.name}}</p>
+          {% endfor %}
+        {% else %}
+          <i style="color: #ccc" class="lead">No tags</i>
+        {% endif %}
+        
+      </div>
     </div>
   </div>
 
   <br />
 
-  {% if recipe.parent %}
-  <a
-    href="{% url 'detail' recipe.parent %}"
-    class="btn btn-primary btn-lg btn-block btn-dark"
-    >Original Recipe</a
-  >
-  {% endif %}
+  <div class="buttons">
+    <div class="row buttons-row">
+      {% if recipe.parent %}
+        <a href="{% url 'detail' recipe.parent %}" class="btn btn-primary btn-dark general-action-button" style="align-self: flex-start;">Original Recipe</a>
+      {% endif %}
+      <a class="btn btn-primary btn-dark general-action-button" style="align-self: flex-start;" href="{% url 'fork_recipe_list' recipe.id %}">View
+        Recipe
+        Variations</a>
 
-  <div class="row">
-    <a
-      class="btn btn-primary btn-dark"
-      href="{% url 'fork_recipe_list' recipe.id %}"
-      >View Recipe Variations</a
-    >
+      <!-- Save Button -->
+      <form action="{% url 'like_recipe' recipe.id %}" method="POST">
+        {% csrf_token %} {% if user.is_authenticated %} {% if liked %}
+        <button type="submit" class="btn btn-primary btn-dark general-action-button" name="recipe_id"
+          value="{{ recipe.id}}">
+          Unsave Recipe
+        </button>
+        {% else %}
+        <button type="submit" class="btn btn-primary btn-dark general-action-button" name="recipe_id"
+          value="{{ recipe.id}}">
+          Save Recipe
+        </button>
+        {% endif %} {% endif %}
+      </form>
 
-    <!-- Save Button -->
-  <form action="{% url 'like_recipe' recipe.id %}" method="POST">
-    {% csrf_token %} {% if user.is_authenticated %} {% if liked %}
-    <button
-      type="submit"
-      class="btn btn-primary btn-dark"
-      name="recipe_id"
-      value="{{ recipe.id}}"
-    >
-      Unsave Recipe
-    </button>
-    {% else %}
-    <button
-      type="submit"
-      class="btn btn-primary btn-dark"
-      name="recipe_id"
-      value="{{ recipe.id}}"
-    >
-      Save Recipe
-    </button>
-    {% endif %} {% endif %}
-  </form>
+      <!-- Fork Buttons -->
+      <form action="{% url 'fork' recipe.id %}" method="POST">
+        {% csrf_token %} {% if user.is_authenticated %}
+        <button type="submit" name="recipe_id" value="{{ recipe.id}}"
+          class="btn btn-primary btn-dark general-action-button">
+          Fork Recipe
+        </button>
+        {% endif %}
+      </form>
 
-  <!-- Fork Buttons -->
-  <form action="{% url 'fork' recipe.id %}" method="POST">
-    {% csrf_token %} {% if user.is_authenticated %}
-    <button
-      type="submit"
-      name="recipe_id"
-      value="{{ recipe.id}}"
-      class="btn btn-primary btn-dark"
-    >
-      Fork Recipe
-    </button>
-    {% endif %}
-  </form>
-
+    </div>
+      {% if user.is_authenticated and object.added_by == user%}
+      
+      <div role="group" class="admin-buttons">
+          <a class="btn btn-primary btn-dark admin-button" href="edit" role="button">Edit</a>
+          <a href="{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary admin-button">Delete</a>
+      </div>
+      {% endif %}
   </div>
+
   <br />
 
-  <div
-    class="btn-group text-right"
-    role="group"
-    aria-label="Button group example"
-  >
-    <!-- Edit/Delete Buttons -->
-    {% if user.is_authenticated and object.added_by == user%}
-    <a class="btn btn-primary btn-dark" href="edit" role="button">Edit</a>
-    <a href="{% url 'delete' recipe.id %}" class="btn btn-danger btn-primary"
-      >Delete</a
-    >
+  <div style="display: flex">
+    <h4>Comments</h4>
+    {% if user.is_authenticated %}
+    <a type="button" class="btn btn-sm btn-info" href="{% url 'add_comment' recipe.id %}"
+      style="margin-left: 8px; height: 32px">+ Add a comment</a>
     {% endif %}
   </div>
 
-  <div style="display: flex">
-  <h4 >Comments</h4>
-    {% if user.is_authenticated %}
-    <a type="button" class="btn btn-sm btn-info"  href="{% url 'add_comment' recipe.id %}" style="margin-left: 8px; height: 32px"
-      >+ Add a comment</a
-    >
-    {% endif %}
-  </div>
-  
 
   <br>
-  
+
   {% if not recipe.comments.all %}
   <i class="lead rating-desc" style="color: #ccc">No comments yet</i>
   {% else %}
-  
+
   {% for comment in recipe.comments.all %}
   <div class="comment">
     <strong> {{ comment.name }} - {{ comment.date_added }} </strong>
@@ -244,7 +275,8 @@
     {{ comment.body }}
   </div>
   <br />
-  
+
   {% endfor %} {% endif %}
   {% endblock content %}
+  </div>
 </body>
