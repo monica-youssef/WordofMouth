@@ -24,6 +24,11 @@ REFERENCES
   Date: 3/24/2019
   URL: https://stackoverflow.com/questions/55325723/generate-average-for-ratings-in-django-models-and-return-with-other-model
 
+  Title: Taggit Documentation
+  Author: Django
+  Date: jazzband
+  URL: https://django-taggit.readthedocs.io/en/latest/index.html, https://github.com/jazzband/django-taggit/blob/master/docs/index.rst
+
 """
 
 from django.db import models
