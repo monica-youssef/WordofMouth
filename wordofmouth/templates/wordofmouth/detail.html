@@ -179,11 +179,11 @@
     </div>
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Prep Time:</p>
-      <p class="lead" style="margin-left: 10px">{{ recipe.prep_time }} {{ recipe.prep_time_metric }}</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.prep_time }} {% if recipe.prep_time == 1%}{{ recipe.prep_time_metric|slice:":-1" }}{%else%}{{ recipe.prep_time_metric }}{%endif%}</p>
     </div>
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Cook Time:</p>
-      <p class="lead" style="margin-left: 10px">{{ recipe.cook_time }} {{ recipe.cook_time_metric }}</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.cook_time }} {% if recipe.cook_time == 1%}{{ recipe.cook_time_metric|slice:":-1" }}{%else%}{{ recipe.cook_time_metric }}{%endif%}</p>
     </div>
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Servings:</p>
