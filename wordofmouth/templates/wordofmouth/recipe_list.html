@@ -90,13 +90,22 @@
               <a class="dropdown-item" href="?">None</a>
             </div>
         </div>
+
         <form action="{% url 'recipe_list' %}" class="search-form">
               <input name="query" class="form-control search-box" id="query" type="title" placeholder="chicken parmesan">
               <button type="submit" class="btn btn-light">Search</button>
         </form>
-        
-        <!-- <input name="add_tag" class="form-control add-tag" type="title" placeholder="vegetarian">
-        <a href="?tags=a,b"></a><button type="button" class="btn btn-light">Add tag</button></a> -->
+
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Filter by Tag
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                {% for tag in tags %}
+                    <a class="dropdown-item" href="?tag={{tag.name}}">{{ tag.name }}</a>
+                {% endfor %}
+            </div>
+        </div>
     </div>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
         <div class="container">
