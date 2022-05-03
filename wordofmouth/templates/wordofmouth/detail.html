@@ -97,7 +97,7 @@
 
   <div class="col-md-8 offset-md-2">
   <h1 class="display-4" style="text-align: center">{{recipe.title}}</h1>
-  <p class="lead" style="text-align: center; margin-bottom: 0">by {{recipe.added_by}}</p>
+  <p class="lead" style="text-align: center; margin-bottom: 0">by <a class="username-link badge badge-light" href="/wordofmouth/user/{{recipe.added_by.id}}">{{ recipe.added_by }}</a></p>
   <div style="text-align: center; font-size: 1rem">
     {%if recipe.average_rating > 4.5 %}
     <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image" />
