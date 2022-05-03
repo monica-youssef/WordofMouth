@@ -354,6 +354,14 @@ def fork_recipe_view(request, pk):
     copy.title = "Fork of " + original.title
     copy.added_by = request.user
     copy.save()
+    #tags not saving
+    copy.cook_time = original.cook_time
+    copy.prep_time = original.prep_time
+    copy.cook_time_metric = original.cook_time_metric
+    copy.prep_time_metric = original.prep_time_metric
+    copy.cook_time_minutes_conversion = original.cook_time_minutes_conversion
+    copy.prep_time_minutes_conversion = original.prep_time_minutes_conversion
+    copy.save()
     return HttpResponseRedirect(reverse('detail', args=[str(copy.pk)]))
 
 
