@@ -67,21 +67,21 @@
         <fieldset>
             <div class="form-group">
                 <h3 class="section-title">Details</h3>
-                <input name="title" type="title" class="form-control" placeholder="Title">
+                <input name="title" type="title" class="form-control" placeholder="Title" value="{% if entered_values.title%}{{entered_values.title}}{%endif%}">
                 {% if errors %}{% if "1" in errors %}<p class="error">Title cannot be blank</p>{% endif %}{% endif %}
             </div>
             <div class="form-group">
-                <input name="ingredients" type="text" class="form-control" placeholder="Ingredients">
+                <input name="ingredients" type="text" class="form-control" placeholder="Ingredients" value="{% if entered_values.ingredients%}{{entered_values.ingredients}}{%endif%}">
                 {% if errors %}{% if "2" in errors %}<p class="error">Ingredients cannot be blank</p>{% endif %}{% endif %}
             </div>
             <div class="form-group">
-                <input name="instructions" type="title" class="form-control" placeholder="Instructions">
+                <input name="instructions" type="title" class="form-control" placeholder="Instructions" value="{% if entered_values.instructions%}{{entered_values.instructions}}{%endif%}">
                 {% if errors %}{% if "3" in errors %}<p class="error">Instructions cannot be blank</p>{% endif %}{% endif %}
             </div>
             <div class="form-group">
                 <div class="time-group">
                     <label for="formFile" class="form-label time-label">Prep Time:</label>
-                    <input name="prep-time" type="title" class="form-control time-input" placeholder="">
+                    <input name="prep-time" type="title" class="form-control time-input" placeholder="" value="{% if entered_values.prep_time%}{{entered_values.prep_time}}{%endif%}">
                     <select name="prep-time-metric" class="form-select" aria-label="Default select example">
                         <option value="minutes" selected>minutes</option>
                         <option value="hours">hours</option>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="time-group cook-time">
                     <label for="formFile" class="form-label time-label">Cook Time:</label>
-                    <input name="cook-time" type="title" class="form-control time-input" placeholder="">
+                    <input name="cook-time" type="title" class="form-control time-input" placeholder="" value="{% if entered_values.cook_time%}{{entered_values.cook_time}}{%endif%}">
                     <select name="cook-time-metric" class="form-select" aria-label="Default select example">
                         <option value="minutes" selected>minutes</option>
                         <option value="hours">hours</option>
@@ -125,7 +125,7 @@
                 {% for tag in common_tags %}
                     <p for="formFile" class="common-tag badge badge-secondary">{{tag.name}}</p>
                 {% endfor %}
-                <input name="r_tags" type="title" class="form-control" placeholder="vegetarian, italian, spicy...">
+                <input name="r_tags" type="title" class="form-control" placeholder="vegetarian, italian, spicy..." value="{% if entered_values.r_tags%}{{entered_values.r_tags}}{%endif%}">
                 {% if errors %}{% if "5" in errors %}<p class="error">Tags are in an invalid format</p>{% endif %}{% endif %}
             </div>
         </fieldset>
