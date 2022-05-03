@@ -13,6 +13,11 @@ REFERENCES
   Author: Django
   URL: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
 
+  Title: How to check that a comma-separated string in Python contains only single commas?
+  Author: EB2127
+  Date: 9/6/2020
+  URL: https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
+
 """
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
@@ -62,7 +67,7 @@ def get_total_make_time(r):
     cook_minutes = r.cook_time if r.cook_time_metric == "minutes" else (r.cook_time * 60)
     return prep_minutes + cook_minutes
 
-# https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
+
 def tags_valid(tags):
     pattern = re.compile(r"^(\w+)(,\s*\w+)*$")
 
@@ -268,24 +273,6 @@ class AddCommentView(CreateView):
     def form_valid(self, form):
         form.instance.recipe_id = self.kwargs['pk']
         return super().form_valid(form)
-
-
-class UploadView(View):
-    def get(self, request):
-        html = """
-            <form method="post" enctype="multipart/form-data">
-            <input type='text' style='display:none;' value='%s' name='csrfmiddlewaretoken'/>
-            <input type="file" name="image" accept="image/*">
-            <button type="submit">Upload Image</button>
-            </form>
-        """ % (get_token(request))
-        return HttpResponse(html)
-
-    def post(self, request):
-        image = request.FILES['image']
-        # recipe = request.recipe
-        public_uri = Upload.upload_image(image, request.user.username + str(Recipe.objects.all().count()) + '.jpeg')
-        return HttpResponseRedirect('recipe_list')
 
 
 def LikeView(request, pk):
