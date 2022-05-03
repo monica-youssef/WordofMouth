@@ -35,6 +35,9 @@
     .buttons-row {
       margin-left: 12px;
     }
+    .recipe-tags {
+      margin-left: 10px;
+    }
   </style>
 </head>
 
@@ -154,7 +157,11 @@
     </div>
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Tags:</p>
-      <p class="lead" style="margin-left: 10px">{{recipe.r_tags.all|join:" -- "}}</p>
+      <div class="recipe-tags">
+        {% for tag in recipe.r_tags.all %}
+            <p for="formFile" class="recipe-tag badge badge-secondary">{{tag.name}}</p>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
