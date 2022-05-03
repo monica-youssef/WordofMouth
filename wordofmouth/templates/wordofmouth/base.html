@@ -60,12 +60,26 @@
       .navbar a:hover {
         color: lightgray!important;
       }
+      
       .navbar-brand {
         background: linear-gradient(to right, #d5d5d5, #ffffff);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         font-weight: 900;
         text-decoration: none;
+        /* grow rotate logo effect: https://codepen.io/techshiva/pen/YMpwKg */
+        display: inline-block;
+        vertical-align: middle;
+        -webkit-transform: perspective(1px) translateZ(0);
+        transform: perspective(1px) translateZ(0);
+        -webkit-transition-duration: 0.2s;
+        transition-duration: 0.2s;
+        -webkit-transition-property: transform;
+        transition-property: transform;
+      }
+      .navbar-brand:hover, .navbar-brand:focus, .navbar-brand:active {
+        -webkit-transform: scale(1.08) rotate(3deg);
+        transform: scale(1.08) rotate(3deg);
       }
       .footer-copyright {
         color: lightgray!important;
