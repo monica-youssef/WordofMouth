@@ -340,13 +340,17 @@ def edit_recipe(request, pk):
         #todo: FIX
         if (len(request.FILES) != 0):
             print("LET's UPLOAD")
+            timestamp = str(datetime.now()).replace(":", "").replace("-", "").replace(".", "")
             image = request.FILES['updated_image']
-            url = recipe.image_url.split("images/",1)[1]
-            public_uri = Upload.upload_image(image, url)
-            print("hello")
+            end_of_url = (request.user.username + str(timestamp) + '.jpeg').replace(" ", "")
+            image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + end_of_url
+            public_uri = Upload.upload_image(image, end_of_url)
+            
             if (public_uri == None):
                 errors.append("4")
                 raise KeyError
+            else:
+                recipe.image_url = image_url
 
         recipe.title = request.POST['updated_title']
         recipe.ingredients = request.POST['updated_ingredients']
