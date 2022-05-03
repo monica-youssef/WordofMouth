@@ -27,8 +27,10 @@ class Recipe(models.Model):
 
     prep_time = models.IntegerField(default=0)
     prep_time_metric = models.CharField(max_length=200, default='minutes')
+    prep_time_minutes_conversion = models.IntegerField(default=0)
     cook_time = models.IntegerField(default=0)
     cook_time_metric = models.CharField(max_length=200, default='minutes')
+    cook_time_minutes_conversion = models.IntegerField(default=0)
     servings = models.IntegerField(default=0)
 
     cuisine_type = models.CharField(max_length=200, default="NONE")
