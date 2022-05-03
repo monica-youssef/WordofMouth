@@ -292,10 +292,15 @@ def edit_recipe(request, pk):
             raise KeyError
         print("hello world we are here")
         #todo: FIX
-        # if (request.FILES['updated_image'] == None):
-        #     print("image not uploaded")
-        # else:
-        #     print("image uploaded")
+        if (len(request.FILES) != 0):
+            print("LET's UPLOAD")
+            image = request.FILES['updated_image']
+            url = recipe.image_url.split("images/",1)[1]
+            public_uri = Upload.upload_image(image, url)
+            print("hello")
+            if (public_uri == None):
+                errors.append("4")
+                raise KeyError
 
         recipe.title = request.POST['updated_title']
         recipe.ingredients = request.POST['updated_ingredients']
