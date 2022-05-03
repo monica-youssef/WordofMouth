@@ -97,6 +97,8 @@
                 </div>
                 {% if errors %}{% if "times-blank" in errors %}<p class="error">Times cannot be blank</p>{% endif %}{% endif %}
                 {% if errors %}{% if "times-invalid" in errors %}<p class="error">Times must be integers</p>{% endif %}{% endif %}
+                {% if errors %}{% if "too-many-minutes" in errors %}<p class="error">That's a lot of minutes! Consider using hours.</p>{% endif %}{% endif %}
+                {% if errors %}{% if "too-many-hours" in errors %}<p class="error">That's too many hours. You may have made a mistake!</p>{% endif %}{% endif %}
             </div>
             <div class="form-group" style="margin-bottom: 0px">
                 <label for="formFile" class="form-label time-label">Yield: </label>
