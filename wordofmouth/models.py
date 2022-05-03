@@ -11,6 +11,10 @@ class UserRating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(default=0)
 
+class Tag(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+
 class Recipe(models.Model):
     title = models.CharField(max_length=200)
 
@@ -33,8 +37,7 @@ class Recipe(models.Model):
     cook_time_minutes_conversion = models.IntegerField(default=0)
     servings = models.IntegerField(default=0)
 
-    cuisine_type = models.CharField(max_length=200, default="NONE")
-    # tags = models.ManyToManyField(Tag, related_name='recipe_tags')
+    tags = models.ManyToManyField(Tag, related_name='recipe_tags')
 
     def total_likes(self):
         return self.likes.count()

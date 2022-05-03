@@ -115,7 +115,7 @@ def create_recipe(request):
         recipe.cook_time_metric = "minutes"
         
         recipe.servings = 0
-        recipe.cuisine_type = "NONE"
+        recipe.tags = []
 
         recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
         recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
