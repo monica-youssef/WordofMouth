@@ -1,3 +1,19 @@
+"""
+REFERENCES
+  Title: How to use Google Cloud Storage with Django Application
+  Author: Mohammed Abuiriban
+  URL: https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+
+  Title: Create Blog Like Button - Django Blog #18
+  Author: Codemy.com
+  Date: 3/27/2022
+  URL: https://www.youtube.com/watch?time_continue=41&v=PXqRPqDjDgc&feature=emb_title
+
+  Title: Writing your first Django app, parts 1-7
+  Author: Django
+  URL: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
+
+"""
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -12,7 +28,6 @@ from .models import Recipe, UserRating
 from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
-
 
 def index(request):
     return render(request, 'index.html', {})
