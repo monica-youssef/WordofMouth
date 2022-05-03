@@ -5,26 +5,126 @@
 
 <head>
     <title>Word of Mouth</title>
+    <style>
+        .error {
+          color: red;
+        }
+        .file-upload-button {
+            color: blue!important;
+        }
+        input[type="file"] {
+            width: 100%;
+        }
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+        .time-input {
+            width: 48px;
+            display: inline-block;
+        }
+        .form-label {
+            display: block;
+        }
+        .time-group {
+            display: inline-block;
+        }
+        .cook-time {
+            margin-left: 32px;
+        }
+        .common-tags-label {
+            display: inline-block;
+            color: #6c757d;
+        }
+        .common-tag {
+            /* background-color: lightblue; */
+            margin: 0;
+        }
+        .time-label {
+            display: inline-block;
+        }
+        .section-title {
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .lower-section-title {
+            margin-top: 42px;
+        }
+        .text-muted {
+            margin-left: 8px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Edit recipe</h1>
-    {% if user.is_authenticated and object.added_by == user%}
-    <p>{{ user.username }} is authenticated</p>
-    <form action="{% url 'edit' recipe.id %}" method="post">
+    <h1 class="display-4">Edit Recipe</h1>
+    <form action="{% url 'edit_recipe' recipe.id %}" method="post" enctype='multipart/form-data' class="col-md-8 offset-md-2">
         {% csrf_token %}
-        {{form.as_p}}
-        <input class="btn btn-primary btn-lg" style="margin-top: 12px" type="submit" value="update">
-        <a class="btn btn-secondary" href = "/wordofmouth/upload" role = "button">Upload New Image</a>
+        <fieldset>
+            <div class="form-group">
+                <h3 class="section-title">Details</h3>
+                <input name="updated_title" type="title" class="form-control" placeholder="Title" value="{% if recipe.title%}{{recipe.title}}{%endif%}">
+                {% if errors %}{% if "1" in errors %}<p class="error">Title cannot be blank</p>{% endif %}{% endif %}
+            </div>
+            <div class="form-group">
+                <input name="updated_ingredients" type="text" class="form-control" placeholder="Ingredients" value="{% if recipe.ingredients%}{{recipe.ingredients}}{%endif%}">
+                {% if errors %}{% if "2" in errors %}<p class="error">Ingredients cannot be blank</p>{% endif %}{% endif %}
+            </div>
+            <div class="form-group">
+                <input name="updated_instructions" type="title" class="form-control" placeholder="Instructions" value="{% if recipe.instructions%}{{recipe.instructions}}{%endif%}">
+                {% if errors %}{% if "3" in errors %}<p class="error">Instructions cannot be blank</p>{% endif %}{% endif %}
+            </div>
+            <div class="form-group">
+                <div class="time-group">
+                    <label for="formFile" class="form-label time-label">Prep Time:</label>
+                    <input name="updated_prep-time" type="title" class="form-control time-input" placeholder="" value="{% if recipe.prep_time%}{{recipe.prep_time}}{%endif%}">
+                    <select name="updated_prep-time-metric" class="form-select" aria-label="Default select example">
+                        <option value="minutes" selected>minutes</option>
+                        <option value="hours">hours</option>
+                    </select>
+                </div>
+                <div class="time-group cook-time">
+                    <label for="formFile" class="form-label time-label">Cook Time:</label>
+                    <input name="updated_cook-time" type="title" class="form-control time-input" placeholder="" value="{% if recipe.cook_time%}{{recipe.cook_time}}{%endif%}">
+                    <select name="updated_cook-time-metric" class="form-select" aria-label="Default select example">
+                        <option value="minutes" selected>minutes</option>
+                        <option value="hours">hours</option>
+                    </select>
+                </div>
+                {% if errors %}{% if "times-blank" in errors %}<p class="error">Times cannot be blank</p>{% endif %}{% endif %}
+                {% if errors %}{% if "times-invalid" in errors %}<p class="error">Times must be integers</p>{% endif %}{% endif %}
+            </div>
+            <div class="form-group" style="margin-bottom: 0px">
+                <label for="formFile" class="form-label time-label">Yield: </label>
+                <select name="updated_servings" class="form-select" aria-label="Default select example">
+                    <option value="1" selected>1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                </select>
+                <label for="formFile" class="form-label time-label">servings</label>
+            </div>
+            <div class="mb-3">
+                <h3 class="section-title lower-section-title">Upload image</h3>
+                <div class="custom-file-upload">
+                    <input name="updated_image" type="file" accept="image/*"/>
+                </div>   
+                {% if errors %}{% if "4" in errors %}<p class="error">Image did not upload</p>{% endif %}{% endif %}
+            </div>
+            <div class="form-group">
+                <h3 class="section-title lower-section-title">Tags<small class="text-muted">Comma-separated</small></h3>
+                <input name="updated_r_tags" type="title" class="form-control" placeholder="vegetarian, italian, spicy..." value="{% if recipe.r_tags %}{{recipe.r_tags.all|join:', '}}{%endif%}">
+                {% if errors %}{% if "5" in errors %}<p class="error">Tags are in an invalid format</p>{% endif %}{% endif %}
+            </div>
+        </fieldset>
+        <input class="btn btn-primary btn-lg" style="margin-top: 8px" type="submit" value="Update">
     </form>
-    {% else %}
-    <p>You must be logged in as the user who submitted the recipe to edit it.</p>
-    {% endif %}
-
-    
 </body>
 
 </html>
-
-
 {% endblock content%}
