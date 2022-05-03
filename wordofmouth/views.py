@@ -292,7 +292,6 @@ def RateView(request, recipe_id):
 
 
 def edit_recipe(request, pk):
-    print("HELLOOOO WORLD")
     try:
         recipe = Recipe.objects.get(pk=pk)
         errors = []
@@ -310,6 +309,9 @@ def edit_recipe(request, pk):
         if (len(r_tags) > 0):
             if (not tags_valid(r_tags)):
                 errors.append("5")
+            else:
+                for tag in parse(r_tags):
+                    recipe.r_tags.add(tag.strip().lower())
 
         if (len(errors) > 0): 
             raise KeyError
