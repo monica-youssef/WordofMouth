@@ -1,3 +1,27 @@
+"""
+REFERENCES
+
+  Title: Create Blog Like Button - Django Blog #18
+  Author: Codemy.com
+  Date: 3/27/2022
+  URL: https://www.youtube.com/watch?time_continue=41&v=PXqRPqDjDgc&feature=emb_title
+
+  Title: Writing your first Django app, parts 1-7
+  Author: Django
+  URL: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
+
+  Title: How to use Google Cloud Storage with Django Application
+  Author: Mohammed Abuiriban
+  URL: https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+
+  Title: Django Google Authentication using django-allauth
+  Author: Muhd Rahiman
+  Date: 3/14/2022
+  URL: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
+
+
+"""
+
 from django.db import models
 from storages.backends.gcloud import GoogleCloudStorage
 

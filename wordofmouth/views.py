@@ -1,3 +1,19 @@
+"""
+REFERENCES
+  Title: How to use Google Cloud Storage with Django Application
+  Author: Mohammed Abuiriban
+  URL: https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+
+  Title: Create Blog Like Button - Django Blog #18
+  Author: Codemy.com
+  Date: 3/27/2022
+  URL: https://www.youtube.com/watch?time_continue=41&v=PXqRPqDjDgc&feature=emb_title
+
+  Title: Writing your first Django app, parts 1-7
+  Author: Django
+  URL: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
+
+"""
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -165,6 +181,7 @@ def create_recipe(request):
             raise KeyError
         
         recipe = Recipe.objects.create()
+
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
@@ -214,11 +231,17 @@ class AddCommentView(CreateView):
     model = Comment
     form_class = CommentForm
     template_name = "add_comment.html"
-    success_url = reverse_lazy('recipe_list')
+
+    # success_url = "{% url 'detail' recipe.id %}"
+    # def get_success_url(self):
+    #     return reverse('detail', kwargs={'pk': self.object.id})
+    def get_success_url(self):
+        recipe = self.get_object()
+        return reverse('detail', kwargs={'pk': recipe.pk})
+
     def form_valid(self, form):
         form.instance.recipe_id = self.kwargs['pk']
         return super().form_valid(form)
-
 
 
 class UploadView(View):
@@ -253,10 +276,10 @@ def LikeView(request, pk):
 
 
 def RateView(request, recipe_id):
-    recipe = Recipe.objects.get(pk = recipe_id)
+    recipe = Recipe.objects.get(pk=recipe_id)
 
     rating = request.POST.get('rating')
-    
+
     print("you clicked " + str(rating))
     userRating = UserRating()
     userRating.user = request.user
@@ -343,6 +366,7 @@ class FavoriteRecipeList(generic.ListView):
 
         return queryset
 
+
 # forking!
 
 
@@ -377,7 +401,8 @@ class ForkRecipeList(generic.ListView):
                     queryset.append(thing)
         return queryset
 
+
 def deleteItem(request, recipe_id):
-    recipe = Recipe.objects.get(pk = recipe_id)
+    recipe = Recipe.objects.get(pk=recipe_id)
     recipe.delete()
     return redirect('user_recipe_list')
