@@ -34,6 +34,10 @@ def detail(request):
 
 def parse(tags):
     tags = tags.split(",")
+
+    for i in range(len(tags)):
+        tags[i] = tags[i].strip().lower()
+
     return tags
 
 # https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
@@ -86,13 +90,17 @@ class RecipeList(generic.ListView):
         recipes = Recipe.objects.all()
         
         if self.request.GET.get('query'):
-            recipes = recipes.filter(title__icontains=self.request.GET.get('query'))
+            tags = parse(self.request.GET.get('query'))
+            recipes_from_search = recipes.filter(title__icontains=self.request.GET.get('query'))
+            recipes_from_tag = recipes.filter(r_tags__name__in=tags)
+            combined = recipes_from_search | recipes_from_tag
+            recipes = list(set(combined))
         elif self.request.GET.get('s'):
             recipes = recipes.filter(servings__exact=self.request.GET.get('s'))
 
         if self.request.GET.get('tag'):
             tags = parse(self.request.GET.get('tag'))
-            recipes = recipes.filter(tags__name__in=tags)
+            recipes = recipes.filter(r_tags__name__in=tags)
         elif self.request.GET.get('a-z') == 'True':
             recipes = recipes.order_by('title')
         elif self.request.GET.get('by-rating') == 'True':
