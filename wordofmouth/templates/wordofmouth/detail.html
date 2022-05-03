@@ -135,6 +135,18 @@
       <p class="lead" style="color: #ccc">Instructions:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.instructions }}</p>
     </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Prep Time:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.prep_time }} {{ recipe.prep_time_metric }}</p>
+    </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Cook Time:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.cook_time }} {{ recipe.cook_time_metric }}</p>
+    </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Servings:</p>
+      <p class="lead" style="margin-left: 10px">{{ recipe.servings }}</p>
+    </div>
   </div>
 
   <br />
