@@ -5,6 +5,7 @@ storage = GoogleCloudStorage()
 
 from django.contrib.auth.models import User
 
+from taggit.managers import TaggableManager
 
 class UserRating(models.Model):
     id = models.AutoField(primary_key=True)
@@ -38,6 +39,7 @@ class Recipe(models.Model):
     servings = models.IntegerField(default=0)
 
     tags = models.ManyToManyField(Tag, related_name='recipe_tags')
+    r_tags = TaggableManager()
 
     def total_likes(self):
         return self.likes.count()
