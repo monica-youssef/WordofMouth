@@ -270,24 +270,6 @@ class AddCommentView(CreateView):
         return super().form_valid(form)
 
 
-class UploadView(View):
-    def get(self, request):
-        html = """
-            <form method="post" enctype="multipart/form-data">
-            <input type='text' style='display:none;' value='%s' name='csrfmiddlewaretoken'/>
-            <input type="file" name="image" accept="image/*">
-            <button type="submit">Upload Image</button>
-            </form>
-        """ % (get_token(request))
-        return HttpResponse(html)
-
-    def post(self, request):
-        image = request.FILES['image']
-        # recipe = request.recipe
-        public_uri = Upload.upload_image(image, request.user.username + str(Recipe.objects.all().count()) + '.jpeg')
-        return HttpResponseRedirect('recipe_list')
-
-
 def LikeView(request, pk):
     recipe = get_object_or_404(Recipe, id=request.POST.get('recipe_id'))
     liked = False

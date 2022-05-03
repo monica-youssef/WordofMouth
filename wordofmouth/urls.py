@@ -10,7 +10,7 @@ REFERENCES
 from django.urls import include, path
 
 from . import views
-from .views import UploadView, LikeView, RateView, AddCommentView
+from .views import LikeView, RateView, AddCommentView
 
 urlpatterns = [
     path('', views.create_recipe_view, name="create_recipe_view"),
@@ -19,7 +19,6 @@ urlpatterns = [
     path('recipe_list', views.RecipeList.as_view(), name='recipe_list'),
     path('accounts/', include('allauth.urls')),
     path('user/<int:pk>/', views.UserDetails.as_view(), name='user_details'),
-    path('upload', UploadView.as_view(), name='upload-image'),
     path('like/<int:pk>/', LikeView, name='like_recipe'),
     path('rate/<recipe_id>/', RateView, name='rate_recipe'),
     path('recipe/<int:pk>/edit', views.edit_recipe_view, name='edit'),
