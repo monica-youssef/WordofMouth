@@ -147,6 +147,10 @@
       <p class="lead" style="color: #ccc">Servings:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.servings }}</p>
     </div>
+    <div style="display: flex">
+      <p class="lead" style="color: #ccc">Tags:</p>
+      <p class="lead" style="margin-left: 10px">{{recipe.r_tags.all|join:" -- "}}</p>
+    </div>
   </div>
 
   <br />

@@ -25,6 +25,10 @@ def create_recipe_view(request):
 def detail(request):
     return render(request, 'wordofmouth/recipe_list.html', {})
 
+def parse(tags):
+    tags = tags.split(",")
+    return tags
+
 
 class DetailView(generic.DetailView):
     model = Recipe
@@ -101,7 +105,7 @@ def create_recipe(request):
             errors.append("4")
             raise KeyError
         
-        recipe = Recipe()
+        recipe = Recipe.objects.create()
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
@@ -116,7 +120,9 @@ def create_recipe(request):
         
         recipe.servings = request.POST['servings']
 
-        # TODO: add tags
+        r_tags = request.POST['r_tags']
+        for tag in parse(r_tags):
+            recipe.r_tags.add(tag)
 
         recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
         recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
