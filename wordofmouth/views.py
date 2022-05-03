@@ -107,6 +107,11 @@ def create_recipe(request):
         recipe.instructions = request.POST['instructions']
         recipe.image_url = image_url
         recipe.added_by = request.user
+
+        recipe.prep_time = 0
+        recipe.cook_time = 0
+        recipe.servings = 0
+        recipe.cuisine_type = "NONE"
         
     except (KeyError):
         print("-----keyrror: ", errors)
