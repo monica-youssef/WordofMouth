@@ -50,7 +50,8 @@
             display: flex;
             flex-direction: row;
             justify-content: left;
-            align-items: center;
+            align-items: top;
+            float: top;
         }
         .recipe-tags {
             display: block;
@@ -70,6 +71,13 @@
         .search-form {
             margin-left: 20px;
         }
+        .dropdown {
+            margin-right: 12px;
+            float: top;
+        }
+        .input {
+            height: 100%;
+        }
     </style>
 </head>
 
@@ -78,35 +86,40 @@
         <h1 class="display-4">All Recipes</h1>
         <p class="lead">Recipes posted by Word of Mouth users.</p>
         <div class="filters">
-        <!-- <a href="?a-z=True" type="button" class="btn btn-outline-{% if 'a-z' in request.GET %}success{% else %}secondary{% endif %}">A-Z</a>
-        <a href="?z-a=True" type="button" class="btn btn-outline-{% if 'z-a' in request.GET %}success{% else %}secondary{% endif %}">Z-A</a> -->
-        <div class="dropdown">
-            <button class="btn btn-{% if 'a-z' in request.GET or 'by-rating' in request.GET %}primary{% else %}secondary{% endif %} dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {% if 'a-z' in request.GET %}Alphabetical{%elif 'by-rating' in request.GET%}Rating (High to Low){% else %}Sort{% endif %}
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <a class="dropdown-item" href="?by-rating=True">Rating (High to Low)</a>
-              <a class="dropdown-item" href="?a-z=True">Alphabetical</a>
-              <a class="dropdown-item" href="?">None</a>
+            <!-- <a href="?a-z=True" type="button" class="btn btn-outline-{% if 'a-z' in request.GET %}success{% else %}secondary{% endif %}">A-Z</a>
+            <a href="?z-a=True" type="button" class="btn btn-outline-{% if 'z-a' in request.GET %}success{% else %}secondary{% endif %}">Z-A</a> -->
+            <div class="dropdown">
+                <button
+                    class="btn btn-{% if 'a-z' in request.GET or 'by-rating' in request.GET %}primary{% else %}secondary{% endif %} dropdown-toggle"
+                    type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% if 'a-z' in request.GET %}Alphabetical{%elif 'by-rating' in request.GET%}Rating (High to Low){% else%}Sort{% endif %}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="?by-rating=True">Rating (High to Low)</a>
+                    <a class="dropdown-item" href="?a-z=True">Alphabetical</a>
+                    <a class="dropdown-item" href="?">None</a>
+                </div>
             </div>
-        </div>
-
-        <form action="{% url 'recipe_list' %}" class="search-form">
-              <input name="query" class="form-control search-box" id="query" type="title" placeholder="chicken parmesan">
-              <button type="submit" class="btn btn-light">Search</button>
-        </form>
-
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Filter by Tag
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for tag in tags %}
+    
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter by Tag
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for tag in tags %}
                     <a class="dropdown-item" href="?tag={{tag.name}}">{{ tag.name }}</a>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
+    
+            <form action="{% url 'recipe_list' %}" class="input-group mb-3">
+                <input name="query" class="form-control search-box" id="query" type="title" placeholder="chicken parmesan" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </div>
+            </form>
         </div>
-    </div>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
         <div class="container">
             {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}
