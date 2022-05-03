@@ -76,7 +76,17 @@ class RecipeList(generic.ListView):
     context_object_name = 'recipe_list'
 
     def get_queryset(self):
-        return Recipe.objects.all()
+        if self.request.GET.get('a-z') == 'True':
+            recipes = Recipe.objects.all().order_by('title')
+            return recipes
+        if self.request.GET.get('z-a') == 'True':
+            recipes = Recipe.objects.all().order_by('-title')
+            return recipes
+        # if self.request.GET.get('ratings') == 'True':
+        #     recipes = Recipe.objects.all().order_by('ratings')
+        #     return recipes
+        else:
+            return Recipe.objects.all()
 
 
 class UserRecipeList(generic.ListView):
