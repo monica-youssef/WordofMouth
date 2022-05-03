@@ -428,3 +428,9 @@ def deleteItem(request, recipe_id):
     recipe = Recipe.objects.get(pk=recipe_id)
     recipe.delete()
     return redirect('user_recipe_list')
+
+def error_404(request, exception):
+    all_recipes = Recipe.objects.all()
+    random_recipes = Recipe.objects.order_by('?')[:3]
+    context = {'all_recipes' : all_recipes, 'featured_recipes' : random_recipes}
+    return render(request,'404.html', context)
