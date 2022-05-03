@@ -74,17 +74,18 @@ class RecipeList(generic.ListView):
         
         if self.request.GET.get('query'):
             recipes = recipes.filter(title__icontains=self.request.GET.get('query'))
+        elif self.request.GET.get('s'):
+            recipes = recipes.filter(servings__exact=self.request.GET.get('s'))
 
         if self.request.GET.get('tag'):
             tags = parse(self.request.GET.get('tag'))
             recipes = recipes.filter(tags__name__in=tags)
-
-        if self.request.GET.get('a-z') == 'True':
+        elif self.request.GET.get('a-z') == 'True':
             recipes = recipes.order_by('title')
-            return recipes
-        if self.request.GET.get('by-rating') == 'True':
+        elif self.request.GET.get('by-rating') == 'True':
             recipes = sorted(recipes, key=lambda r: get_avg_rating(r), reverse=True)
-            return recipes
+        elif self.request.GET.get('pt') == 'True':
+            recipes = sorted(recipes, key=lambda r: r.prep_time_minutes_conversion + r.cook_time_minutes_conversion, reverse=True)
 
         return recipes
 

@@ -96,8 +96,9 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" href="?by-rating=True">Rating (High to Low)</a>
+                    <a class="dropdown-item" href="?time=True">Time to Make (Low to High)</a>
                     <a class="dropdown-item" href="?a-z=True">Alphabetical</a>
-                    <a class="dropdown-item" href="?">None</a>
+                    <a class="dropdown-item" href="?">Clear</a>
                 </div>
             </div>
     
@@ -109,6 +110,18 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% for tag in tags %}
                     <a class="dropdown-item" href="?tag={{tag.name}}">{{ tag.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter by Serving Size
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% for n in '12345678'|make_list %}
+                        <a class="dropdown-item" href="?s={{n}}">{{ n }}</a>
                     {% endfor %}
                 </div>
             </div>
