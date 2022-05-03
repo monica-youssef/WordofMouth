@@ -8,6 +8,38 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
+
+REFERENCES
+  Title: Django Google Authentication using django-allauth
+  Author: Muhd Rahiman
+  Date: 3/14/2022
+  URL: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
+
+  Title: How to use Google Cloud Storage with Django Application
+  Author: Mohammed Abuiriban
+  URL: https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
+
+  Title: <title of program/source code>
+  Author: <author(s) names>
+  Date: <date>
+  Code version: <code version>
+  URL: <where it's located>
+  Software License: <license software is released under>
+
+  Title: <title of program/source code>
+  Author: <author(s) names>
+  Date: <date>
+  Code version: <code version>
+  URL: <where it's located>
+  Software License: <license software is released under>
+
+  Title: <title of program/source code>
+  Author: <author(s) names>
+  Date: <date>
+  Code version: <code version>
+  URL: <where it's located>
+  Software License: <license software is released under>
+
 """
 import sys
 from pathlib import Path
