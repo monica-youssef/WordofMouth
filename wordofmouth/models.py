@@ -26,7 +26,9 @@ class Recipe(models.Model):
     ratings = models.ManyToManyField(UserRating, related_name='recipe_ratings')
 
     prep_time = models.IntegerField(default=0)
+    prep_time_metric = models.CharField(max_length=200, default='minutes')
     cook_time = models.IntegerField(default=0)
+    cook_time_metric = models.CharField(max_length=200, default='minutes')
     servings = models.IntegerField(default=0)
 
     cuisine_type = models.CharField(max_length=200, default="NONE")
