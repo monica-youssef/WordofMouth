@@ -34,6 +34,12 @@
         .cook-time {
             margin-left: 32px;
         }
+        .common-tags-label {
+            display: inline-block;
+        }
+        .common-tag {
+            background-color: lightblue;
+        }
     </style>
     </head>
 
@@ -95,6 +101,10 @@
                 </div>
                 <div class="form-group">
                     <label for="formFile" class="form-label">Tags (comma separated)</label>
+                    <p class="common-tags-label">common tags:</p>
+                    {% for tag in common_tags %}
+                        <i for="formFile" class="common-tag">{{ tag.name }}</i>
+                    {% endfor %}
                     <input name="r_tags" type="title" class="form-control" placeholder="vegetarian, italian">
                 </div>
             </div>
