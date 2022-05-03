@@ -42,28 +42,28 @@
     src="{% static 'wordofmouth/images/avg-5s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% elif recipe.average_rating > 3.5 %}
   <img
     class="star-ratings"
     src="{% static 'wordofmouth/images/avg-4s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% elif recipe.average_rating > 2.5 %}
   <img
     class="star-ratings"
     src="{% static 'wordofmouth/images/avg-3s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% elif recipe.average_rating > 1.5 %}
   <img
     class="star-ratings"
     src="{% static 'wordofmouth/images/avg-2s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
 
   {% elif recipe.average_rating > 0.0 %}
   <img
@@ -71,7 +71,7 @@
     src="{% static 'wordofmouth/images/avg-1s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% else %}
   <i class="lead rating-desc" style="color: #ccc">No Ratings</i>
   {% endif %}
@@ -130,7 +130,6 @@
       <p class="lead" style="color: #ccc">Ingredients:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.ingredients }}</p>
     </div>
-    <br />
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Instructions:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.instructions }}</p>
