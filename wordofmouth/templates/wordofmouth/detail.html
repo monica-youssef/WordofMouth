@@ -1,19 +1,6 @@
 {% extends "wordofmouth/base.html" %} {% block content %} {% load static %}
 {%load socialaccount %} {% csrf_token %}
 
-<!--
-  REFERENCES
-  Title: Bootstrap Buttons
-  Author: BTSTRPIOUS
-  URL: https://bootstrapious.com/p/bootstrap-buttons
-
-  Title: Dynamic Rows Loading
-  Author: nix1947
-  URL: https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946
-
--->
-
-
 <head>
   <style>
     .star-ratings {
@@ -96,6 +83,18 @@
 </head>
 
 <body>
+  <!--
+  REFERENCES
+  Title: Bootstrap Buttons
+  Author: BTSTRPIOUS
+  URL: https://bootstrapious.com/p/bootstrap-buttons
+
+  Title: Dynamic Rows Loading
+  Author: nix1947
+  URL: https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946
+
+-->
+
   <div class="col-md-8 offset-md-2">
   <h1 class="display-4" style="text-align: center">{{recipe.title}}</h1>
   <p class="lead" style="text-align: center; margin-bottom: 0">by {{recipe.added_by}}</p>
