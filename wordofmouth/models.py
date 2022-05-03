@@ -19,6 +19,10 @@ REFERENCES
   Date: 3/14/2022
   URL: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
 
+  Title: Generate average for ratings in Django models and return with other model
+  Author: Endre Both
+  Date: 3/24/2019
+  URL: https://stackoverflow.com/questions/55325723/generate-average-for-ratings-in-django-models-and-return-with-other-model
 
 """
 
@@ -68,7 +72,6 @@ class Recipe(models.Model):
         return self.likes.count()
 
     def average_rating(self):
-        # https://stackoverflow.com/questions/55325723/generate-average-for-ratings-in-django-models-and-return-with-other-model
         return self.ratings.all().aggregate(models.Avg('rating')).get('rating__avg', 0.00)
 
     def __str__(self):

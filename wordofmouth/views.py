@@ -13,6 +13,11 @@ REFERENCES
   Author: Django
   URL: https://docs.djangoproject.com/en/3.2/intro/tutorial01/
 
+  Title: How to check that a comma-separated string in Python contains only single commas?
+  Author: EB2127
+  Date: 9/6/2020
+  URL: https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
+
 """
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
@@ -62,7 +67,7 @@ def get_total_make_time(r):
     cook_minutes = r.cook_time if r.cook_time_metric == "minutes" else (r.cook_time * 60)
     return prep_minutes + cook_minutes
 
-# https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
+
 def tags_valid(tags):
     pattern = re.compile(r"^(\w+)(,\s*\w+)*$")
 
