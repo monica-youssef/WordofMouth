@@ -12,6 +12,7 @@ from .models import Recipe, UserRating
 from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
+import re
 
 from taggit.models import Tag
 
@@ -31,6 +32,15 @@ def detail(request):
 def parse(tags):
     tags = tags.split(",")
     return tags
+
+# https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
+def tags_valid(tags):
+    pattern = re.compile(r"^(\w+)(,\s*\w+)*$")
+
+    if pattern.match(tags) == None:
+        return False
+    else:
+        return True
 
 
 class DetailView(generic.DetailView):
@@ -118,7 +128,17 @@ def create_recipe(request):
         if (request.FILES['image'] == None):
             errors.append("4")
 
-
+        r_tags = request.POST['r_tags']
+        if (len(r_tags) > 0):
+            if (not tags_valid(r_tags)):
+                errors.append("5")
+        
+        if (request.POST['prep-time'] == "" or request.POST['cook-time'] == ""):
+            errors.append("times-blank")
+        else:
+            if (not request.POST['prep-time'] or not request.POST['cook-time'].isdigit()):
+                errors.append("times-invalid")
+        
         if (len(errors) > 0): 
             raise KeyError
 
@@ -148,17 +168,18 @@ def create_recipe(request):
         
         recipe.servings = request.POST['servings']
 
-        r_tags = request.POST['r_tags']
-        for tag in parse(r_tags):
-            recipe.r_tags.add(tag.strip().lower())
+        if (len(r_tags) > 0):
+            for tag in parse(r_tags):
+                recipe.r_tags.add(tag.strip().lower())
 
         recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
         recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
         
     except (KeyError):
-        print("-----keyrror: ", errors)
+        common_tags = list(Recipe.r_tags.most_common()[:5])
         return render(request, 'wordofmouth/create_recipe_view.html', {
-            'errors': errors
+            'errors': errors,
+            'common_tags' : common_tags
         })
     else:
         recipe.save()

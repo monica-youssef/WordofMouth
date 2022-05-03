@@ -36,7 +36,7 @@
         }
         .common-tags-label {
             display: inline-block;
-            color: #ccc;
+            color: #6c757d;
         }
         .common-tag {
             /* background-color: lightblue; */
@@ -51,6 +51,9 @@
         }
         .lower-section-title {
             margin-top: 42px;
+        }
+        .text-muted {
+            margin-left: 8px;
         }
     </style>
     </head>
@@ -92,6 +95,8 @@
                         <option value="hours">hours</option>
                     </select>
                 </div>
+                {% if errors %}{% if "times-blank" in errors %}<p class="error">Times cannot be blank</p>{% endif %}{% endif %}
+                {% if errors %}{% if "times-invalid" in errors %}<p class="error">Times must be integers</p>{% endif %}{% endif %}
             </div>
             <div class="form-group" style="margin-bottom: 0px">
                 <label for="formFile" class="form-label time-label">Yield: </label>
@@ -115,12 +120,13 @@
                 {% if errors %}{% if "4" in errors %}<p class="error">Image did not upload</p>{% endif %}{% endif %}
             </div>
             <div class="form-group">
-                <h3 class="section-title lower-section-title">Tags</h3>
-                <p class="common-tags-label">common tags:</p>
+                <h3 class="section-title lower-section-title">Tags<small class="text-muted">Comma-separated</small></h3>
+                <p class="common-tags-label">popular tags:</p>
                 {% for tag in common_tags %}
                     <p for="formFile" class="common-tag badge badge-secondary">{{tag.name}}</p>
                 {% endfor %}
                 <input name="r_tags" type="title" class="form-control" placeholder="vegetarian, italian, spicy...">
+                {% if errors %}{% if "5" in errors %}<p class="error">Tags are in an invalid format</p>{% endif %}{% endif %}
             </div>
         </fieldset>
         <input class="btn btn-primary btn-lg" style="margin-top: 8px" type="submit" value="Create">
