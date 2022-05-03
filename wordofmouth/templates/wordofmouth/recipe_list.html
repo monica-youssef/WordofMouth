@@ -46,15 +46,29 @@
             margin-top: 4px;
             margin-bottom: 16px;
         }
-        .card-content {
-            min-height: 350px;
-        }
         .filters {
             display: flex;
             flex-direction: row;
-            flex-wrap: wrap;
             justify-content: left;
             align-items: center;
+        }
+        .recipe-tags {
+            display: block;
+        }
+        .recipe-tag {
+            margin: 0;
+        }
+        .add-tag {
+            width: 120px;
+            margin-left: 32px;
+            margin-right: 8px;
+        }
+        .search-box {
+            display: inline-block;
+            max-width: 200px;
+        }
+        .search-form {
+            margin-left: 20px;
         }
     </style>
 </head>
@@ -76,7 +90,14 @@
               <a class="dropdown-item" href="?">None</a>
             </div>
         </div>
-        </div>
+        <form action="{% url 'recipe_list' %}" class="search-form">
+              <input name="query" class="form-control search-box" id="query" type="title" placeholder="chicken parmesan">
+              <button type="submit" class="btn btn-light">Search</button>
+        </form>
+        
+        <!-- <input name="add_tag" class="form-control add-tag" type="title" placeholder="vegetarian">
+        <a href="?tags=a,b"></a><button type="button" class="btn btn-light">Add tag</button></a> -->
+    </div>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
         <div class="container">
             {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}
@@ -95,6 +116,11 @@
                                 />
                             </div>
                             <h3 class="card-title">{{ recipe.title }}</h3>
+                            <div class="recipe-tags">
+                                {% for tag in recipe.r_tags.all %}
+                                    <p for="formFile" class="recipe-tag badge badge-secondary">{{tag.name}}</p>
+                                {% endfor %}
+                            </div>
                             {%if recipe.average_rating > 4.5 %}
                                 <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">
                             {% elif recipe.average_rating > 3.5 %}
