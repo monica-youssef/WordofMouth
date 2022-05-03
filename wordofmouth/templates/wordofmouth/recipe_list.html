@@ -25,6 +25,9 @@
             margin: 20px 20px 20px 20px;
             background-color: white;
         }
+        .image-container {
+            min-height: 200px;
+        }
         .star-ratings {
             max-height: 18px;
         }
@@ -43,6 +46,16 @@
             margin-top: 4px;
             margin-bottom: 16px;
         }
+        .card-content {
+            min-height: 350px;
+        }
+        .filters {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: left;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -50,6 +63,20 @@
     <div>
         <h1 class="display-4">All Recipes</h1>
         <p class="lead">Recipes posted by Word of Mouth users.</p>
+        <div class="filters">
+        <!-- <a href="?a-z=True" type="button" class="btn btn-outline-{% if 'a-z' in request.GET %}success{% else %}secondary{% endif %}">A-Z</a>
+        <a href="?z-a=True" type="button" class="btn btn-outline-{% if 'z-a' in request.GET %}success{% else %}secondary{% endif %}">Z-A</a> -->
+        <div class="dropdown">
+            <button class="btn btn-{% if 'a-z' in request.GET or 'by-rating' in request.GET %}primary{% else %}secondary{% endif %} dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {% if 'a-z' in request.GET %}Alphabetical{%elif 'by-rating' in request.GET%}Rating (High to Low){% else %}Sort{% endif %}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item" href="?by-rating=True">Rating (High to Low)</a>
+              <a class="dropdown-item" href="?a-z=True">Alphabetical</a>
+              <a class="dropdown-item" href="?">None</a>
+            </div>
+        </div>
+        </div>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
         <div class="container">
             {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}
@@ -60,11 +87,13 @@
                     <div class="recipe-card card">
                         <div class="card-content" style="cursor: pointer">
                             <br />
-                            <img
-                            class="recipe-image"
-                            src="{{ recipe.image_url }}"
-                            alt="Recipe Image"
-                            />
+                            <div class="image-container">
+                                <img
+                                class="recipe-image"
+                                src="{{ recipe.image_url }}"
+                                alt="Recipe Image"
+                                />
+                            </div>
                             <h3 class="card-title">{{ recipe.title }}</h3>
                             {%if recipe.average_rating > 4.5 %}
                                 <img class="star-ratings" src="{% static 'wordofmouth/images/avg-5s.png' %}" alt="My image">

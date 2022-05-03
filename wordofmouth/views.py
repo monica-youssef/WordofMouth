@@ -62,12 +62,28 @@ class DetailView(generic.DetailView):
         return context
 
 
+def get_avg_rating(r):
+    return r.average_rating() or -1.0
+
 class RecipeList(generic.ListView):
     template_name = 'wordofmouth/recipe_list.html'
     context_object_name = 'recipe_list'
 
     def get_queryset(self):
-        return Recipe.objects.all()
+        if self.request.GET.get('a-z') == 'True':
+            recipes = Recipe.objects.all().order_by('title')
+            return recipes
+        if self.request.GET.get('z-a') == 'True':
+            recipes = Recipe.objects.all().order_by('-title')
+            return recipes
+        if self.request.GET.get('by-rating') == 'True':
+            recipes = sorted(Recipe.objects.all(), key=lambda r: get_avg_rating(r), reverse=True)
+            return recipes
+        # if self.request.GET.get('ratings') == 'True':
+        #     recipes = Recipe.objects.all().order_by('ratings')
+        #     return recipes
+        else:
+            return Recipe.objects.all()
 
 
 class UserRecipeList(generic.ListView):
