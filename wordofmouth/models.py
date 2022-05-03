@@ -88,7 +88,6 @@ class Comment(models.Model):
         return '%s - %s' % (self.recipe.title, self.name)
 
 
-# https://medium.com/@mohammedabuiriban/how-to-use-google-cloud-storage-with-django-application-ff698f5a740f
 class Upload(models.Model):
     @staticmethod
     def upload_image(file, filename):
