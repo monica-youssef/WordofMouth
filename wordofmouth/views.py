@@ -98,6 +98,9 @@ class DetailView(generic.DetailView):
 def get_avg_rating(r):
     return r.average_rating() or -1.0
 
+def get_time_to_make(r):
+    return r.prep_time_minutes_conversion + r.cook_time_minutes_conversion
+
 class RecipeList(generic.ListView):
     template_name = 'wordofmouth/recipe_list.html'
     context_object_name = 'recipe_list'
@@ -121,8 +124,8 @@ class RecipeList(generic.ListView):
             recipes = recipes.order_by('title')
         elif self.request.GET.get('by-rating') == 'True':
             recipes = sorted(recipes, key=lambda r: get_avg_rating(r), reverse=True)
-        elif self.request.GET.get('pt') == 'True':
-            recipes = sorted(recipes, key=lambda r: r.prep_time_minutes_conversion + r.cook_time_minutes_conversion, reverse=True)
+        elif self.request.GET.get('time') == 'True':
+            recipes = sorted(recipes, key=lambda r: get_time_to_make(r))
 
         return recipes
 
