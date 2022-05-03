@@ -1,49 +1,84 @@
 {% extends "wordofmouth/base.html" %} {% block content %} {% load static %}
 <head>
-  <style>
-    .a-container {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      align-items: center;
-    }
-    .recipe-card {
-      margin-top: 8px;
-      margin-bottom: 8px;
-      background: white;
-      text-decoration: none;
-    }
-    .recipe-card:hover {
-      background-color: #f5f5f5;
-    }
-    .recipe-image {
-      max-height: 207px;
-      background-size: cover;
-      max-width: 80%;
-      border: 1px solid #f5f5f5;
-      margin: 20px 20px 20px 20px;
-      background-color: white;
-    }
-    .star-ratings {
-      max-height: 18px;
-    }
-    .card-text {
-      text-decoration: none;
-      color: black;
-    }
-    .card-text:hover {
-      text-decoration: none;
-      color: black;
-    }
-    .card-title {
-      margin-bottom: 0;
-    }
-    .card-subtitle {
-      margin-top: 4px;
-      margin-bottom: 16px;
-    }
-  </style>
+    <style>
+        .a-container {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .recipe-card {
+            margin-top: 8px;
+            margin-bottom: 8px;
+            background: white;
+            text-decoration: none;
+        }
+        .recipe-card:hover {
+            background-color: #f5f5f5;
+        }
+        .recipe-image {
+            max-height: 207px;
+            background-size: cover;
+            max-width: 80%;
+            border: 1px solid #f5f5f5;
+            margin: 20px 20px 20px 20px;
+            background-color: white;
+        }
+        .image-container {
+            min-height: 200px;
+        }
+        .star-ratings {
+            max-height: 18px;
+        }
+        .card-text {
+            text-decoration: none;
+            color: black;
+        }
+        .card-text:hover {
+            text-decoration: none;
+            color: black;
+        }
+        .card-title {
+            margin-bottom: 0;
+        }
+        .card-subtitle {
+            margin-top: 4px;
+            margin-bottom: 16px;
+        }
+        .filters {
+            display: flex;
+            flex-direction: row;
+            justify-content: left;
+            align-items: top;
+            float: top;
+        }
+        .recipe-tags {
+            display: block;
+        }
+        .recipe-tag {
+            margin: 0;
+        }
+        .add-tag {
+            width: 120px;
+            margin-left: 32px;
+            margin-right: 8px;
+        }
+        .search-box {
+            display: inline-block;
+            max-width: 200px;
+        }
+        .search-form {
+            margin-left: 20px;
+        }
+        .dropdown {
+            margin-right: 12px;
+            float: top;
+        }
+        .input {
+            height: 100%;
+        }
+    </style>
 </head>
 
 <body>

@@ -12,6 +12,7 @@ from .models import Recipe, UserRating
 from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
+from django.contrib.auth.models import User
 
 from taggit.models import Tag
 
@@ -101,6 +102,23 @@ class UserRecipeList(generic.ListView):
 
     def get_queryset(self):
         return Recipe.objects.all()
+
+
+class UserDetails(generic.DetailView):
+    model = Recipe
+    template_name = 'wordofmouth/user_details.html'
+    slug_field = 'id'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetails, self).get_context_data()
+        user_id = self.kwargs['pk']
+        print("user_id: ", user_id)
+
+        user = get_object_or_404(User, id=user_id)
+
+        context['recipe_list'] = Recipe.objects.filter(added_by=user)
+        context['user'] = user
+        return context
 
 
 def create_recipe(request):

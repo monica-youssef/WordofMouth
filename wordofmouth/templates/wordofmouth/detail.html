@@ -33,8 +33,9 @@
 </head>
 
 <body>
-  <h1 class="display-4" style="text-align: center">{{recipe.title}}</h1>
-  <p class="lead" style="text-align: center; margin-bottom: 0">by {{recipe.added_by}}</p>
+  <h1 class="display-4" style="text-align: center;margin-bottom: 0">{{recipe.title}}</h1>
+  <!-- <p class="lead" style="text-align: center; margin-bottom: 0">by <a class="username-link badge badge-light" href="/wordofmouth/user/{{recipe.added_by.id}}">{{ recipe.added_by }}</a></p> -->
+    <p class="lead" style="text-align: center; margin-bottom: 0">by {{ recipe.added_by }}</p>
 <div style="text-align: center; font-size: 1rem">
   {%if recipe.average_rating > 4.5 %}
   <img
@@ -42,28 +43,28 @@
     src="{% static 'wordofmouth/images/avg-5s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% elif recipe.average_rating > 3.5 %}
   <img
     class="star-ratings"
     src="{% static 'wordofmouth/images/avg-4s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% elif recipe.average_rating > 2.5 %}
   <img
     class="star-ratings"
     src="{% static 'wordofmouth/images/avg-3s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% elif recipe.average_rating > 1.5 %}
   <img
     class="star-ratings"
     src="{% static 'wordofmouth/images/avg-2s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
 
   {% elif recipe.average_rating > 0.0 %}
   <img
@@ -71,17 +72,17 @@
     src="{% static 'wordofmouth/images/avg-1s.png' %}"
     alt="My image"
   />
-  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
+  <i class="lead rating-desc" style="margin-left: 10px"> ({{recipe.average_rating|floatformat:1}}, {{recipe.ratings.count}} {%if recipe.ratings.count is 1%} rating{%else%} ratings{%endif%})</i>
   {% else %}
   <i class="lead rating-desc" style="color: #ccc">No Ratings</i>
   {% endif %}
 </div>
-  <div style="align-items: center;text-align: center">
+  <div style="align-items: center;text-align: center; margin-top: 8px; margin-bottom: 8px">
     <img
       src="{{ recipe.image_url }}"
-      alt="{{ recipe.image_url }}"
+      alt="Recipe Image"
       height="200"
-      style="padding: 10px; border: 1px solid #f5f5f5"
+      style="border: 1px solid #f5f5f5"
     />
       
   </div>
@@ -130,7 +131,6 @@
       <p class="lead" style="color: #ccc">Ingredients:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.ingredients }}</p>
     </div>
-    <br />
     <div style="display: flex">
       <p class="lead" style="color: #ccc">Instructions:</p>
       <p class="lead" style="margin-left: 10px">{{ recipe.instructions }}</p>
