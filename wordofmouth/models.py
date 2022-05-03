@@ -25,6 +25,13 @@ class Recipe(models.Model):
     likes = models.ManyToManyField(User, related_name='recipe_posts')  # tutorial called it blog_posts
     ratings = models.ManyToManyField(UserRating, related_name='recipe_ratings')
 
+    prep_time = models.IntegerField(default=0)
+    cook_time = models.IntegerField(default=0)
+    servings = models.IntegerField(default=0)
+
+    cuisine_type = models.CharField(max_length=200, default="NONE")
+    # tags = models.ManyToManyField(Tag, related_name='recipe_tags')
+
     def total_likes(self):
         return self.likes.count()
 
