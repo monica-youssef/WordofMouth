@@ -21,7 +21,7 @@ def index(request):
 
 def create_recipe_view(request):
     common_tags = list(Recipe.r_tags.most_common()[:5])
-    context ={'common_tags' : common_tags }
+    context = {'common_tags' : common_tags }
     return render(request, 'wordofmouth/create_recipe_view.html', context)
 
 
@@ -75,9 +75,9 @@ class RecipeList(generic.ListView):
         if self.request.GET.get('query'):
             recipes = recipes.filter(title__icontains=self.request.GET.get('query'))
 
-        # if self.request.GET.get('tags'):
-        #     tags = parse(self.request.GET.get('tags'))
-        #     recipes = recipes.filter(tags__name__in=tags)
+        if self.request.GET.get('tag'):
+            tags = parse(self.request.GET.get('tag'))
+            recipes = recipes.filter(tags__name__in=tags)
 
         if self.request.GET.get('a-z') == 'True':
             recipes = recipes.order_by('title')
@@ -85,8 +85,13 @@ class RecipeList(generic.ListView):
         if self.request.GET.get('by-rating') == 'True':
             recipes = sorted(recipes, key=lambda r: get_avg_rating(r), reverse=True)
             return recipes
-        
+
         return recipes
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tags'] = Tag.objects.all()
+        return context
 
 
 class UserRecipeList(generic.ListView):
