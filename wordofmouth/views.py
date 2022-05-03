@@ -29,6 +29,7 @@ from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
 
+
 def index(request):
     return render(request, 'index.html', {})
 
@@ -101,8 +102,7 @@ def create_recipe(request):
         if (request.FILES['image'] == None):
             errors.append("4")
 
-
-        if (len(errors) > 0): 
+        if (len(errors) > 0):
             raise KeyError
 
         timestamp = str(datetime.now()).replace(":", "").replace("-", "").replace(".", "")
@@ -115,14 +115,14 @@ def create_recipe(request):
         if (public_uri == None):
             errors.append("4")
             raise KeyError
-        
+
         recipe = Recipe()
         recipe.title = request.POST['title']
         recipe.ingredients = request.POST['ingredients']
         recipe.instructions = request.POST['instructions']
         recipe.image_url = image_url
         recipe.added_by = request.user
-        
+
     except (KeyError):
         print("-----keyrror: ", errors)
         return render(request, 'wordofmouth/create_recipe_view.html', {
@@ -138,11 +138,17 @@ class AddCommentView(CreateView):
     model = Comment
     form_class = CommentForm
     template_name = "add_comment.html"
-    success_url = reverse_lazy('recipe_list')
+
+    # success_url = "{% url 'detail' recipe.id %}"
+    # def get_success_url(self):
+    #     return reverse('detail', kwargs={'pk': self.object.id})
+    def get_success_url(self):
+        recipe = self.get_object()
+        return reverse('detail', kwargs={'pk': recipe.pk})
+
     def form_valid(self, form):
         form.instance.recipe_id = self.kwargs['pk']
         return super().form_valid(form)
-
 
 
 class UploadView(View):
@@ -177,10 +183,10 @@ def LikeView(request, pk):
 
 
 def RateView(request, recipe_id):
-    recipe = Recipe.objects.get(pk = recipe_id)
+    recipe = Recipe.objects.get(pk=recipe_id)
 
     rating = request.POST.get('rating')
-    
+
     print("you clicked " + str(rating))
     userRating = UserRating()
     userRating.user = request.user
@@ -217,6 +223,7 @@ class FavoriteRecipeList(generic.ListView):
 
         return queryset
 
+
 # forking!
 
 
@@ -243,7 +250,8 @@ class ForkRecipeList(generic.ListView):
                     queryset.append(thing)
         return queryset
 
+
 def deleteItem(request, recipe_id):
-    recipe = Recipe.objects.get(pk = recipe_id)
+    recipe = Recipe.objects.get(pk=recipe_id)
     recipe.delete()
     return redirect('user_recipe_list')
