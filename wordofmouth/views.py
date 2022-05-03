@@ -109,9 +109,16 @@ def create_recipe(request):
         recipe.added_by = request.user
 
         recipe.prep_time = 0
+        recipe.prep_time_metric = "minutes"
+        
         recipe.cook_time = 0
+        recipe.cook_time_metric = "minutes"
+        
         recipe.servings = 0
         recipe.cuisine_type = "NONE"
+
+        recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
+        recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
         
     except (KeyError):
         print("-----keyrror: ", errors)
