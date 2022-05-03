@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html lang="en" class="myhtml">
+<html lang="en" style="max-width: 100vw">
   <head>
 
     <meta charset="UTF-8" />
@@ -75,6 +75,28 @@
       }
       .nav-link:hover{
         color: lightgray!important;
+      }
+      body {
+        max-width: 100vw;
+        min-width: fit-content;
+      }
+      #my-body-content {
+        max-width: 100vw;
+      }
+      html,body
+        {
+            width: 100%;
+            /* height: 100%; */
+            margin: 0px;
+            padding: 0px;
+            overflow-x: hidden; 
+        }
+      .footer-copyright {
+        color: #ccc!important;
+      }
+      .footer-copyright a {
+        color: #ccc!important;
+        text-decoration: none;
       }
     </style>
 
@@ -189,7 +211,7 @@
         <!-- Copyright -->
         <div class="footer-copyright text-center py-3 text-light">
           © 2022 Copyright,
-          <a style="color: lightgray; font-weight: 300" href="https://cs3240.cs.virginia.edu/"
+          <a href="https://cs3240.cs.virginia.edu/"
             >UVA CS3240 Group A-10</a>
         </div>
         <!-- Copyright -->
