@@ -131,6 +131,34 @@
         </fieldset>
         <input class="btn btn-primary btn-lg" style="margin-top: 8px" type="submit" value="Create">
     </form>
+
+    <form>
+        <div id="forms">
+            {{ form.as_p }}
+        </div>
+        <button id="add-ingredient">add ingredient</button>
+        <input type="submit" />
+    </form>
+
+    <!-- largely based on https://stackoverflow.com/questions/6142025/dynamically-add-field-to-a-form -->
+    <script>
+        let form_count = Number($("[name=ingredient_count]").val());
+        // get extra form count so we know what index to use for the next item.
+        
+        $("#add-ingredient").click(function() {
+            if (form_count.isNaN()) {
+                form_count = 0;
+            }
+            form_count++;
+        
+            let element = $('<input type="text"/>');
+            element.attr('name', 'ingredient_' + form_count);
+            element.attr('placeholder', 'Ingredient ' + form_count);
+
+            console.log("form_count: " + form_count);
+            $("#forms").append(element);
+        })
+        </script>
     {% else %}
     <br>
     <div class="container">

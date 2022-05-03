@@ -13,6 +13,7 @@ from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
 import re
+from django import forms
 
 from taggit.models import Tag
 
@@ -24,8 +25,14 @@ def index(request):
 
 
 def create_recipe_view(request):
+    if request.method == 'POST':
+        form = MyForm(request.POST, extra=request.POST.get('ingredient_count'))
+        if form.is_valid():
+            print("valid!")
+    else:
+        form = MyForm()
     common_tags = list(Recipe.r_tags.most_common()[:5])
-    context = {'common_tags' : common_tags }
+    context = {'common_tags' : common_tags, "form": form} 
     return render(request, 'wordofmouth/create_recipe_view.html', context)
 
 
@@ -77,6 +84,21 @@ class DetailView(generic.DetailView):
         context["total_likes"] = total_likes
         context["average_rating"] = post_id.average_rating()
         return context
+
+class MyForm(forms.Form):
+    original_field = forms.CharField()
+    extra_field_count = forms.CharField(widget=forms.HiddenInput())
+
+    def __init__(self, *args, **kwargs):
+        extra_fields = kwargs.pop('extra', 0)
+
+        super(MyForm, self).__init__(*args, **kwargs)
+        self.fields['extra_field_count'].initial = extra_fields
+
+        for index in range(int(extra_fields)):
+            # generate extra fields in the number specified via extra_fields
+            self.fields['extra_field_{index}'.format(index=index)] = \
+                forms.CharField()
 
 
 def get_avg_rating(r):
