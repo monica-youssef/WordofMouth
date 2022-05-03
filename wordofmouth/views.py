@@ -182,8 +182,21 @@ class EditView(generic.edit.UpdateView):
     fields = ['title', 'ingredients', 'instructions']
     template_name_suffix = '_update_view'
 
+    def getImage(self):
+        timestamp = str(datetime.now()).replace(":", "").replace("-", "").replace(".", "")
+        end_of_url = (self.request.user.username + str(timestamp) + '.jpeg').replace(" ", "")
+        image = self.request.FILES['image']
+        public_uri = Upload.upload_image(image, end_of_url)
+        image_url = 'https://storage.cloud.google.com/a10-word-of-mouth/images/' + end_of_url
+        if public_uri == None:
+            raise KeyError
+        self.object.image_url = image_url
+
     def get_success_url(self):
         return reverse('detail', kwargs={'pk': self.object.id})
+
+
+
 
 
 def edit_recipe_view(request):
