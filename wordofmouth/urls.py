@@ -1,3 +1,12 @@
+"""
+REFERENCES
+  Title: Django Google Authentication using django-allauth
+  Author: Muhd Rahiman
+  Date: 3/14/2022
+  URL: https://dev.to/mdrhmn/django-google-authentication-using-django-allauth-18f8
+
+"""
+
 from django.urls import include, path
 
 from . import views
