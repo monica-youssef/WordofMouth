@@ -337,7 +337,7 @@ def edit_recipe(request, pk):
         if (len(errors) > 0): 
             raise KeyError
         print("hello world we are here")
-        #todo: FIX
+        
         if (len(request.FILES) != 0):
             print("LET's UPLOAD")
             timestamp = str(datetime.now()).replace(":", "").replace("-", "").replace(".", "")
@@ -404,6 +404,8 @@ def fork_recipe_view(request, pk):
     copy.pk = None
     copy.title = "Fork of " + original.title
     copy.added_by = request.user
+    # default fork image gosh i'm so funny
+    copy.image_url = "https://storage.googleapis.com/a10-word-of-mouth/images/fork.jpg"
     copy.save()
     #tags not saving
     copy.cook_time = original.cook_time
