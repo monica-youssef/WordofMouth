@@ -108,14 +108,15 @@ def create_recipe(request):
         recipe.image_url = image_url
         recipe.added_by = request.user
 
-        recipe.prep_time = 0
-        recipe.prep_time_metric = "minutes"
+        recipe.prep_time = request.POST['prep-time']
+        recipe.prep_time_metric = request.POST['prep-time-metric']
         
-        recipe.cook_time = 0
-        recipe.cook_time_metric = "minutes"
+        recipe.cook_time = request.POST['cook-time']
+        recipe.cook_time_metric = request.POST['cook-time-metric']
         
-        recipe.servings = 0
-        recipe.tags = []
+        recipe.servings = request.POST['servings']
+
+        # TODO: add tags
 
         recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
         recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
