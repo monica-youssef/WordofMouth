@@ -13,13 +13,16 @@ from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
 
+from taggit.models import Tag
 
 def index(request):
     return render(request, 'index.html', {})
 
 
 def create_recipe_view(request):
-    return render(request, 'wordofmouth/create_recipe_view.html', {})
+    common_tags = list(Recipe.r_tags.most_common()[:5])
+    context ={'common_tags' : common_tags }
+    return render(request, 'wordofmouth/create_recipe_view.html', context)
 
 
 def detail(request):
