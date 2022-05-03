@@ -92,8 +92,8 @@
 
 <body>
     <div>
-        <h1 class="display-4">{{user.username}}'s recipes</h1>
-        <p class="lead">Recipes {{user.username}} has posted to the Word of Mouth community.</p>
+        <h1 class="display-4" style="text-align:center">{{user.username}}'s recipes</h1>
+        <p class="lead" style="text-align:center">Recipes {{user.username}} has posted to the Word of Mouth community.</p>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
         <div class="container">
             {% for recipe in recipe_list %} {% if forloop.counter0|divisibleby:3 %}

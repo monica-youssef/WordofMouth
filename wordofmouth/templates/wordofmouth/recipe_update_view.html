@@ -58,7 +58,7 @@
 </head>
 
 <body>
-    <h1 class="display-4">Edit Recipe</h1>
+    <h1 class="display-4" style="text-align:center">Edit Recipe</h1>
     {% if recipe.added_by == user %}
     <form action="{% url 'edit_recipe' recipe.id %}" method="post" enctype='multipart/form-data' class="col-md-8 offset-md-2">
         {% csrf_token %}
