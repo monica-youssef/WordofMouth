@@ -127,9 +127,9 @@
             </div>
     
             <form action="{% url 'recipe_list' %}" class="input-group mb-3">
-                <input name="query" class="form-control search-box" id="query" type="title" placeholder="chicken parmesan" aria-describedby="basic-addon2">
+                <input name="query" class="form-control search-box" id="query" type="title" placeholder="chicken parmesan" aria-describedby="basic-addon2" value="{% if 'query' in request.GET %}{{request.GET.query}}{% endif %}">
                 <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary">Search</button>
+                    <button type="submit" class="btn btn-{% if 'query' in request.GET %}primary{% else %}secondary{% endif %}">Search</button>
                 </div>
             </form>
         </div>
