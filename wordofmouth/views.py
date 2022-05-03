@@ -268,17 +268,62 @@ def RateView(request, recipe_id):
     return HttpResponseRedirect(reverse('detail', args=[str(recipe_id)]))
 
 
-class EditView(generic.edit.UpdateView):
-    model = Recipe
-    fields = ['title', 'ingredients', 'instructions']
-    template_name_suffix = '_update_view'
+def edit_recipe(request, pk):
+    print("HELLOOOO WORLD")
+    try:
+        recipe = Recipe.objects.get(pk=pk)
+        errors = []
 
-    def get_success_url(self):
-        return reverse('detail', kwargs={'pk': self.object.id})
+        if (request.POST['updated_title'] == ""):
+            errors.append("1")
+        if (request.POST['updated_ingredients'] == ""):
+            errors.append("2")
+        if (request.POST['updated_instructions'] == ""):
+            errors.append("3")
+        if (request.POST['updated_prep-time'] == "" or request.POST['updated_cook-time'] == ""):
+            errors.append("times-blank")
+        
+        r_tags = request.POST['updated_r_tags']
+        if (len(r_tags) > 0):
+            if (not tags_valid(r_tags)):
+                errors.append("5")
+
+        if (len(errors) > 0): 
+            raise KeyError
+        print("hello world we are here")
+        #todo: FIX
+        # if (request.FILES['updated_image'] == None):
+        #     print("image not uploaded")
+        # else:
+        #     print("image uploaded")
+
+        recipe.title = request.POST['updated_title']
+        recipe.ingredients = request.POST['updated_ingredients']
+        recipe.instructions = request.POST['updated_instructions']
+        recipe.prep_time = request.POST['updated_prep-time']
+        recipe.cook_time = request.POST['updated_cook-time']
+        recipe.servings = request.POST['updated_servings']
+        recipe.prep_time_metric = request.POST['updated_prep-time-metric']
+        recipe.cook_time_metric = request.POST['updated_cook-time-metric']
+
+        recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
+        recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
+        
+    except (KeyError):
+        print("error: " + str(errors))
+        return render(request, 'wordofmouth/recipe_update_view.html', {
+            'errors': errors,
+            'recipe': recipe
+        })
+    else:
+        recipe.save()
+        return HttpResponseRedirect(reverse('detail', args=[str(pk)]))
 
 
-def edit_recipe_view(request):
-    return render(request, 'wordofmouth/recipe_update_view.html', {})
+def edit_recipe_view(request, pk):
+    recipe = get_object_or_404(Recipe, id=pk)
+    context = { 'recipe': recipe }
+    return render(request, 'wordofmouth/recipe_update_view.html', context)
 
 
 class FavoriteRecipeList(generic.ListView):
