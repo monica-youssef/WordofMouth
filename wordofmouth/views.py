@@ -29,6 +29,7 @@ from .models import Upload
 from .models import Comment
 from django.shortcuts import redirect
 import re
+from django.contrib.auth.models import User
 
 from taggit.models import Tag
 
@@ -64,6 +65,22 @@ def tags_valid(tags):
         return False
     else:
         return True
+
+class UserDetails(generic.DetailView):
+    model = User
+    template_name = 'wordofmouth/user_details.html'
+    slug_field = 'id'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetails, self).get_context_data()
+        user_id = self.kwargs['pk']
+        print("user_id: ", user_id)
+
+        user = get_object_or_404(User, id=user_id)
+
+        context['recipe_list'] = Recipe.objects.filter(added_by=user)
+        context['user'] = user
+        return context
 
 
 class DetailView(generic.DetailView):

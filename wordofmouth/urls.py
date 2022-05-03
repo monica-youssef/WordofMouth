@@ -18,6 +18,7 @@ urlpatterns = [
     path('recipe/<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('recipe_list', views.RecipeList.as_view(), name='recipe_list'),
     path('accounts/', include('allauth.urls')),
+    path('user/<int:pk>/', views.UserDetails.as_view(), name='user_details'),
     path('upload', UploadView.as_view(), name='upload-image'),
     path('like/<int:pk>/', LikeView, name='like_recipe'),
     path('rate/<recipe_id>/', RateView, name='rate_recipe'),
