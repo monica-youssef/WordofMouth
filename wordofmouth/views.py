@@ -17,7 +17,10 @@ import re
 from taggit.models import Tag
 
 def index(request):
-    return render(request, 'index.html', {})
+    all_recipes = Recipe.objects.all()
+    random_recipes = Recipe.objects.order_by('?')[:3]
+    context = {'all_recipes' : all_recipes, 'featured_recipes' : random_recipes}
+    return render(request, 'index.html', context)
 
 
 def create_recipe_view(request):
