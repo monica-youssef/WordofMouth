@@ -38,7 +38,6 @@ class Recipe(models.Model):
     cook_time_minutes_conversion = models.IntegerField(default=0)
     servings = models.IntegerField(default=0)
 
-    tags = models.ManyToManyField(Tag, related_name='recipe_tags')
     r_tags = TaggableManager()
 
     def total_likes(self):
