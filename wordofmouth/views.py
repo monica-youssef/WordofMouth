@@ -185,8 +185,12 @@ def create_recipe(request):
         if (request.POST['prep-time'] == "" or request.POST['cook-time'] == ""):
             errors.append("times-blank")
         else:
-            if (not request.POST['prep-time'] or not request.POST['cook-time'].isdigit()):
+            if (not request.POST['prep-time'].isdigit() or not request.POST['cook-time'].isdigit()):
                 errors.append("times-invalid")
+            elif ((int(request.POST['prep-time']) > 120 and int(request.POST['prep-time-metric'] == 'minutes'))  or (int(request.POST['cook-time']) > 120 and request.POST['cook-time-metric'] == 'minutes')):
+                errors.append("too-many-minutes")
+            elif ((int(request.POST['prep-time']) > 6 and int(request.POST['prep-time-metric'] == 'hours'))  or (int(request.POST['cook-time']) > 6 and request.POST['cook-time-metric'] == 'hours')):
+                errors.append("too-many-hours")
         
         if (len(errors) > 0): 
             raise KeyError
@@ -324,8 +328,16 @@ def edit_recipe(request, pk):
             errors.append("2")
         if (request.POST['updated_instructions'] == ""):
             errors.append("3")
+
         if (request.POST['updated_prep-time'] == "" or request.POST['updated_cook-time'] == ""):
             errors.append("times-blank")
+        else:
+            if (not request.POST['updated_prep-time'].isdigit() or not request.POST['updated_cook-time'].isdigit()):
+                errors.append("times-invalid")
+            elif ((int(request.POST['updated_prep-time']) > 120 and int(request.POST['updated_prep-time-metric'] == 'minutes'))  or (int(request.POST['updated_cook-time']) > 120 and request.POST['updated_cook-time-metric'] == 'minutes')):
+                errors.append("too-many-minutes")
+            elif ((int(request.POST['updated_prep-time']) > 6 and int(request.POST['updated_prep-time-metric'] == 'hours'))  or (int(request.POST['updated_cook-time']) > 6 and request.POST['updated_cook-time-metric'] == 'hours')):
+                errors.append("too-many-hours")
         
         r_tags = request.POST['updated_r_tags']
         if (len(r_tags) > 0):
