@@ -180,9 +180,21 @@ def create_recipe(request):
         
     except (KeyError):
         common_tags = list(Recipe.r_tags.most_common()[:5])
+        entered_values = {
+            'title': request.POST['title'],
+            'ingredients': request.POST['ingredients'],
+            'instructions': request.POST['instructions'],
+            'prep_time': request.POST['prep-time'],
+            'prep_time_metric': request.POST['prep-time-metric'],
+            'cook_time': request.POST['cook-time'],
+            'cook_time_metric': request.POST['cook-time-metric'],
+            'servings': request.POST['servings'],
+            'r_tags': request.POST['r_tags']
+        }
         return render(request, 'wordofmouth/create_recipe_view.html', {
             'errors': errors,
-            'common_tags' : common_tags
+            'common_tags': common_tags, 
+            'entered_values': entered_values,
         })
     else:
         recipe.save()
