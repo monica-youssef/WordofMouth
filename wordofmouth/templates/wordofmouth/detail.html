@@ -75,6 +75,10 @@
     .buttons {
       display: flex;
     }
+
+    .rating-section {
+      height: 18px;
+    }
   </style>
 </head>
 
@@ -114,7 +118,7 @@
 
   </div>
 
-  <div style="align-items: center; text-align: center; font-size: 12px">
+  <div style="align-items: center; text-align: center; font-size: 12px" class="rating-section">
     {% if rated %}
     <p class="lead rating-prompt">Your Rating: {{ rating }}</p>
     {% else %}
