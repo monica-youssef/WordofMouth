@@ -50,8 +50,9 @@
             display: flex;
             flex-direction: row;
             justify-content: left;
-            align-items: top;
-            float: top;
+            align-items: left;
+            float: left;
+            width: 100%;
         }
         .recipe-tags {
             display: block;
@@ -66,7 +67,6 @@
         }
         .search-box {
             display: inline-block;
-            max-width: 200px;
         }
         .search-form {
             margin-left: 20px;
@@ -77,6 +77,9 @@
         }
         .input {
             height: 100%;
+        }
+        .input-group {
+            width: 300px;
         }
     </style>
 </head>
@@ -95,10 +98,9 @@
                     {% if 'a-z' in request.GET %}Sort: Alphabetical{%elif 'by-rating' in request.GET%}Sort: Rating (High to Low){%elif 'time' in request.GET%}Sort: Time to Make (Low to High){% else%}Sort{% endif %}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="?by-rating=True">Rating (High to Low)</a>
-                    <a class="dropdown-item" href="?time=True">Time to Make (Low to High)</a>
-                    <a class="dropdown-item" href="?a-z=True">Alphabetical</a>
-                    <a class="dropdown-item" href="?">Clear</a>
+                    <a class="dropdown-item" href="?by-rating=True{%if 's' in request.GET%}&s={{request.GET.s}}{%endif%}{%if 'query' in request.GET%}&query={{request.GET.query}}{%endif%}">Rating (High to Low)</a>
+                    <a class="dropdown-item" href="?time=True{%if 's' in request.GET%}&s={{request.GET.s}}{%endif%}{%if 'query' in request.GET%}&query={{request.GET.query}}{%endif%}">Time to Make (Low to High)</a>
+                    <a class="dropdown-item" href="?a-z=True{%if 's' in request.GET%}&s={{request.GET.s}}{%endif%}{%if 'query' in request.GET%}&query={{request.GET.query}}{%endif%}">Alphabetical</a>
                 </div>
             </div>
     
@@ -121,7 +123,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     {% for n in '12345678'|make_list %}
-                        <a class="dropdown-item" href="?s={{n}}">{{ n }}</a>
+                        <a class="dropdown-item" href="?s={{n}}{%if 'query' in request.GET%}&query={{request.GET.query}}{%endif%}">{{ n }}</a>
                     {% endfor %}
                 </div>
             </div>
@@ -132,6 +134,10 @@
                     <button type="submit" class="btn btn-{% if 'query' in request.GET %}primary{% else %}secondary{% endif %}">Search</button>
                 </div>
             </form>
+            
+            <a style="margin-left: 12px; float: top; margin-right: auto;align-self: flex-start;" type="submit" class="btn btn-dark" href="?">Clear</a>
+
+            
         </div>
     <!-- grid code based off of https://gist.github.com/nix1947/c765513702e76b5b665d146a72307946 -->
         <div class="container">
