@@ -70,20 +70,23 @@ class RecipeList(generic.ListView):
     context_object_name = 'recipe_list'
 
     def get_queryset(self):
+        recipes = Recipe.objects.all()
+        
+        if self.request.GET.get('query'):
+            recipes = recipes.filter(title__icontains=self.request.GET.get('query'))
+
+        # if self.request.GET.get('tags'):
+        #     tags = parse(self.request.GET.get('tags'))
+        #     recipes = recipes.filter(tags__name__in=tags)
+
         if self.request.GET.get('a-z') == 'True':
-            recipes = Recipe.objects.all().order_by('title')
-            return recipes
-        if self.request.GET.get('z-a') == 'True':
-            recipes = Recipe.objects.all().order_by('-title')
+            recipes = recipes.order_by('title')
             return recipes
         if self.request.GET.get('by-rating') == 'True':
-            recipes = sorted(Recipe.objects.all(), key=lambda r: get_avg_rating(r), reverse=True)
+            recipes = sorted(recipes, key=lambda r: get_avg_rating(r), reverse=True)
             return recipes
-        # if self.request.GET.get('ratings') == 'True':
-        #     recipes = Recipe.objects.all().order_by('ratings')
-        #     return recipes
-        else:
-            return Recipe.objects.all()
+        
+        return recipes
 
 
 class UserRecipeList(generic.ListView):
