@@ -57,6 +57,11 @@ def parse(tags):
 
     return tags
 
+def get_total_make_time(r):
+    prep_minutes = r.prep_time if r.prep_time_metric == "minutes" else (r.prep_time * 60)
+    cook_minutes = r.cook_time if r.cook_time_metric == "minutes" else (r.cook_time * 60)
+    return prep_minutes + cook_minutes
+
 # https://stackoverflow.com/questions/63759451/how-to-check-that-a-comma-separated-string-in-python-contains-only-single-commas
 def tags_valid(tags):
     pattern = re.compile(r"^(\w+)(,\s*\w+)*$")
@@ -115,9 +120,6 @@ class DetailView(generic.DetailView):
 def get_avg_rating(r):
     return r.average_rating() or -1.0
 
-def get_time_to_make(r):
-    return r.prep_time_minutes_conversion + r.cook_time_minutes_conversion
-
 class RecipeList(generic.ListView):
     template_name = 'wordofmouth/recipe_list.html'
     context_object_name = 'recipe_list'
@@ -142,7 +144,7 @@ class RecipeList(generic.ListView):
         elif self.request.GET.get('by-rating') == 'True':
             recipes = sorted(recipes, key=lambda r: get_avg_rating(r), reverse=True)
         elif self.request.GET.get('time') == 'True':
-            recipes = sorted(recipes, key=lambda r: get_time_to_make(r))
+            recipes = sorted(recipes, key=lambda r: get_total_make_time(r))
 
         return recipes
 
@@ -220,8 +222,8 @@ def create_recipe(request):
             for tag in parse(r_tags):
                 recipe.r_tags.add(tag.strip().lower())
 
-        recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
-        recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
+        # recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
+        # recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
         
     except (KeyError):
         common_tags = list(Recipe.r_tags.most_common()[:5])
@@ -356,8 +358,8 @@ def edit_recipe(request, pk):
         recipe.prep_time_metric = request.POST['updated_prep-time-metric']
         recipe.cook_time_metric = request.POST['updated_cook-time-metric']
 
-        recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
-        recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
+        # recipe.prep_time_minutes_conversion = recipe.prep_time if recipe.prep_time_metric == "minutes" else (recipe.prep_time * 60)
+        # recipe.cook_time_minutes_conversion = recipe.cook_time if recipe.cook_time_metric == "minutes" else (recipe.cook_time * 60)
         
     except (KeyError):
         print("error: " + str(errors))
@@ -405,8 +407,8 @@ def fork_recipe_view(request, pk):
     copy.prep_time = original.prep_time
     copy.cook_time_metric = original.cook_time_metric
     copy.prep_time_metric = original.prep_time_metric
-    copy.cook_time_minutes_conversion = original.cook_time_minutes_conversion
-    copy.prep_time_minutes_conversion = original.prep_time_minutes_conversion
+    # copy.cook_time_minutes_conversion = original.cook_time_minutes_conversion
+    # copy.prep_time_minutes_conversion = original.prep_time_minutes_conversion
     copy.save()
     return HttpResponseRedirect(reverse('detail', args=[str(copy.pk)]))
 
