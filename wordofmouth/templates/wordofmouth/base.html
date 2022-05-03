@@ -138,7 +138,7 @@
             </li>
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="/wordofmouth/user_recipe_list"
+              <a class="nav-link" href="{% url 'user_details' user.id %}"
                 >My Recipes</a
               >
             </li>
@@ -154,7 +154,7 @@
           <ul class="navbar-nav ml-auto">
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'user_details' user.id %}" class="nav-link">Hi, {{ user.username }}</a>
+              <a class="nav-link" href="{% url 'user_details' user.id %}" class="nav-link">{{ user.username }}'s Recipes</a>
             </li>
             <li class="nav-item">
               <a href="{% url 'account_logout' %}" class="nav-link">Log out</a>
