@@ -44,9 +44,12 @@ REFERENCES
 import sys
 from pathlib import Path
 from google.oauth2 import service_account
+import dotenv
+from dotenv import load_dotenv, find_dotenv
 # import django_heroku
 
 import os
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -56,7 +59,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ***REMOVED***
+load_dotenv(find_dotenv())
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -125,47 +129,13 @@ WSGI_APPLICATION = 'gpa10.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': ***REMOVED***
-        'USER': ***REMOVED***,
-        'PASSWORD': ***REMOVED***,
-        'HOST': ***REMOVED***,
-        'PORT': ***REMOVED***,
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PW'],
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
     }
 }
-
-
-# if 'HEROKU' in os.environ:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': ***REMOVED***
-#             'USER': ***REMOVED***,
-#             'PASSWORD': ***REMOVED***,
-#             'HOST': ***REMOVED***,
-#             'PORT': ***REMOVED***,
-#         }
-#     }
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-
-# if 'test' in sys.argv:  # testing database
-
-# else:  # regular database
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': ***REMOVED***
-#             'USER': ***REMOVED***,
-#             'PASSWORD': ***REMOVED***,
-#             'HOST': ***REMOVED***,
-#             'PORT': ***REMOVED***,
-#         }
-#     }
 
 
 # Password validation
